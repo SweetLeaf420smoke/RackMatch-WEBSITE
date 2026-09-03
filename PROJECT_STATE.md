@@ -9,7 +9,7 @@ edit → test в браузере → реальный результат → о
 Хостинг: Vercel, проект `rackmatch-website`, команда dima's projects.
 Сайт: https://rackmatch-website.vercel.app
 GitHub: https://github.com/SweetLeaf420smoke/RackMatch-WEBSITE
-После смены домена заменить `SITE_ORIGIN` в `sitemap.xml` и `robots.txt`.
+Канонический URL: https://rackmatch-website.vercel.app/
 
 ## Проверки
 
