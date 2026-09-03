@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Data Centre Power Compatibility | Server and PDU Cable Match</title>
+  <meta name="description" content="Check server and PDU power compatibility. Find required cable type, connector, voltage, current, and locking option with a source link.">
+  <meta name="robots" content="index, follow">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E">
+  <link rel="canonical" href="/">
+  <style>
+    body { margin: 0; background: #fff; color: #000; font: 16px/1.4 Arial, Helvetica, sans-serif; }
+    a { color: #00e; }
+    a:visited { color: #551a8b; }
+    header { border-bottom: 1px solid #ccc; padding: 8px 12px; }
+    main { max-width: 720px; padding: 12px; }
+    h1 { font-size: 20px; font-weight: bold; margin: 0 0 12px; }
+    p { margin: 0 0 12px; }
+    label { display: block; margin: 8px 0 4px; }
+    select, button { font: inherit; }
+    select { min-width: 280px; max-width: 100%; }
+    button { margin-top: 10px; }
+    #result { margin-top: 16px; border-top: 1px solid #ccc; padding-top: 12px; }
+    table { border-collapse: collapse; }
+    td { padding: 2px 12px 2px 0; vertical-align: top; }
+    td:first-child { color: #333; }
+    .warn { color: #00e; }
+    ul { margin: 0 0 12px; padding-left: 20px; }
+    footer { margin-top: 24px; font-size: 13px; color: #333; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">home</a>
+  </header>
+  <main>
+    <h1>Data Centre Power Compatibility</h1>
+    <p>Choose a server model and a PDU model. The page shows the jumper cable between the PDU outlet and the server PSU inlet.</p>
+
+    <form id="form" action="#" method="get">
+      <label for="server">Server model</label>
+      <select id="server" name="server" required>
+        <option value="">— select —</option>
+      </select>
+
+      <label for="pdu">PDU model</label>
+      <select id="pdu" name="pdu" required>
+        <option value="">— select —</option>
+      </select>
+
+      <div>
+        <button type="submit">Find</button>
+      </div>
+    </form>
+
+    <div id="result" hidden></div>
+
+    <h2>Models in this catalog</h2>
+    <p>Servers: Dell PowerEdge R650, Dell PowerEdge R760 (2400 W), HPE ProLiant DL380 Gen11, Lenovo ThinkSystem SR650 V3, Supermicro SYS-221H-TNR.</p>
+    <p>PDUs: APC AP8853, APC AP8941, Raritan PX3-5496V, Eaton EMA333-10.</p>
+
+    <footer>
+      Check the live nameplate and the vendor PDF before you order cable. High-watt PSUs on the same chassis can change the inlet.
+    </footer>
+  </main>
+  <script>
+    var SERVERS = [
+      { id: "dell-r650", name: "Dell PowerEdge R650", inlet: "C14", v: "100–240 V", a: "10 A", source: "https://dl.dell.com/topicspdf/poweredge-r650_owners-manual_en-us.pdf" },
+      { id: "dell-r760-2400", name: "Dell PowerEdge R760 (2400 W PSU)", inlet: "C20", v: "200–240 V", a: "16 A", source: "https://www.dell.com/support/manuals/en-us/poweredge-r760/per760_ism_pub/power-supply-units" },
+      { id: "hpe-dl380-g11", name: "HPE ProLiant DL380 Gen11", inlet: "C14", v: "100–240 V", a: "10 A", source: "https://support.hpe.com/hpesc/public/docDisplay?docId=a00120806en_us" },
+      { id: "lenovo-sr650v3", name: "Lenovo ThinkSystem SR650 V3", inlet: "C14", v: "100–240 V", a: "10 A", source: "https://lenovopress.lenovo.com/lp1601-thinksystem-sr650-v3-server" },
+      { id: "sm-221h-tnr", name: "Supermicro SYS-221H-TNR", inlet: "C14", v: "100–240 V", a: "10 A", source: "https://www.supermicro.com/en/products/system/hyper/2u/sys-221h-tnr" }
+    ];
+    var PDUS = [
+      { id: "apc-ap8853", name: "APC AP8853", outlets: ["C13", "C19"], v: "230 V", a: "32 A input", lock: "Optional locking C13 (AP870x / similar)", source: "https://www.se.com/us/en/product/AP8853/rack-pdu-2g-metered-zerou-32a-230v-20-c13-4-c19-iec-309-332p6/" },
+      { id: "apc-ap8941", name: "APC AP8941", outlets: ["C19"], v: "230 V", a: "32 A input", lock: "C19 outlets; use a locking C19/C20 jumper if specified", source: "https://www.se.com/us/en/product/AP8941/" },
+      { id: "raritan-px3-5496v", name: "Raritan PX3-5496V", outlets: ["C13", "C19"], v: "230 V", a: "32 A input", lock: "SecureLock compatible C13/C19", source: "https://www.raritan.com/products/px3" },
+      { id: "eaton-ema333-10", name: "Eaton EMA333-10", outlets: ["C13"], v: "230 V", a: "16 A input", lock: "Standard C13; locking sleeve optional", source: "https://www.eaton.com/us/en-us/catalog/backup-power-ups-surge-it-power-distribution/eaton-metered-input-rack-pdu.html" }
+    ];
+
+    var serverEl = document.getElementById("server");
+    var pduEl = document.getElementById("pdu");
+    var resultEl = document.getElementById("result");
+
+    function fill(sel, items) {
+      for (var i = 0; i < items.length; i++) {
+        var o = document.createElement("option");
+        o.value = items[i].id;
+        o.textContent = items[i].name;
+        sel.appendChild(o);
+      }
+    }
+    fill(serverEl, SERVERS);
+    fill(pduEl, PDUS);
+
+    function byId(list, id) {
+      for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i];
+      return null;
+    }
+
+    function match(server, pdu) {
+      var hasC13 = pdu.outlets.indexOf("C13") !== -1;
+      var hasC19 = pdu.outlets.indexOf("C19") !== -1;
+      if (server.inlet === "C14" && hasC13) {
+        return {
+          ok: true,
+          cable: "IEC C13–C14 jumper",
+          connector: "C13 into server C14 inlet; C14 into PDU C13 outlet",
+          va: server.v + " / " + server.a + " (cable). PDU: " + pdu.v + ", " + pdu.a,
+          lock: pdu.lock,
+          note: ""
+        };
+      }
+      if (server.inlet === "C20" && hasC19) {
+        return {
+          ok: true,
+          cable: "IEC C19–C20 jumper",
+          connector: "C19 into server C20 inlet; C20 into PDU C19 outlet",
+          va: server.v + " / " + server.a + " (cable). PDU: " + pdu.v + ", " + pdu.a,
+          lock: pdu.lock,
+          note: ""
+        };
+      }
+      if (server.inlet === "C14" && hasC19 && !hasC13) {
+        return {
+          ok: true,
+          cable: "IEC C13–C20 jumper",
+          connector: "C13 into server C14 inlet; C20 into PDU C19 outlet",
+          va: server.v + " / max " + server.a + " on this jumper. PDU: " + pdu.v + ", " + pdu.a,
+          lock: pdu.lock,
+          note: "C13/C14 is 10 A class. Do not treat this as a 16 A feed."
+        };
+      }
+      if (server.inlet === "C20" && hasC13 && !hasC19) {
+        return {
+          ok: false,
+          cable: "No standard match",
+          connector: "Server C20 inlet needs a C19 outlet on the PDU",
+          va: server.v + " / " + server.a + " vs PDU C13-only (" + pdu.v + ", " + pdu.a + ")",
+          lock: "n/a",
+          note: "C13 outlet is 10 A class. This PSU inlet is 16 A class."
+        };
+      }
+      return {
+        ok: false,
+        cable: "No standard match",
+        connector: "Outlet set " + pdu.outlets.join(", ") + " vs inlet " + server.inlet,
+        va: server.v + " / " + server.a,
+        lock: "n/a",
+        note: ""
+      };
+    }
+
+    function row(k, v) {
+      return "<tr><td>" + k + "</td><td>" + v + "</td></tr>";
+    }
+
+    document.getElementById("form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var server = byId(SERVERS, serverEl.value);
+      var pdu = byId(PDUS, pduEl.value);
+      if (!server || !pdu) {
+        resultEl.hidden = false;
+        resultEl.innerHTML = "<p>Select both models.</p>";
+        return;
+      }
+      var r = match(server, pdu);
+      var html = "<p><b>" + (r.ok ? "Compatible" : "Not compatible") + "</b></p>";
+      html += "<table>";
+      html += row("Required cable type", r.cable);
+      html += row("Connector", r.connector);
+      html += row("Voltage / current", r.va);
+      html += row("Locking option", r.lock);
+      html += row("Server source", "<a href=\"" + server.source + "\">" + server.source + "</a>");
+      html += row("PDU source", "<a href=\"" + pdu.source + "\">" + pdu.source + "</a>");
+      html += "</table>";
+      if (r.note) html += "<p class=\"warn\">" + r.note + "</p>";
+      resultEl.hidden = false;
+      resultEl.innerHTML = html;
+    });
+  </script>
+</body>
+</html>
