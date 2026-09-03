@@ -6,7 +6,10 @@
 
 edit → test в браузере → реальный результат → отчёт.
 
-Нет деплоя, пока не задан хостинг. После появления домена заменить `SITE_ORIGIN` в `sitemap.xml` и `robots.txt`.
+Хостинг: Vercel, проект `rackmatch-website`, команда dima's projects.
+Сайт: https://rackmatch-website.vercel.app
+GitHub: https://github.com/SweetLeaf420smoke/RackMatch-WEBSITE
+После смены домена заменить `SITE_ORIGIN` в `sitemap.xml` и `robots.txt`.
 
 ## Проверки
 
