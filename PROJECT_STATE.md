@@ -13,7 +13,9 @@ HARD: после правок сайта не спрашивать «запуш�
 GitHub: https://github.com/SweetLeaf420smoke/RackMatch-WEBSITE
 Канонический URL: https://rackmatch.vercel.app/
 
-Google Search Console: новый URL prefix https://rackmatch.vercel.app/ (старый был rackmatch-website.vercel.app).
+Google Search Console: свойство https://rackmatch.vercel.app/ подтверждено (HTML file + HTML tag). Sitemap `/sitemap.xml` Success.
+Change of address: rackmatch-website.vercel.app → rackmatch.vercel.app, старт 4 Sep 2026.
+Старый Vercel-домен: 308 на https://rackmatch.vercel.app/.
 
 ## Проверки
 
