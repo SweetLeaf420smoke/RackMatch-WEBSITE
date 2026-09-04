@@ -25,7 +25,9 @@ Change of address: rackmatch-website.vercel.app → rackmatch.vercel.app, ста
 
 ## Как сейчас
 
-Одна страница `index.html`. Данные встроены. Сервер: `python3 -m http.server`.
+Главная `index.html` плюс 5 pair-страниц (папка/`index.html`):
+`/dell-poweredge-r650-apc-ap8853/`, `/dell-poweredge-r650-apc-ap8941/`, `/dell-poweredge-r650-raritan-px3-5496v/`, `/dell-poweredge-r650-eaton-ema333-10/`, `/dell-poweredge-r760-apc-ap8853/`.
+Стили pair: `pair.css`. Sitemap включает эти URL.
 
 Фидбек на главной: свои два поля (Message, Contact), без iframe. POST в ту же Google Form (таблица Responses).
 Таблица: https://docs.google.com/spreadsheets/d/1At7v0iErDZshwZ5_51VXpXsiyRNkXf2FFhv12ixBtD0/edit
