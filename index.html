@@ -13,10 +13,11 @@
     body { margin: 0; background: #fff; color: #000; font: 16px/1.4 Arial, Helvetica, sans-serif; }
     a { color: #00e; }
     a:visited { color: #551a8b; }
-    header { border-bottom: 1px solid #ccc; padding: 8px 12px; }
-    main { max-width: 720px; padding: 12px; }
+    header { border-bottom: 1px solid #ccc; padding: 8px 12px 8px 48px; }
+    main { max-width: 720px; padding: 12px 12px 12px 48px; }
     h1 { font-size: 20px; font-weight: bold; margin: 0 0 12px; }
     h2 { font-size: 16px; font-weight: bold; margin: 20px 0 8px; }
+    #feedback-block { margin-top: 180px; }
     p { margin: 0 0 12px; }
     label { display: block; margin: 8px 0 4px; }
     select, button, input, textarea { font: inherit; }
@@ -32,6 +33,7 @@
     .warn { color: #00e; }
     ul { margin: 0 0 12px; padding-left: 20px; }
     footer { margin-top: 24px; font-size: 13px; color: #333; }
+    #catalog { margin-top: 48px; }
   </style>
 </head>
 <body>
@@ -60,10 +62,7 @@
 
     <div id="result" hidden></div>
 
-    <h2>Models in this catalog</h2>
-    <p>Servers: Dell PowerEdge R650, Dell PowerEdge R760 (2400 W), HPE ProLiant DL380 Gen11, Lenovo ThinkSystem SR650 V3, Supermicro SYS-221H-TNR.</p>
-    <p>PDUs: APC AP8853, APC AP8941, Raritan PX3-5496V, Eaton EMA333-10.</p>
-
+    <div id="feedback-block">
     <h2>Feedback</h2>
     <p>Wrong result or missing server/PDU? Send a note.</p>
     <form id="feedback" action="#" method="post">
@@ -80,10 +79,17 @@
       </div>
     </form>
     <p id="fb-status" hidden></p>
+    </div>
 
     <footer>
       Check the live nameplate and the vendor PDF before you order cable. High-watt PSUs on the same chassis can change the inlet.
     </footer>
+
+    <div id="catalog">
+      <h2>Models in this catalog</h2>
+      <p>Servers: Dell PowerEdge R650, Dell PowerEdge R760 (2400 W), HPE ProLiant DL380 Gen11, Lenovo ThinkSystem SR650 V3, Supermicro SYS-221H-TNR.</p>
+      <p>PDUs: APC AP8853, APC AP8941, Raritan PX3-5496V, Eaton EMA333-10.</p>
+    </div>
   </main>
   <script>
     var SERVERS = [
