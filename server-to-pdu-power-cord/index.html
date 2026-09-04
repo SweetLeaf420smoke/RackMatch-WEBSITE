@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Server to PDU Power Cord | How to Match the Jumper</title>
+  <meta name="description" content="Match the server PSU inlet to the PDU outlet: C13–C14 for C14 inlets, C19–C20 for C20 inlets. Length and locking are separate choices.">
+  <meta name="robots" content="index, follow">
+  <meta name="google-site-verification" content="Op8AESilG-2JBeSHhb3C3REZSKV5EnoilcB01g9pOek">
+  <link rel="canonical" href="https://rackmatch.vercel.app/server-to-pdu-power-cord/">
+  <link rel="stylesheet" href="../pair.css">
+</head>
+<body>
+  <header><a href="../">home</a></header>
+  <main>
+    <h1>Server to PDU power cord</h1>
+    <p>The jumper is chosen from two facts: the inlet on the PSU, and the outlet set on the PDU. IEC C13/C14 and C19/C20 are the two pairs used in most racks.</p>
+    <table>
+      <tr><td>PSU inlet C14</td><td>Need a PDU C13 outlet and a C13–C14 jumper</td></tr>
+      <tr><td>PSU inlet C20</td><td>Need a PDU C19 outlet and a C19–C20 jumper</td></tr>
+      <tr><td>C14 inlet + C19-only PDU</td><td>C13–C20 jumper; still 10 A on the C13/C14 side</td></tr>
+    </table>
+    <h2>Length</h2>
+    <p>Vendor default jumpers are often 0.6 m, 2 m or about 2 m (HPE A0K02A is 6 ft). A Zero-U PDU in a shallow rack needs a much shorter cord so the loop does not fight the rails.</p>
+    <p>Related: <a href="../what-power-cord-does-my-server-need/">What power cord does my server need</a>, <a href="../pdu-power-cord-compatibility/">PDU power cord compatibility</a>.</p>
+    <footer>Read the PSU nameplate. The same chassis SKU can ship C14 or C20.</footer>
+  </main>
+</body>
+</html>

@@ -55,4 +55,24 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url><loc>https://rackmatch.vercel.app/c13-vs-c14/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://rackmatch.vercel.app/c19-vs-c20/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://rackmatch.vercel.app/c13-c14-server-power-cord/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://rackmatch.vercel.app/c19-c20-server-power-cord/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://rackmatch.vercel.app/server-to-pdu-power-cord/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://rackmatch.vercel.app/what-power-cord-does-my-server-need/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://rackmatch.vercel.app/pdu-power-cord-compatibility/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://rackmatch.vercel.app/c13-to-c14-compatibility/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://rackmatch.vercel.app/c19-to-c20-compatibility/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://rackmatch.vercel.app/c13-pdu-c19-server/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://rackmatch.vercel.app/dell-poweredge-r650-power-cord/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rackmatch.vercel.app/dell-poweredge-r760-power-cord/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rackmatch.vercel.app/dell-poweredge-r730-power-cord/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rackmatch.vercel.app/hpe-proliant-dl380-gen10-power-cord/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rackmatch.vercel.app/hpe-proliant-dl380-gen11-power-cord/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rackmatch.vercel.app/nvidia-dgx-h100-power-cord/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rackmatch.vercel.app/nvidia-dgx-h200-power-cord/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rackmatch.vercel.app/nvidia-dgx-b200-power-cord/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rackmatch.vercel.app/nvidia-dgx-b300-power-cord/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rackmatch.vercel.app/dgx-h100-pdu-requirements/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
 </urlset>

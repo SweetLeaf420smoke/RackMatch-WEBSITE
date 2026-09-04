@@ -10,4 +10,4 @@ table { border-collapse: collapse; }
 td { padding: 2px 12px 2px 0; vertical-align: top; }
 td:first-child { color: #333; }
 .warn { color: #00e; }
-footer { margin-top: 24px; font-size: 13px; color: #333; }
+ul, ol { margin: 0 0 12px; padding-left: 20px; }

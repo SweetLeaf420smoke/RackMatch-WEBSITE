@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>C19 vs C20 | IEC High-Current Server Connectors</title>
+  <meta name="description" content="C19 is the cord coupler. C20 is the inlet. This is the 16 A IEC pair used on high-watt PSUs and many AI systems.">
+  <meta name="robots" content="index, follow">
+  <meta name="google-site-verification" content="Op8AESilG-2JBeSHhb3C3REZSKV5EnoilcB01g9pOek">
+  <link rel="canonical" href="https://rackmatch.vercel.app/c19-vs-c20/">
+  <link rel="stylesheet" href="../pair.css">
+</head>
+<body>
+  <header><a href="../">home</a></header>
+  <main>
+    <h1>C19 vs C20</h1>
+    <p>This is the larger IEC 60320 pair. It is the usual jumper for 16 A class inlets.</p>
+    <table>
+      <tr><td>C20</td><td>Inlet on a high-watt PSU</td></tr>
+      <tr><td>C19</td><td>Connector on the jumper that plugs into that inlet</td></tr>
+      <tr><td>Jumper</td><td>IEC C19–C20. C19 into the server. C20 into a PDU C19 outlet</td></tr>
+      <tr><td>Current class</td><td>16 A class. A C13–C14 jumper does not belong here</td></tr>
+    </table>
+    <h2>How to remember it</h2>
+    <p>Same odd/even rule as C13/C14: C19 coupler into C20 inlet. NVIDIA DGX H100/H200 and B200 ship locking C19/C20 cords rated 250 VAC, 20 A, 1200 mm.</p>
+    <p>Related: <a href="../c19-to-c20-compatibility/">C19 to C20 compatibility</a>, <a href="../c19-c20-server-power-cord/">C19 C20 server power cord</a>.</p>
+    <footer>Source for DGX cords: NVIDIA DGX H100/H200 user guide, locking power cord table.</footer>
+  </main>
+</body>
+</html>

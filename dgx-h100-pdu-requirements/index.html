@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DGX H100 PDU Requirements</title>
+  <meta name="description" content="DGX H100 needs C19 PDU outlets and six locking C19/C20 cords (250 VAC, 20 A, 1.2 m). C13 PDU outlets are the wrong class.">
+  <meta name="robots" content="index, follow">
+  <meta name="google-site-verification" content="Op8AESilG-2JBeSHhb3C3REZSKV5EnoilcB01g9pOek">
+  <link rel="canonical" href="https://rackmatch.vercel.app/dgx-h100-pdu-requirements/">
+  <link rel="stylesheet" href="../pair.css">
+</head>
+<body>
+  <header><a href="../">home</a></header>
+  <main>
+    <h1>DGX H100 PDU requirements</h1>
+    <p>The cord NVIDIA ships is C19/C20. The PDU must present C19 outlets (or a locking C19 equivalent that accepts that coupler). A C13-only PDU does not feed this system. See <a href="../c13-pdu-c19-server/">C13 PDU, C19 server</a>.</p>
+    <p>Count: six locking cords in the H100/H200 kit, so six C19 drops if you populate every PSU cord NVIDIA packed. Electrical rating on the cord table: 250 VAC, 20 A, 1200 mm.</p>
+    <p>Facility power (whips, phases, redundant feeds) is in the NVIDIA site-planning sections of the same user guide. This page covers only the IEC jumper and outlet shape.</p>
+    <p>Related: <a href="../nvidia-dgx-h100-power-cord/">DGX H100 power cord</a>.</p>
+    <h2>Source</h2>
+    <p><a href="https://docs.nvidia.com/dgx/dgxh100-user-guide/introduction-to-dgxh100.html">NVIDIA DGX H100/H200 User Guide</a></p>
+    <footer>Plan C19 capacity before the chassis lands. C13 strips will not work.</footer>
+  </main>
+</body>
+</html>

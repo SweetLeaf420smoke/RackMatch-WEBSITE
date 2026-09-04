@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>What Power Cord Does My Server Need?</title>
+  <meta name="description" content="Look at the PSU inlet: C14 needs C13–C14. C20 needs C19–C20. Then match the PDU outlet and the amp rating on the nameplate.">
+  <meta name="robots" content="index, follow">
+  <meta name="google-site-verification" content="Op8AESilG-2JBeSHhb3C3REZSKV5EnoilcB01g9pOek">
+  <link rel="canonical" href="https://rackmatch.vercel.app/what-power-cord-does-my-server-need/">
+  <link rel="stylesheet" href="../pair.css">
+</head>
+<body>
+  <header><a href="../">home</a></header>
+  <main>
+    <h1>What power cord does my server need?</h1>
+    <p>Do not start from the chassis model alone. Start from the PSU that is installed.</p>
+    <ol>
+      <li>Read the inlet on the PSU: C14 or C20 (or a locking variant of those).</li>
+      <li>Read volts and amps on the same nameplate.</li>
+      <li>Look at the PDU outlet: C13, C19, or both.</li>
+      <li>Pick the jumper that joins those two faces.</li>
+    </ol>
+    <p>Examples on this site: <a href="../dell-poweredge-r650-power-cord/">Dell PowerEdge R650</a> is C14 / C13–C14 in the common SKU. <a href="../dell-poweredge-r760-power-cord/">Dell PowerEdge R760</a> is C13–C14 on typical 10 A jumpers Dell sells for the chassis, and C19–C20 on the 2400 W PSU. <a href="../nvidia-dgx-h100-power-cord/">DGX H100</a> is locking C19/C20, 250 VAC, 20 A, 1.2 m, six cords in the ship kit.</p>
+    <p>Use the <a href="../">matcher on the home page</a> when you have both a server model and a PDU model from the catalog.</p>
+    <footer>If the nameplate and the vendor PDF disagree with a web SKU list, trust the nameplate.</footer>
+  </main>
+</body>
+</html>

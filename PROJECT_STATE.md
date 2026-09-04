@@ -25,7 +25,7 @@ Change of address: rackmatch-website.vercel.app → rackmatch.vercel.app, ста
 
 ## Как сейчас
 
-Ещё 5 pair-страниц: R760+AP8941, R760+PX3-5496V, DL380 Gen11+AP8853, DL380 Gen11+AP8941, SR650 V3+AP8853.
+20 SEO-страниц (10 generic IEC + 5 Dell/HPE power cord + 5 NVIDIA/DGX). Дальше размножать по факту Search Console, не по угаданным объёмам.
 
 Фидбек на главной: свои два поля (Message, Contact), без iframe. POST в ту же Google Form (таблица Responses).
 Таблица: https://docs.google.com/spreadsheets/d/1At7v0iErDZshwZ5_51VXpXsiyRNkXf2FFhv12ixBtD0/edit
