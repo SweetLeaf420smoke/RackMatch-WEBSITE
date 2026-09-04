@@ -42,4 +42,6 @@ Change of address: rackmatch-website.vercel.app → rackmatch.vercel.app, ста
 
 Фидбек: на главной блок Feedback (Message, Contact). На каждой странице кнопка Suggest a correction / Add equipment → `/suggest/` (model, part number, datasheet URL, what works with what). Оба POST в ту же Google Form. На сайт само не публикуется. Мы проверяем source, потом approve.
 Таблица: https://docs.google.com/spreadsheets/d/1At7v0iErDZshwZ5_51VXpXsiyRNkXf2FFhv12ixBtD0/edit
-entry.389100888 = Message, entry.1165317586 = Contact.
+entry.389100888 = Message, entry.1165317586 = Contact (Email).
+entry.563611403 = Page URL, entry.770004551 = Server model, entry.341373274 = PDU model.
+Find на главной пишет URL страницы и выбранные server/PDU в эти три поля автоматически. `/suggest/` пишет Page URL, server/PDU пустые.

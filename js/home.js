@@ -93,11 +93,20 @@
       status.textContent = "Sent.";
       return;
     }
+    var serverName = "";
+    var pduName = "";
+    if (serverEl && serverEl.value) {
+      serverName = serverEl.options[serverEl.selectedIndex].textContent;
+    }
+    if (pduEl && pduEl.value) {
+      pduName = pduEl.options[pduEl.selectedIndex].textContent;
+    }
     var body = new URLSearchParams();
     body.set("entry.389100888", document.getElementById("fb-message").value);
     body.set("entry.1165317586", document.getElementById("fb-contact").value);
-    body.set("entry.770004551", "");
-    body.set("entry.341373274", "");
+    body.set("entry.563611403", window.location.href);
+    body.set("entry.770004551", serverName);
+    body.set("entry.341373274", pduName);
     fetch("https://docs.google.com/forms/d/e/1FAIpQLSd7v9wX0zoeXfHHpWcfSLQpzAq0Ny8grFns6fhFI31FqM6cAw/formResponse", {
       method: "POST",
       mode: "no-cors",
