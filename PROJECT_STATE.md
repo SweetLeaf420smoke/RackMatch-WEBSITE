@@ -4,7 +4,7 @@
 
 ## Workflow
 
-edit → test в браузере → реальный результат → отчёт.
+edit → test в браузере → реальный результат → commit + push в `main` сразу, без вопроса.
 
 Хостинг: Vercel, проект `rackmatch-website`, команда dima's projects.
 Сайт: https://rackmatch-website.vercel.app
