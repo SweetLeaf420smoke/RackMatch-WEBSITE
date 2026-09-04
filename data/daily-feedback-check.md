@@ -1,6 +1,6 @@
 # Daily feedback check
 
-Run this once per scheduled tick. Do not use Chrome Profile 22 / CDP. Do not use IMAP.
+Once per calendar day on the scheduled tick. Do not run this at the start of every chat.
 
 ## How to read
 

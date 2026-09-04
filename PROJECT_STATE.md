@@ -48,7 +48,7 @@ Pair SEO-страницы: только список `pair_pages`, не все �
 
 Фидбек: строка появляется в таблице сразу после Send. Письмо Google Form идёт на vertobanner@gmail.com.
 
-Пользователь почту и таблицу сам не смотрит. Раз в день агент читает таблицу через **Google Sheets API** (`python3 data/check_feedback.py`), без Chrome и без IMAP. Письмо в Gmail дублирует факт отправки, поля server/PDU уже в таблице.
+Пользователь почту и таблицу сам не смотрит. Проверка таблицы **один раз в день** через Google Sheets API (`python3 data/check_feedback.py`), без Chrome и без IMAP. В начале обычного чата по сайту эту команду не гонять.
 
 Таблица: https://docs.google.com/spreadsheets/d/1At7v0iErDZshwZ5_51VXpXsiyRNkXf2FFhv12ixBtD0/edit
 
