@@ -29,7 +29,13 @@ Change of address: rackmatch-website.vercel.app → rackmatch.vercel.app, ста
 
 ## Как сейчас
 
-Источник правды по железу: `data/equipment.json`. Find на главной читает этот файл. Pair SEO-страницы пишет `python3 data/generate.py` (список URL в `pair_pages`, не декартово произведение). Гайды IEC/NVIDIA/model power-cord пока руками.
+Источник правды по железу: `data/equipment.json`. Find на главной читает этот файл сразу после пуша JSON.
+
+Pair SEO-страницы: только список `pair_pages`, не все совместимые комбинации. Генератор `python3 data/generate.py` запускает **агент**, не пользователь. Тот же генератор крутится на Vercel при деплое (`vercel.json`). После generate: commit + push. Пользователя не просить «запусти python».
+
+Новую pair-страницу в `pair_pages` добавлять только по спросу: явная просьба, запрос в GSC, или строка Feedback с server+PDU. Не строить тысячи пар «на всякий».
+
+Гайды IEC/NVIDIA/model power-cord пока руками.
 
 20 SEO-страниц гайдов (10 generic IEC + 5 Dell/HPE power cord + 5 NVIDIA/DGX) плюс 10 pair URL. Сначала чистить базу, не плодить новые страницы.
 

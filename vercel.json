@@ -1,0 +1,6 @@
+{
+  "buildCommand": "python3 data/generate.py",
+  "outputDirectory": ".",
+  "installCommand": "true",
+  "framework": null
+}
