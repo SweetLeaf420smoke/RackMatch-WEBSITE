@@ -8,12 +8,12 @@ edit → test в браузере → реальный результат → co
 
 HARD: после правок сайта не спрашивать «запушить?». Всегда пушить самому.
 
-Хостинг: Vercel, проект `rackmatch-website`, команда dima's projects.
-Сайт: https://rackmatch-website.vercel.app
+Хостинг: Vercel, проект `rackmatch`, команда dima's projects.
+Сайт: https://rackmatch.vercel.app
 GitHub: https://github.com/SweetLeaf420smoke/RackMatch-WEBSITE
-Канонический URL: https://rackmatch-website.vercel.app/
+Канонический URL: https://rackmatch.vercel.app/
 
-Google Search Console: URL prefix подтверждён (HTML tag, аккаунт vertobanner@gmail.com).
+Google Search Console: новый URL prefix https://rackmatch.vercel.app/ (старый был rackmatch-website.vercel.app).
 
 ## Проверки
 

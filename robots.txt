@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://rackmatch-website.vercel.app/sitemap.xml
+Sitemap: https://rackmatch.vercel.app/sitemap.xml
