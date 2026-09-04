@@ -46,7 +46,13 @@ Pair SEO-страницы: только список `pair_pages`, не все �
 - Raritan PX3-5496V: 24 × C13, без C19. R760 2400 W (C20) с этим PDU не совместим напрямую.
 - C14 это inlet/plug, не розетка PDU. Розетка PDU в паре C13–C14 это C13.
 
-Фидбек: строка появляется в таблице сразу после Send на сайте. Google Form шлёт письмо на vertobanner@gmail.com при каждом новом ответе (включили Get email notifications). В Cursor само не приходит: увидишь письмо или новую строку, напиши в чат, агент откроет таблицу.
+Фидбек: строка появляется в таблице сразу после Send. Письмо Google Form идёт на vertobanner@gmail.com.
+
+Пользователь почту и таблицу сам не смотрит. В начале любой задачи по RackMatch агент сам открывает таблицу (последние строки) и Gmail vertobanner (уведомления формы). Если есть новое, сразу пишет в чат: URL, сервер, PDU, текст.
+
+Пока этот чат закрыт, Google в Cursor само не стучится. Круглосуточный стук только через таймер агента в Cursor Automations.
+
+Таблица: https://docs.google.com/spreadsheets/d/1At7v0iErDZshwZ5_51VXpXsiyRNkXf2FFhv12ixBtD0/edit
 
 GSC это не таблица. Запросы до входа смотреть в Search Console (Performance), не в Feedback.
 
