@@ -30,4 +30,29 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://rackmatch.vercel.app/dell-poweredge-r760-apc-ap8941/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://rackmatch.vercel.app/dell-poweredge-r760-raritan-px3-5496v/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://rackmatch.vercel.app/hpe-proliant-dl380-gen11-apc-ap8853/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://rackmatch.vercel.app/hpe-proliant-dl380-gen11-apc-ap8941/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://rackmatch.vercel.app/lenovo-thinksystem-sr650-v3-apc-ap8853/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
