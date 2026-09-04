@@ -48,7 +48,7 @@ Pair SEO-страницы: только список `pair_pages`, не все �
 
 Фидбек: строка появляется в таблице сразу после Send. Письмо Google Form идёт на vertobanner@gmail.com.
 
-Пользователь почту и таблицу сам не смотрит. Раз в день (09:00) таймер агента проверяет таблицу и Gmail vertobanner. В начале любой задачи по RackMatch агент тоже проверяет сам. Если есть новое, пишет в чат: URL, сервер, PDU, текст.
+Пользователь почту и таблицу сам не смотрит. Раз в день агент читает таблицу через **Google Sheets API** (`python3 data/check_feedback.py`), без Chrome и без IMAP. Письмо в Gmail дублирует факт отправки, поля server/PDU уже в таблице.
 
 Таблица: https://docs.google.com/spreadsheets/d/1At7v0iErDZshwZ5_51VXpXsiyRNkXf2FFhv12ixBtD0/edit
 

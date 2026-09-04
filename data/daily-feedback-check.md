@@ -1,11 +1,20 @@
 # Daily feedback check
 
-Run this once per scheduled tick. Do not ask the owner to open Gmail.
+Run this once per scheduled tick. Do not use Chrome Profile 22 / CDP. Do not use IMAP.
 
-## What to open
+## How to read
 
-1. Spreadsheet `1At7v0iErDZshwZ5_51VXpXsiyRNkXf2FFhv12ixBtD0` (RackMatch feedback Responses). Read the newest rows: Timestamp, Message, Email, Server model, PDU model, Page URL.
-2. Gmail for `vertobanner@gmail.com`: Google Form notices for RackMatch feedback.
+From the repo root: `python3 data/check_feedback.py`
+
+That uses the Google Sheets API (not Gmail IMAP). Feedback already lands in the spreadsheet, including Page URL, Server model, PDU model.
+
+## What to tell the owner
+
+If there is a new real response since the last run, write: page URL, server, PDU, message, contact if present.
+
+Skip rows whose message starts with `TEST IGNORE`.
+
+If nothing new, reply: no new feedback.
 
 ## What to tell the owner
 
