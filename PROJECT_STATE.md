@@ -46,7 +46,10 @@ Pair SEO-страницы: только список `pair_pages`, не все �
 - Raritan PX3-5496V: 24 × C13, без C19. R760 2400 W (C20) с этим PDU не совместим напрямую.
 - C14 это inlet/plug, не розетка PDU. Розетка PDU в паре C13–C14 это C13.
 
-Фидбек: на главной блок Feedback (Message, Contact). На каждой странице кнопка Suggest a correction / Add equipment → `/suggest/` (model, part number, datasheet URL, what works with what). Оба POST в ту же Google Form. На сайт само не публикуется. Мы проверяем source, потом approve.
+Фидбек: строка появляется в таблице сразу после Send на сайте. Google Form шлёт письмо на vertobanner@gmail.com при каждом новом ответе (включили Get email notifications). В Cursor само не приходит: увидишь письмо или новую строку, напиши в чат, агент откроет таблицу.
+
+GSC это не таблица. Запросы до входа смотреть в Search Console (Performance), не в Feedback.
+
 Таблица: https://docs.google.com/spreadsheets/d/1At7v0iErDZshwZ5_51VXpXsiyRNkXf2FFhv12ixBtD0/edit
 entry.389100888 = Message, entry.1165317586 = Contact (Email).
 entry.563611403 = Page URL, entry.770004551 = Server model, entry.341373274 = PDU model.
