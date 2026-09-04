@@ -10,6 +10,8 @@ HARD: после правок сайта не спрашивать «запуш�
 
 HARD: внутренние ссылки RackMatch открываются в той же вкладке (без `target="_blank"`). Внешние ссылки на источники (Dell, HPE, NVIDIA, Schneider и т.д.) открываются в новой вкладке: `target="_blank" rel="noopener"`. На `<link rel="canonical">` это не распространяется.
 
+HARD: новую внешнюю ссылку открывать в браузере и смотреть заголовок страницы. HTTP 403 от curl не равен 404. Страница Sorry у Dell и редирект Schneider на `/all-products/` это битая ссылка.
+
 Хостинг: Vercel, проект `rackmatch`, команда dima's projects.
 Сайт: https://rackmatch.vercel.app
 GitHub: https://github.com/SweetLeaf420smoke/RackMatch-WEBSITE
@@ -30,6 +32,7 @@ Change of address: rackmatch-website.vercel.app → rackmatch.vercel.app, ста
 20 SEO-страниц (10 generic IEC + 5 Dell/HPE power cord + 5 NVIDIA/DGX). Сначала чистить базу PDU, не плодить новые страницы.
 
 Каталог PDU (по вендору, не путать SKU):
+- APC AP8853: 36 × C13 + 6 × C19, 230 V, 32 A. Источник: se.com/uk product page. US slug `20-c13-4-c19` уводит на all-products.
 - APC AP8941: 21 × C13 + 3 × C19, 200/208 V, 30 A. Не C19-only.
 - Eaton EMA333-10: 21 × C13 + 6 × C19 + 1 × 5-20R, 120/208 V, 24 A. Не C13-only 230 V/16 A.
 - Raritan PX3-5496V: 24 × C13, без C19. R760 2400 W (C20) с этим PDU не совместим напрямую.
