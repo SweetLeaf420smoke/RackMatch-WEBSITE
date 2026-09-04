@@ -75,4 +75,5 @@
   <url><loc>https://rackmatch.vercel.app/nvidia-dgx-b200-power-cord/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://rackmatch.vercel.app/nvidia-dgx-b300-power-cord/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://rackmatch.vercel.app/dgx-h100-pdu-requirements/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rackmatch.vercel.app/suggest/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
 </urlset>

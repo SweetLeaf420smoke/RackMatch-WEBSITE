@@ -38,6 +38,6 @@ Change of address: rackmatch-website.vercel.app → rackmatch.vercel.app, ста
 - Raritan PX3-5496V: 24 × C13, без C19. R760 2400 W (C20) с этим PDU не совместим напрямую.
 - C14 это inlet/plug, не розетка PDU. Розетка PDU в паре C13–C14 это C13.
 
-Фидбек на главной: свои два поля (Message, Contact), без iframe. POST в ту же Google Form (таблица Responses).
+Фидбек: на каждой странице кнопка Suggest a correction / Add equipment → `/suggest/`. Поля: model, part number, datasheet URL, what works with what. POST в ту же Google Form (Message = склеенный текст). На сайт само не публикуется. Мы проверяем source, потом approve.
 Таблица: https://docs.google.com/spreadsheets/d/1At7v0iErDZshwZ5_51VXpXsiyRNkXf2FFhv12ixBtD0/edit
 entry.389100888 = Message, entry.1165317586 = Contact.

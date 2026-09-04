@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Suggest a correction / Add equipment | RackMatch</title>
+  <meta name="description" content="Send a structured report: model, part number, datasheet link, and what works with what. We check the source before anything goes live.">
+  <meta name="robots" content="index, follow">
+  <meta name="google-site-verification" content="Op8AESilG-2JBeSHhb3C3REZSKV5EnoilcB01g9pOek">
+  <link rel="canonical" href="https://rackmatch.vercel.app/suggest/">
+  <link rel="stylesheet" href="../pair.css">
+</head>
+<body>
+  <header>
+    <a href="../">home</a>
+    <a href="./">Suggest a correction / Add equipment</a>
+  </header>
+  <main>
+    <h1>Suggest a correction / Add equipment</h1>
+    <p>Use this for a missing server or PDU, a wrong cable, or a better source. Nothing is published automatically. We check the datasheet first, then approve.</p>
+    <form id="suggest" action="#" method="post">
+      <label for="sg-model">Model</label>
+      <input id="sg-model" name="model" type="text" required>
+
+      <label for="sg-part">Part number</label>
+      <input id="sg-part" name="part" type="text" required>
+
+      <label for="sg-datasheet">Datasheet URL</label>
+      <input id="sg-datasheet" name="datasheet" type="url" required placeholder="https://">
+
+      <label for="sg-works">What works with what</label>
+      <textarea id="sg-works" name="works" required></textarea>
+
+      <div class="hp" aria-hidden="true">
+        <label for="sg-company">Company</label>
+        <input id="sg-company" name="company" type="text" tabindex="-1" autocomplete="off">
+      </div>
+      <div>
+        <button type="submit">Send</button>
+      </div>
+    </form>
+    <p id="sg-status" hidden></p>
+  </main>
+  <script>
+    document.getElementById("suggest").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var status = document.getElementById("sg-status");
+      if (document.getElementById("sg-company").value) {
+        status.hidden = false;
+        status.textContent = "Sent. We will check the source before anything goes live.";
+        return;
+      }
+      var msg = [
+        "Model: " + document.getElementById("sg-model").value,
+        "Part number: " + document.getElementById("sg-part").value,
+        "Datasheet: " + document.getElementById("sg-datasheet").value,
+        "Works with: " + document.getElementById("sg-works").value
+      ].join("\n");
+      var body = new URLSearchParams();
+      body.set("entry.389100888", msg);
+      body.set("entry.1165317586", "");
+      body.set("entry.770004551", "");
+      body.set("entry.341373274", "");
+      fetch("https://docs.google.com/forms/d/e/1FAIpQLSd7v9wX0zoeXfHHpWcfSLQpzAq0Ny8grFns6fhFI31FqM6cAw/formResponse", {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: body.toString()
+      }).then(function () {
+        document.getElementById("suggest").reset();
+        status.hidden = false;
+        status.textContent = "Sent. We will check the source before anything goes live.";
+      }).catch(function () {
+        status.hidden = false;
+        status.textContent = "Send failed. Try again.";
+      });
+    });
+  </script>
+</body>
+</html>
