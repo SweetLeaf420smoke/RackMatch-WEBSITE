@@ -6,6 +6,8 @@
 
 edit → test в браузере → реальный результат → commit + push в `main` сразу, без вопроса.
 
+HARD: после правок сайта не спрашивать «запушить?». Всегда пушить самому.
+
 Хостинг: Vercel, проект `rackmatch-website`, команда dima's projects.
 Сайт: https://rackmatch-website.vercel.app
 GitHub: https://github.com/SweetLeaf420smoke/RackMatch-WEBSITE
