@@ -27,7 +27,13 @@ Change of address: rackmatch-website.vercel.app → rackmatch.vercel.app, ста
 
 ## Как сейчас
 
-20 SEO-страниц (10 generic IEC + 5 Dell/HPE power cord + 5 NVIDIA/DGX). Дальше размножать по факту Search Console, не по угаданным объёмам.
+20 SEO-страниц (10 generic IEC + 5 Dell/HPE power cord + 5 NVIDIA/DGX). Сначала чистить базу PDU, не плодить новые страницы.
+
+Каталог PDU (по вендору, не путать SKU):
+- APC AP8941: 21 × C13 + 3 × C19, 200/208 V, 30 A. Не C19-only.
+- Eaton EMA333-10: 21 × C13 + 6 × C19 + 1 × 5-20R, 120/208 V, 24 A. Не C13-only 230 V/16 A.
+- Raritan PX3-5496V: 24 × C13, без C19. R760 2400 W (C20) с этим PDU не совместим напрямую.
+- C14 это inlet/plug, не розетка PDU. Розетка PDU в паре C13–C14 это C13.
 
 Фидбек на главной: свои два поля (Message, Contact), без iframe. POST в ту же Google Form (таблица Responses).
 Таблица: https://docs.google.com/spreadsheets/d/1At7v0iErDZshwZ5_51VXpXsiyRNkXf2FFhv12ixBtD0/edit

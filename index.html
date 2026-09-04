@@ -143,9 +143,9 @@
     ];
     var PDUS = [
       { id: "apc-ap8853", name: "APC AP8853", outlets: ["C13", "C19"], v: "230 V", a: "32 A input", lock: "Optional locking C13 (AP870x / similar)", source: "https://www.se.com/us/en/product/AP8853/rack-pdu-2g-metered-zerou-32a-230v-20-c13-4-c19-iec-309-332p6/" },
-      { id: "apc-ap8941", name: "APC AP8941", outlets: ["C19"], v: "230 V", a: "32 A input", lock: "C19 outlets; use a locking C19/C20 jumper if specified", source: "https://www.se.com/us/en/product/AP8941/" },
-      { id: "raritan-px3-5496v", name: "Raritan PX3-5496V", outlets: ["C13", "C19"], v: "230 V", a: "32 A input", lock: "SecureLock compatible C13/C19", source: "https://www.raritan.com/products/px3" },
-      { id: "eaton-ema333-10", name: "Eaton EMA333-10", outlets: ["C13"], v: "230 V", a: "16 A input", lock: "Standard C13; locking sleeve optional", source: "https://www.eaton.com/us/en-us/catalog/backup-power-ups-surge-it-power-distribution/eaton-metered-input-rack-pdu.html" }
+      { id: "apc-ap8941", name: "APC AP8941", outlets: ["C13", "C19"], v: "200–208 V", a: "30 A input", lock: "Optional locking C13 (AP870x / similar) on C13; locking C19 if specified", source: "https://www.se.com/us/en/product/AP8941/rack-pdu-2g-switched-30a-200-208v-21-c13-3-c19-being-discontinued-see-apdu9941/" },
+      { id: "raritan-px3-5496v", name: "Raritan PX3-5496V", outlets: ["C13"], v: "208 V", a: "30 A (24 A rated)", lock: "SecureLock ready on C13", source: "https://d3b2us605ptvk2.cloudfront.net/download/technical-specifications/PX3-5496V_spec.pdf" },
+      { id: "eaton-ema333-10", name: "Eaton EMA333-10", outlets: ["C13", "C19"], v: "120/208 V", a: "24 A input", lock: "C13 and C19 outlet grip", source: "https://www.eaton.com/us/en-us/skuPage.EMA333-10.html" }
     ];
 
     var serverEl = document.getElementById("server");
