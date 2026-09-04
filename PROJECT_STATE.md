@@ -8,7 +8,7 @@ edit → test в браузере → реальный результат → co
 
 HARD: после правок сайта не спрашивать «запушить?». Всегда пушить самому.
 
-HARD: все `<a href>` на сайте открываются в новой вкладке (`target="_blank" rel="noopener"`). Человека не уводим с текущей страницы RackMatch. На `<link rel="canonical">` это не распространяется.
+HARD: внутренние ссылки RackMatch открываются в той же вкладке (без `target="_blank"`). Внешние ссылки на источники (Dell, HPE, NVIDIA, Schneider и т.д.) открываются в новой вкладке: `target="_blank" rel="noopener"`. На `<link rel="canonical">` это не распространяется.
 
 Хостинг: Vercel, проект `rackmatch`, команда dima's projects.
 Сайт: https://rackmatch.vercel.app
