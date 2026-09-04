@@ -89,8 +89,8 @@
 
     <div id="catalog">
       <h2>Models in this catalog</h2>
-      <p>Servers: Dell PowerEdge R650, Dell PowerEdge R760 (2400 W), HPE ProLiant DL380 Gen11, Lenovo ThinkSystem SR650 V3, Supermicro SYS-221H-TNR.</p>
-      <p>PDUs: APC AP8853, APC AP8941, Raritan PX3-5496V, Eaton EMA333-10.</p>
+      <p><!-- CATALOG_SERVERS -->Servers: Dell PowerEdge R650, Dell PowerEdge R760 (2400 W PSU), HPE ProLiant DL380 Gen11, Lenovo ThinkSystem SR650 V3, Supermicro SYS-221H-TNR.<!-- /CATALOG_SERVERS --></p>
+      <p><!-- CATALOG_PDUS -->PDUs: APC AP8853, APC AP8941, Raritan PX3-5496V, Eaton EMA333-10.<!-- /CATALOG_PDUS --></p>
       <h2>Guides</h2>
       <ul>
         <li><a href="./c13-vs-c14/">C13 vs C14</a></li>
@@ -122,6 +122,7 @@
       </ul>
       <h2>Pair pages</h2>
       <ul>
+      <!-- PAIR_LIST -->
         <li><a href="./dell-poweredge-r650-apc-ap8853/">Dell PowerEdge R650 + APC AP8853</a></li>
         <li><a href="./dell-poweredge-r650-apc-ap8941/">Dell PowerEdge R650 + APC AP8941</a></li>
         <li><a href="./dell-poweredge-r650-raritan-px3-5496v/">Dell PowerEdge R650 + Raritan PX3-5496V</a></li>
@@ -132,152 +133,11 @@
         <li><a href="./hpe-proliant-dl380-gen11-apc-ap8853/">HPE ProLiant DL380 Gen11 + APC AP8853</a></li>
         <li><a href="./hpe-proliant-dl380-gen11-apc-ap8941/">HPE ProLiant DL380 Gen11 + APC AP8941</a></li>
         <li><a href="./lenovo-thinksystem-sr650-v3-apc-ap8853/">Lenovo ThinkSystem SR650 V3 + APC AP8853</a></li>
+      <!-- /PAIR_LIST -->
       </ul>
     </div>
   </main>
-  <script>
-    var SERVERS = [
-      { id: "dell-r650", name: "Dell PowerEdge R650", inlet: "C14", v: "100–240 V", a: "10 A", source: "https://dl.dell.com/topicspdf/poweredge-r650_owners-manual_en-us.pdf" },
-      { id: "dell-r760-2400", name: "Dell PowerEdge R760 (2400 W PSU)", inlet: "C20", v: "200–240 V", a: "16 A", source: "https://www.dell.com/support/manuals/en-us/oth-r760/per760_ism_pub/psu-specifications?guid=guid-2903fb7d-7d40-42ec-b044-fa724d2ea2e1&lang=en-us" },
-      { id: "hpe-dl380-g11", name: "HPE ProLiant DL380 Gen11", inlet: "C14", v: "100–240 V", a: "10 A", source: "https://support.hpe.com/hpesc/public/docDisplay?docId=a00120806en_us" },
-      { id: "lenovo-sr650v3", name: "Lenovo ThinkSystem SR650 V3", inlet: "C14", v: "100–240 V", a: "10 A", source: "https://lenovopress.lenovo.com/lp1601-thinksystem-sr650-v3-server" },
-      { id: "sm-221h-tnr", name: "Supermicro SYS-221H-TNR", inlet: "C14", v: "100–240 V", a: "10 A", source: "https://www.supermicro.com/en/products/system/hyper/2u/sys-221h-tnr" }
-    ];
-    var PDUS = [
-      { id: "apc-ap8853", name: "APC AP8853", outlets: ["C13", "C19"], v: "230 V", a: "32 A input", lock: "Optional locking C13 (AP870x / similar)", source: "https://www.se.com/uk/en/product/AP8853/apc-netshelter-metered-rack-pdu-0u-1ph-7-4kw-230v-32a-36-c13-and-6-c19-outlets-iec-309-2p+e-cord/" },
-      { id: "apc-ap8941", name: "APC AP8941", outlets: ["C13", "C19"], v: "200–208 V", a: "30 A input", lock: "Optional locking C13 (AP870x / similar) on C13; locking C19 if specified", source: "https://www.se.com/us/en/product/AP8941/rack-pdu-2g-switched-30a-200-208v-21-c13-3-c19-being-discontinued-see-apdu9941/" },
-      { id: "raritan-px3-5496v", name: "Raritan PX3-5496V", outlets: ["C13"], v: "208 V", a: "30 A (24 A rated)", lock: "SecureLock ready on C13", source: "https://d3b2us605ptvk2.cloudfront.net/download/technical-specifications/PX3-5496V_spec.pdf" },
-      { id: "eaton-ema333-10", name: "Eaton EMA333-10", outlets: ["C13", "C19"], v: "120/208 V", a: "24 A input", lock: "C13 and C19 outlet grip", source: "https://www.eaton.com/us/en-us/skuPage.EMA333-10.html" }
-    ];
-
-    var serverEl = document.getElementById("server");
-    var pduEl = document.getElementById("pdu");
-    var resultEl = document.getElementById("result");
-
-    function fill(sel, items) {
-      for (var i = 0; i < items.length; i++) {
-        var o = document.createElement("option");
-        o.value = items[i].id;
-        o.textContent = items[i].name;
-        sel.appendChild(o);
-      }
-    }
-    fill(serverEl, SERVERS);
-    fill(pduEl, PDUS);
-
-    function byId(list, id) {
-      for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i];
-      return null;
-    }
-
-    function match(server, pdu) {
-      var hasC13 = pdu.outlets.indexOf("C13") !== -1;
-      var hasC19 = pdu.outlets.indexOf("C19") !== -1;
-      if (server.inlet === "C14" && hasC13) {
-        return {
-          ok: true,
-          cable: "IEC C13–C14 jumper",
-          connector: "C13 into server C14 inlet; C14 into PDU C13 outlet",
-          va: server.v + " / " + server.a + " (cable). PDU: " + pdu.v + ", " + pdu.a,
-          lock: pdu.lock,
-          note: ""
-        };
-      }
-      if (server.inlet === "C20" && hasC19) {
-        return {
-          ok: true,
-          cable: "IEC C19–C20 jumper",
-          connector: "C19 into server C20 inlet; C20 into PDU C19 outlet",
-          va: server.v + " / " + server.a + " (cable). PDU: " + pdu.v + ", " + pdu.a,
-          lock: pdu.lock,
-          note: ""
-        };
-      }
-      if (server.inlet === "C14" && hasC19 && !hasC13) {
-        return {
-          ok: true,
-          cable: "IEC C13–C20 jumper",
-          connector: "C13 into server C14 inlet; C20 into PDU C19 outlet",
-          va: server.v + " / max " + server.a + " on this jumper. PDU: " + pdu.v + ", " + pdu.a,
-          lock: pdu.lock,
-          note: "C13/C14 is 10 A class. Do not treat this as a 16 A feed."
-        };
-      }
-      if (server.inlet === "C20" && hasC13 && !hasC19) {
-        return {
-          ok: false,
-          cable: "No standard match",
-          connector: "Server C20 inlet needs a C19 outlet on the PDU",
-          va: server.v + " / " + server.a + " vs PDU C13-only (" + pdu.v + ", " + pdu.a + ")",
-          lock: "n/a",
-          note: "C13 outlet is 10 A class. This PSU inlet is 16 A class."
-        };
-      }
-      return {
-        ok: false,
-        cable: "No standard match",
-        connector: "Outlet set " + pdu.outlets.join(", ") + " vs inlet " + server.inlet,
-        va: server.v + " / " + server.a,
-        lock: "n/a",
-        note: ""
-      };
-    }
-
-    function row(k, v) {
-      return "<tr><td>" + k + "</td><td>" + v + "</td></tr>";
-    }
-
-    document.getElementById("form").addEventListener("submit", function (e) {
-      e.preventDefault();
-      var server = byId(SERVERS, serverEl.value);
-      var pdu = byId(PDUS, pduEl.value);
-      if (!server || !pdu) {
-        resultEl.hidden = false;
-        resultEl.innerHTML = "<p>Select both models.</p>";
-        return;
-      }
-      var r = match(server, pdu);
-      var html = "<p><b>" + (r.ok ? "Compatible" : "Not compatible") + "</b></p>";
-      html += "<table>";
-      html += row("Required cable type", r.cable);
-      html += row("Connector", r.connector);
-      html += row("Voltage / current", r.va);
-      html += row("Locking option", r.lock);
-      html += row("Server source", "<a href=\"" + server.source + "\" target=\"_blank\" rel=\"noopener\">" + server.source + "</a>");
-      html += row("PDU source", "<a href=\"" + pdu.source + "\" target=\"_blank\" rel=\"noopener\">" + pdu.source + "</a>");
-      html += "</table>";
-      if (r.note) html += "<p class=\"warn\">" + r.note + "</p>";
-      resultEl.hidden = false;
-      resultEl.innerHTML = html;
-    });
-
-    document.getElementById("feedback").addEventListener("submit", function (e) {
-      e.preventDefault();
-      var status = document.getElementById("fb-status");
-      if (document.getElementById("fb-company").value) {
-        status.hidden = false;
-        status.textContent = "Sent.";
-        return;
-      }
-      var body = new URLSearchParams();
-      body.set("entry.389100888", document.getElementById("fb-message").value);
-      body.set("entry.1165317586", document.getElementById("fb-contact").value);
-      body.set("entry.770004551", "");
-      body.set("entry.341373274", "");
-      fetch("https://docs.google.com/forms/d/e/1FAIpQLSd7v9wX0zoeXfHHpWcfSLQpzAq0Ny8grFns6fhFI31FqM6cAw/formResponse", {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: body.toString()
-      }).then(function () {
-        document.getElementById("feedback").reset();
-        status.hidden = false;
-        status.textContent = "Sent.";
-      }).catch(function () {
-        status.hidden = false;
-        status.textContent = "Send failed. Try again.";
-      });
-    });
-  </script>
+  <script src="./js/match.js"></script>
+  <script src="./js/home.js"></script>
 </body>
 </html>

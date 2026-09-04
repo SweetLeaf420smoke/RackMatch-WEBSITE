@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+<!-- generated from data/equipment.json; run python3 data/generate.py -->
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dell PowerEdge R760 + Raritan PX3-5496V Power Cable</title>
-  <meta name="description" content="Dell PowerEdge R760 2400 W C20 inlet with Raritan PX3-5496V: not directly compatible. This PDU is 24 × C13, no C19.">
+  <meta name="description" content="Dell PowerEdge R760 + Raritan PX3-5496V: not directly compatible. PDU outlets: 24 × C13.">
   <meta name="robots" content="index, follow">
   <meta name="google-site-verification" content="Op8AESilG-2JBeSHhb3C3REZSKV5EnoilcB01g9pOek">
   <link rel="canonical" href="https://rackmatch.vercel.app/dell-poweredge-r760-raritan-px3-5496v/">
@@ -24,11 +25,11 @@
       <tr><td>Locking</td><td>n/a</td></tr>
     </table>
     <h2>Why there is no match</h2>
-    <p>Raritan’s PX3-5496V spec is 24 × IEC C13. There is no C19. A 2400 W R760 PSU uses a C20 inlet. C13 will not plug into C20, and the C13 path is 10 A class against a 16 A class inlet.</p>
+    <p>Raritan lists PX3-5496V as 24 × C13. There is no C19. A R760 PSU here uses a C20 inlet. C13 will not plug into C20, and the C13 path is 10 A class against a 16 A class inlet.</p>
     <p>Fix: a PDU with C19 outlets and an IEC C19–C20 jumper. Example on this site: <a href="../dell-poweredge-r760-apc-ap8853/">R760 + AP8853</a>. See also <a href="../c13-pdu-c19-server/">C13 PDU, C19 server</a>.</p>
     <p class="warn">C13 outlet is 10 A class. This PSU inlet is 16 A class. Do not use a cheater adapter.</p>
     <h2>Sources</h2>
-    <p>Server: <a href="https://www.dell.com/support/manuals/en-us/oth-r760/per760_ism_pub/psu-specifications?guid=guid-2903fb7d-7d40-42ec-b044-fa724d2ea2e1&lang=en-us" target="_blank" rel="noopener">Dell PowerEdge R760 PSU specifications</a></p>
+    <p>Server: <a href="https://www.dell.com/support/manuals/en-us/oth-r760/per760_ism_pub/psu-specifications?guid=guid-2903fb7d-7d40-42ec-b044-fa724d2ea2e1&amp;lang=en-us" target="_blank" rel="noopener">Dell PowerEdge R760 PSU specifications</a></p>
     <p>PDU: <a href="https://d3b2us605ptvk2.cloudfront.net/download/technical-specifications/PX3-5496V_spec.pdf" target="_blank" rel="noopener">Raritan PX3-5496V technical specification (PDF)</a></p>
     <footer>Check the live nameplate and the vendor PDF before you order cable. High-watt PSUs on the same chassis can change the inlet.</footer>
   </main>

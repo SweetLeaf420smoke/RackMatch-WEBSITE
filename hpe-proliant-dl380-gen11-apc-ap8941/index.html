@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+<!-- generated from data/equipment.json; run python3 data/generate.py -->
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>HPE ProLiant DL380 Gen11 + APC AP8941 Power Cable</title>
-  <meta name="description" content="HPE ProLiant DL380 Gen11 with APC AP8941: IEC C13–C14 jumper into a C13 outlet. AP8941 has 21 C13 and 3 C19.">
+  <meta name="description" content="HPE ProLiant DL380 Gen11 + APC AP8941: IEC C13–C14 jumper. PDU outlets: 21 × C13 and 3 × C19.">
   <meta name="robots" content="index, follow">
   <meta name="google-site-verification" content="Op8AESilG-2JBeSHhb3C3REZSKV5EnoilcB01g9pOek">
   <link rel="canonical" href="https://rackmatch.vercel.app/hpe-proliant-dl380-gen11-apc-ap8941/">
@@ -21,10 +22,10 @@
     <table>
       <tr><td>Connector</td><td>C13 into the DL380 Gen11 C14 inlet; C14 into an AP8941 C13 outlet</td></tr>
       <tr><td>Voltage / current</td><td>Server PSU 100–240 V / 10 A. PDU 200–208 V, 30 A input</td></tr>
-      <tr><td>Locking</td><td>Optional locking C13 (AP870x / similar)</td></tr>
+      <tr><td>Locking</td><td>Optional locking C13 (AP870x / similar) on C13; locking C19 if specified</td></tr>
     </table>
     <h2>Why this cable</h2>
-    <p>The AP8941 is not C19-only. Schneider lists 21 × C13 and 3 × C19. The DL380 Gen11 inlet in this catalog is C14, so use one of the C13 outlets and a C13–C14 jumper. High-watt Flex Slot kits can change the inlet; read the nameplate.</p>
+    <p>This catalog lists the DL380 Gen11 inlet as IEC C14. APC lists AP8941 as 21 × C13 and 3 × C19. For this inlet, plug into a C13 outlet with a C13–C14 jumper. Do not use a C19–C20 jumper on this PSU. C19 outlets are for a C20 inlet. High-watt Flex Slot kits can change the inlet; read the nameplate.</p>
     <h2>Sources</h2>
     <p>Server: <a href="https://support.hpe.com/hpesc/public/docDisplay?docId=a00120806en_us" target="_blank" rel="noopener">HPE ProLiant DL380 Gen11 documentation</a></p>
     <p>PDU: <a href="https://www.se.com/us/en/product/AP8941/rack-pdu-2g-switched-30a-200-208v-21-c13-3-c19-being-discontinued-see-apdu9941/" target="_blank" rel="noopener">Schneider Electric APC AP8941</a></p>

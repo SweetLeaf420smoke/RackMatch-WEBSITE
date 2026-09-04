@@ -29,7 +29,9 @@ Change of address: rackmatch-website.vercel.app → rackmatch.vercel.app, ста
 
 ## Как сейчас
 
-20 SEO-страниц (10 generic IEC + 5 Dell/HPE power cord + 5 NVIDIA/DGX). Сначала чистить базу PDU, не плодить новые страницы.
+Источник правды по железу: `data/equipment.json`. Find на главной читает этот файл. Pair SEO-страницы пишет `python3 data/generate.py` (список URL в `pair_pages`, не декартово произведение). Гайды IEC/NVIDIA/model power-cord пока руками.
+
+20 SEO-страниц гайдов (10 generic IEC + 5 Dell/HPE power cord + 5 NVIDIA/DGX) плюс 10 pair URL. Сначала чистить базу, не плодить новые страницы.
 
 Каталог PDU (по вендору, не путать SKU):
 - APC AP8853: 36 × C13 + 6 × C19, 230 V, 32 A. Источник: se.com/uk product page. US slug `20-c13-4-c19` уводит на all-products.

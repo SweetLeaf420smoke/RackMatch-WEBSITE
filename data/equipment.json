@@ -1,0 +1,126 @@
+{
+  "servers": [
+    {
+      "id": "dell-r650",
+      "manufacturer": "Dell",
+      "model": "PowerEdge R650",
+      "display_name": "Dell PowerEdge R650",
+      "short": "R650",
+      "psu_inlet": "C14",
+      "voltage": "100–240 V",
+      "current": "10 A",
+      "source": "https://dl.dell.com/topicspdf/poweredge-r650_owners-manual_en-us.pdf",
+      "source_title": "Dell PowerEdge R650 owner’s manual (PDF)"
+    },
+    {
+      "id": "dell-r760-2400",
+      "manufacturer": "Dell",
+      "model": "PowerEdge R760",
+      "display_name": "Dell PowerEdge R760 (2400 W PSU)",
+      "short": "R760",
+      "psu_inlet": "C20",
+      "voltage": "200–240 V",
+      "current": "16 A",
+      "source": "https://www.dell.com/support/manuals/en-us/oth-r760/per760_ism_pub/psu-specifications?guid=guid-2903fb7d-7d40-42ec-b044-fa724d2ea2e1&lang=en-us",
+      "source_title": "Dell PowerEdge R760 PSU specifications",
+      "nameplate_note": true,
+      "pair_note": "Lower-watt R760 PSUs can be C14 and then use a C13 outlet instead."
+    },
+    {
+      "id": "hpe-dl380-g11",
+      "manufacturer": "HPE",
+      "model": "ProLiant DL380 Gen11",
+      "display_name": "HPE ProLiant DL380 Gen11",
+      "short": "DL380 Gen11",
+      "psu_inlet": "C14",
+      "voltage": "100–240 V",
+      "current": "10 A",
+      "source": "https://support.hpe.com/hpesc/public/docDisplay?docId=a00120806en_us",
+      "source_title": "HPE ProLiant DL380 Gen11 documentation",
+      "pair_note": "High-watt Flex Slot kits can change the inlet; read the nameplate."
+    },
+    {
+      "id": "lenovo-sr650v3",
+      "manufacturer": "Lenovo",
+      "model": "ThinkSystem SR650 V3",
+      "display_name": "Lenovo ThinkSystem SR650 V3",
+      "short": "SR650 V3",
+      "psu_inlet": "C14",
+      "voltage": "100–240 V",
+      "current": "10 A",
+      "source": "https://lenovopress.lenovo.com/lp1601-thinksystem-sr650-v3-server",
+      "source_title": "Lenovo ThinkSystem SR650 V3 (Lenovo Press)",
+      "pair_note": "High-watt Lenovo PSU SKUs can use a larger inlet; check the PSU you installed."
+    },
+    {
+      "id": "sm-221h-tnr",
+      "manufacturer": "Supermicro",
+      "model": "SYS-221H-TNR",
+      "display_name": "Supermicro SYS-221H-TNR",
+      "short": "SYS-221H-TNR",
+      "psu_inlet": "C14",
+      "voltage": "100–240 V",
+      "current": "10 A",
+      "source": "https://www.supermicro.com/en/products/system/hyper/2u/sys-221h-tnr",
+      "source_title": "Supermicro SYS-221H-TNR"
+    }
+  ],
+  "pdus": [
+    {
+      "id": "apc-ap8853",
+      "manufacturer": "APC",
+      "model": "AP8853",
+      "outlets": { "C13": 36, "C19": 6 },
+      "voltage": "230 V",
+      "current": "32 A input",
+      "locking": "Optional locking C13 (AP870x / similar)",
+      "source": "https://www.se.com/uk/en/product/AP8853/apc-netshelter-metered-rack-pdu-0u-1ph-7-4kw-230v-32a-36-c13-and-6-c19-outlets-iec-309-2p+e-cord/",
+      "source_title": "Schneider Electric APC AP8853"
+    },
+    {
+      "id": "apc-ap8941",
+      "manufacturer": "APC",
+      "model": "AP8941",
+      "outlets": { "C13": 21, "C19": 3 },
+      "voltage": "200–208 V",
+      "current": "30 A input",
+      "locking": "Optional locking C13 (AP870x / similar) on C13; locking C19 if specified",
+      "source": "https://www.se.com/us/en/product/AP8941/rack-pdu-2g-switched-30a-200-208v-21-c13-3-c19-being-discontinued-see-apdu9941/",
+      "source_title": "Schneider Electric APC AP8941"
+    },
+    {
+      "id": "raritan-px3-5496v",
+      "manufacturer": "Raritan",
+      "model": "PX3-5496V",
+      "outlets": { "C13": 24 },
+      "voltage": "208 V",
+      "current": "30 A (24 A rated)",
+      "locking": "SecureLock ready on C13",
+      "source": "https://d3b2us605ptvk2.cloudfront.net/download/technical-specifications/PX3-5496V_spec.pdf",
+      "source_title": "Raritan PX3-5496V technical specification (PDF)"
+    },
+    {
+      "id": "eaton-ema333-10",
+      "manufacturer": "Eaton",
+      "model": "EMA333-10",
+      "outlets": { "C13": 21, "C19": 6, "5-20R": 1 },
+      "voltage": "120/208 V",
+      "current": "24 A input",
+      "locking": "C13 and C19 outlet grip",
+      "source": "https://www.eaton.com/us/en-us/skuPage.EMA333-10.html",
+      "source_title": "Eaton EMA333-10"
+    }
+  ],
+  "pair_pages": [
+    { "slug": "dell-poweredge-r650-apc-ap8853", "server_id": "dell-r650", "pdu_id": "apc-ap8853" },
+    { "slug": "dell-poweredge-r650-apc-ap8941", "server_id": "dell-r650", "pdu_id": "apc-ap8941" },
+    { "slug": "dell-poweredge-r650-raritan-px3-5496v", "server_id": "dell-r650", "pdu_id": "raritan-px3-5496v" },
+    { "slug": "dell-poweredge-r650-eaton-ema333-10", "server_id": "dell-r650", "pdu_id": "eaton-ema333-10" },
+    { "slug": "dell-poweredge-r760-apc-ap8853", "server_id": "dell-r760-2400", "pdu_id": "apc-ap8853" },
+    { "slug": "dell-poweredge-r760-apc-ap8941", "server_id": "dell-r760-2400", "pdu_id": "apc-ap8941" },
+    { "slug": "dell-poweredge-r760-raritan-px3-5496v", "server_id": "dell-r760-2400", "pdu_id": "raritan-px3-5496v" },
+    { "slug": "hpe-proliant-dl380-gen11-apc-ap8853", "server_id": "hpe-dl380-g11", "pdu_id": "apc-ap8853" },
+    { "slug": "hpe-proliant-dl380-gen11-apc-ap8941", "server_id": "hpe-dl380-g11", "pdu_id": "apc-ap8941" },
+    { "slug": "lenovo-thinksystem-sr650-v3-apc-ap8853", "server_id": "lenovo-sr650v3", "pdu_id": "apc-ap8853" }
+  ]
+}

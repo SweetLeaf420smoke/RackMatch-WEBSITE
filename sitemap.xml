@@ -5,6 +5,7 @@
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+  <!-- PAIR_URLS -->
   <url>
     <loc>https://rackmatch.vercel.app/dell-poweredge-r650-apc-ap8853/</loc>
     <changefreq>weekly</changefreq>
@@ -55,6 +56,7 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+  <!-- /PAIR_URLS -->
   <url><loc>https://rackmatch.vercel.app/c13-vs-c14/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://rackmatch.vercel.app/c19-vs-c20/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://rackmatch.vercel.app/c13-c14-server-power-cord/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
