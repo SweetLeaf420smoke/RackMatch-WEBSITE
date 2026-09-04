@@ -16,11 +16,15 @@
     header { border-bottom: 1px solid #ccc; padding: 8px 12px; }
     main { max-width: 720px; padding: 12px; }
     h1 { font-size: 20px; font-weight: bold; margin: 0 0 12px; }
+    h2 { font-size: 16px; font-weight: bold; margin: 20px 0 8px; }
     p { margin: 0 0 12px; }
     label { display: block; margin: 8px 0 4px; }
-    select, button { font: inherit; }
+    select, button, input, textarea { font: inherit; }
     select { min-width: 280px; max-width: 100%; }
+    input[type="text"], textarea { width: 100%; max-width: 100%; box-sizing: border-box; }
+    textarea { min-height: 100px; }
     button { margin-top: 10px; }
+    .hp { position: absolute; left: -9999px; }
     #result { margin-top: 16px; border-top: 1px solid #ccc; padding-top: 12px; }
     table { border-collapse: collapse; }
     td { padding: 2px 12px 2px 0; vertical-align: top; }
@@ -59,6 +63,23 @@
     <h2>Models in this catalog</h2>
     <p>Servers: Dell PowerEdge R650, Dell PowerEdge R760 (2400 W), HPE ProLiant DL380 Gen11, Lenovo ThinkSystem SR650 V3, Supermicro SYS-221H-TNR.</p>
     <p>PDUs: APC AP8853, APC AP8941, Raritan PX3-5496V, Eaton EMA333-10.</p>
+
+    <h2>Feedback</h2>
+    <p>Wrong result or missing server/PDU? Send a note.</p>
+    <form id="feedback" action="#" method="post">
+      <label for="fb-message">Message</label>
+      <textarea id="fb-message" name="message" required></textarea>
+      <label for="fb-contact">Contact</label>
+      <input id="fb-contact" name="contact" type="text" autocomplete="email">
+      <div class="hp" aria-hidden="true">
+        <label for="fb-company">Company</label>
+        <input id="fb-company" name="company" type="text" tabindex="-1" autocomplete="off">
+      </div>
+      <div>
+        <button type="submit">Send</button>
+      </div>
+    </form>
+    <p id="fb-status" hidden></p>
 
     <footer>
       Check the live nameplate and the vendor PDF before you order cable. High-watt PSUs on the same chassis can change the inlet.
@@ -178,6 +199,34 @@
       if (r.note) html += "<p class=\"warn\">" + r.note + "</p>";
       resultEl.hidden = false;
       resultEl.innerHTML = html;
+    });
+
+    document.getElementById("feedback").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var status = document.getElementById("fb-status");
+      if (document.getElementById("fb-company").value) {
+        status.hidden = false;
+        status.textContent = "Sent.";
+        return;
+      }
+      var body = new URLSearchParams();
+      body.set("entry.389100888", document.getElementById("fb-message").value);
+      body.set("entry.1165317586", document.getElementById("fb-contact").value);
+      body.set("entry.770004551", "");
+      body.set("entry.341373274", "");
+      fetch("https://docs.google.com/forms/d/e/1FAIpQLSd7v9wX0zoeXfHHpWcfSLQpzAq0Ny8grFns6fhFI31FqM6cAw/formResponse", {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: body.toString()
+      }).then(function () {
+        document.getElementById("feedback").reset();
+        status.hidden = false;
+        status.textContent = "Sent.";
+      }).catch(function () {
+        status.hidden = false;
+        status.textContent = "Send failed. Try again.";
+      });
     });
   </script>
 </body>

@@ -11,6 +11,8 @@ edit → test в браузере → реальный результат → о
 GitHub: https://github.com/SweetLeaf420smoke/RackMatch-WEBSITE
 Канонический URL: https://rackmatch-website.vercel.app/
 
+Google Search Console: URL prefix подтверждён (HTML tag, аккаунт vertobanner@gmail.com).
+
 ## Проверки
 
 - DATA: пары сервер/PDU и ссылки на источники
@@ -20,3 +22,7 @@ GitHub: https://github.com/SweetLeaf420smoke/RackMatch-WEBSITE
 ## Как сейчас
 
 Одна страница `index.html`. Данные встроены. Сервер: `python3 -m http.server`.
+
+Фидбек на главной: свои два поля (Message, Contact), без iframe. POST в ту же Google Form (таблица Responses).
+Таблица: https://docs.google.com/spreadsheets/d/1At7v0iErDZshwZ5_51VXpXsiyRNkXf2FFhv12ixBtD0/edit
+entry.389100888 = Message, entry.1165317586 = Contact.
