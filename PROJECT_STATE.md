@@ -19,6 +19,7 @@ GitHub: https://github.com/SweetLeaf420smoke/RackMatch-WEBSITE
 
 Google Search Console: свойство https://rackmatch.vercel.app/ подтверждено (HTML file + HTML tag). Sitemap `/sitemap.xml` Success.
 Яндекс.Метрика: счётчик 112306015, сайт rackmatch.vercel.app, вебвизор включён.
+Google Analytics 4: измерение G-PPCCYQHCFD, поток https://rackmatch.vercel.app.
 Change of address: rackmatch-website.vercel.app → rackmatch.vercel.app, старт 4 Sep 2026.
 Старый Vercel-домен: 308 на https://rackmatch.vercel.app/.
 

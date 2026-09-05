@@ -12,6 +12,7 @@ DATA = ROOT / "data" / "equipment.json"
 SITE = "https://rackmatch.vercel.app"
 GSC = "Op8AESilG-2JBeSHhb3C3REZSKV5EnoilcB01g9pOek"
 YM = "112306015"
+GA = "G-PPCCYQHCFD"
 GSC_META = f'  <meta name="google-site-verification" content="{GSC}">'
 METRIKA_HEAD = f"""  <!-- Yandex.Metrika counter -->
   <script type="text/javascript">
@@ -25,6 +26,15 @@ METRIKA_HEAD = f"""  <!-- Yandex.Metrika counter -->
   </script>
   <noscript><div><img src="https://mc.yandex.ru/watch/{YM}" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
   <!-- /Yandex.Metrika counter -->
+"""
+GA4_HEAD = f"""  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id={GA}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){{dataLayer.push(arguments);}}
+    gtag('js', new Date());
+    gtag('config', '{GA}');
+  </script>
 """
 
 
@@ -227,7 +237,7 @@ def pair_html(server: dict, pdu: dict, slug: str, r: dict, extra_links: str) -> 
   <meta name="description" content="{escape(desc)}">
   <meta name="robots" content="index, follow">
 {GSC_META}
-{METRIKA_HEAD}  <link rel="canonical" href="{SITE}/{slug}/">
+{METRIKA_HEAD}{GA4_HEAD}  <link rel="canonical" href="{SITE}/{slug}/">
   <link rel="stylesheet" href="../pair.css">
 </head>
 <body>
@@ -252,6 +262,18 @@ def pair_html(server: dict, pdu: dict, slug: str, r: dict, extra_links: str) -> 
 </body>
 </html>
 """
+
+
+def inject_ga4() -> None:
+    marker = "  <!-- /Yandex.Metrika counter -->"
+    for path in ROOT.rglob("index.html"):
+        text = path.read_text(encoding="utf-8")
+        if GA in text:
+            continue
+        if marker not in text:
+            raise SystemExit(f"missing Metrika marker in {path.relative_to(ROOT)}")
+        path.write_text(text.replace(marker, marker + "\n" + GA4_HEAD.rstrip(), 1), encoding="utf-8")
+        print("ga4", path.relative_to(ROOT))
 
 
 def inject_metrika() -> None:
@@ -373,6 +395,7 @@ def main() -> None:
     update_index(data)
     update_sitemap(data)
     inject_metrika()
+    inject_ga4()
     print("updated index.html and sitemap.xml")
 
 
