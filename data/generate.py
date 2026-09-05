@@ -11,6 +11,21 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data" / "equipment.json"
 SITE = "https://rackmatch.vercel.app"
 GSC = "Op8AESilG-2JBeSHhb3C3REZSKV5EnoilcB01g9pOek"
+YM = "112306015"
+GSC_META = f'  <meta name="google-site-verification" content="{GSC}">'
+METRIKA_HEAD = f"""  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+   (function(m,e,t,r,i,k,a){{
+    m[i]=m[i]||function(){{(m[i].a=m[i].a||[]).push(arguments)}};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {{if (document.scripts[j].src === r) {{ return; }}}}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+   }})(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id={YM}', 'ym');
+   ym({YM}, 'init', {{ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true}});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/{YM}" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+"""
 
 
 def has_outlet(pdu: dict, kind: str) -> bool:
@@ -211,8 +226,8 @@ def pair_html(server: dict, pdu: dict, slug: str, r: dict, extra_links: str) -> 
   <title>{escape(h1)}</title>
   <meta name="description" content="{escape(desc)}">
   <meta name="robots" content="index, follow">
-  <meta name="google-site-verification" content="{GSC}">
-  <link rel="canonical" href="{SITE}/{slug}/">
+{GSC_META}
+{METRIKA_HEAD}  <link rel="canonical" href="{SITE}/{slug}/">
   <link rel="stylesheet" href="../pair.css">
 </head>
 <body>
@@ -237,6 +252,17 @@ def pair_html(server: dict, pdu: dict, slug: str, r: dict, extra_links: str) -> 
 </body>
 </html>
 """
+
+
+def inject_metrika() -> None:
+    for path in ROOT.rglob("index.html"):
+        text = path.read_text(encoding="utf-8")
+        if "Yandex.Metrika counter" in text:
+            continue
+        if GSC_META not in text:
+            raise SystemExit(f"missing GSC meta in {path.relative_to(ROOT)}")
+        path.write_text(text.replace(GSC_META, GSC_META + "\n" + METRIKA_HEAD.rstrip(), 1), encoding="utf-8")
+        print("metrika", path.relative_to(ROOT))
 
 
 def replace_block(text: str, start: str, end: str, inner: str) -> str:
@@ -346,6 +372,7 @@ def main() -> None:
         print("wrote", out.relative_to(ROOT))
     update_index(data)
     update_sitemap(data)
+    inject_metrika()
     print("updated index.html and sitemap.xml")
 
 
