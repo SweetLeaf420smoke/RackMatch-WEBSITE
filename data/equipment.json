@@ -2,6 +2,7 @@
   "servers": [
     {
       "id": "dell-r650",
+      "equipment_type": "server",
       "manufacturer": "Dell",
       "model": "PowerEdge R650",
       "display_name": "Dell PowerEdge R650",
@@ -14,6 +15,7 @@
     },
     {
       "id": "dell-r760-2400",
+      "equipment_type": "server",
       "manufacturer": "Dell",
       "model": "PowerEdge R760",
       "display_name": "Dell PowerEdge R760 (2400 W PSU)",
@@ -28,6 +30,7 @@
     },
     {
       "id": "hpe-dl380-g11",
+      "equipment_type": "server",
       "manufacturer": "HPE",
       "model": "ProLiant DL380 Gen11",
       "display_name": "HPE ProLiant DL380 Gen11",
@@ -41,6 +44,7 @@
     },
     {
       "id": "lenovo-sr650v3",
+      "equipment_type": "server",
       "manufacturer": "Lenovo",
       "model": "ThinkSystem SR650 V3",
       "display_name": "Lenovo ThinkSystem SR650 V3",
@@ -54,6 +58,7 @@
     },
     {
       "id": "sm-221h-tnr",
+      "equipment_type": "server",
       "manufacturer": "Supermicro",
       "model": "SYS-221H-TNR",
       "display_name": "Supermicro SYS-221H-TNR",
@@ -68,6 +73,7 @@
   "pdus": [
     {
       "id": "apc-ap8853",
+      "equipment_type": "pdu",
       "manufacturer": "APC",
       "model": "AP8853",
       "outlets": { "C13": 36, "C19": 6 },
@@ -79,6 +85,7 @@
     },
     {
       "id": "apc-ap8941",
+      "equipment_type": "pdu",
       "manufacturer": "APC",
       "model": "AP8941",
       "outlets": { "C13": 21, "C19": 3 },
@@ -90,6 +97,7 @@
     },
     {
       "id": "raritan-px3-5496v",
+      "equipment_type": "pdu",
       "manufacturer": "Raritan",
       "model": "PX3-5496V",
       "outlets": { "C13": 24 },
@@ -101,6 +109,7 @@
     },
     {
       "id": "eaton-ema333-10",
+      "equipment_type": "pdu",
       "manufacturer": "Eaton",
       "model": "EMA333-10",
       "outlets": { "C13": 21, "C19": 6, "5-20R": 1 },

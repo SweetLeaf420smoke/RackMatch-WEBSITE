@@ -1,6 +1,6 @@
 # RackMatch WEBSITE
 
-Статический сайт: совместимость питания сервер ↔ PDU.
+Статический сайт: rack power connectivity BOM + совместимость питания сервер ↔ PDU.
 
 ## Workflow
 
@@ -26,7 +26,7 @@ Change of address: rackmatch-website.vercel.app → rackmatch.vercel.app, ста
 ## Проверки
 
 - DATA: пары сервер/PDU и ссылки на источники
-- FLOW: два списка → Find → результат
+- FLOW: главная → Build Rack BOM; Find один сервер + PDU; Feedback
 - UI: белый фон, чёрный/синий текст, без анимаций
 
 ## Как сейчас

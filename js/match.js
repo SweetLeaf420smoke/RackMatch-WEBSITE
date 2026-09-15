@@ -85,5 +85,11 @@
     };
   }
 
-  w.RackMatch = { match: match, hasOutlet: hasOutlet };
+  w.RackMatch = {
+    match: match,
+    hasOutlet: hasOutlet,
+    inletOf: inletOf,
+    volt: volt,
+    amp: amp
+  };
 })(window);

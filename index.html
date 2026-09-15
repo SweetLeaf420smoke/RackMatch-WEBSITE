@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Data Centre Power Compatibility | Server and PDU Cable Match</title>
-  <meta name="description" content="Check server and PDU power compatibility. Find required cable type, connector, voltage, current, and locking option with a source link.">
+  <title>Rack Power Cable BOM | Server PDU Compatibility | RackMatch</title>
+  <meta name="description" content="Turn a rack equipment BOM into a validated rack power cabling BOM. Check server PDU compatibility, data center power cords, A/B feeds, and request a rack cable kit.">
   <meta name="robots" content="index, follow">
   <meta name="google-site-verification" content="Op8AESilG-2JBeSHhb3C3REZSKV5EnoilcB01g9pOek">
   <!-- Yandex.Metrika counter -->
@@ -35,16 +35,16 @@
     a:visited { color: #551a8b; }
     header { max-width: 720px; margin: 0 auto; border-bottom: 1px solid #ccc; padding: 8px 12px; }
     header a + a { margin-left: 16px; }
-    main { max-width: 720px; margin: 0 auto; padding: 80px 12px 12px; }
+    main { max-width: 720px; margin: 0 auto; padding: 24px 12px 12px; }
     h1 { font-size: 20px; font-weight: bold; margin: 0 0 12px; }
     h2 { font-size: 16px; font-weight: bold; margin: 20px 0 8px; }
     p { margin: 0 0 12px; }
     label { display: block; margin: 8px 0 4px; }
     select, button { font: inherit; }
     select { min-width: 280px; max-width: 100%; }
-    button { margin-top: 10px; }
+    button { margin-top: 10px; margin-right: 8px; }
     #result { margin-top: 16px; border-top: 1px solid #ccc; padding-top: 12px; }
-    #feedback-block { margin-top: 180px; }
+    #feedback-block { margin-top: 80px; }
     input[type="text"], textarea { width: 100%; max-width: 100%; box-sizing: border-box; font: inherit; }
     textarea { min-height: 100px; }
     .hp { position: absolute; left: -9999px; }
@@ -52,19 +52,50 @@
     td { padding: 2px 12px 2px 0; vertical-align: top; }
     td:first-child { color: #333; }
     .warn { color: #00e; }
-    ul { margin: 0 0 12px; padding-left: 20px; }
+    ul, ol { margin: 0 0 12px; padding-left: 20px; }
     footer { margin-top: 24px; font-size: 13px; color: #333; }
-    #catalog { margin-top: 180px; }
+    #catalog { margin-top: 80px; }
+    .flow { border: 1px solid #ccc; padding: 8px 12px; margin: 0 0 16px; }
   </style>
 </head>
 <body>
   <header>
     <a href="./">home</a>
+    <a href="./bom/">Build Rack BOM</a>
     <a href="./suggest/">Suggest a correction / Add equipment</a>
   </header>
   <main>
-    <h1>Data Centre Power Compatibility</h1>
-    <p>Choose a server model and a PDU model. The page shows the jumper cable between the PDU outlet and the server PSU inlet.</p>
+    <h1>Turn Your Rack BOM Into a Validated Power Cabling BOM</h1>
+    <p>Add your servers, switches and PDUs. RackMatch determines the correct connectors, quantities, cable lengths, A/B feeds and compatible power cords for the entire rack.</p>
+    <p>
+      <a href="./bom/"><button type="button">Build Rack BOM</button></a>
+      <a href="./bom/?example=1"><button type="button">Try Example Rack</button></a>
+    </p>
+
+    <h2>How it works</h2>
+    <div class="flow">
+      Equipment BOM → Power Requirements → Compatibility Validation → Cable BOM → Ready-to-Install Rack Kit
+    </div>
+
+    <h2>Example rack</h2>
+    <p>12 × Dell PowerEdge R760 (2400 W PSU from the catalog), 2 × Cisco switches (model not in the catalog), 2 × APC AP8853. Open the builder with that list already loaded.</p>
+    <p><a href="./bom/?example=1">Load the example rack</a></p>
+
+    <h2>What RackMatch checks</h2>
+    <ul>
+      <li>Server and PDU power inlet/outlet match (C13–C14, C19–C20) from the vendor-checked catalog</li>
+      <li>Unknown models and missing PSU data (never marked Verified)</li>
+      <li>PDU outlet type and outlet count vs cords on that PDU</li>
+      <li>Redundant PSUs landed on the same feed or the same PDU</li>
+      <li>10 A vs 16 A jumper class when the pair is not a standard match</li>
+    </ul>
+
+    <h2>Rack cable kit</h2>
+    <p>After the power cable BOM, request a quote for a complete ready-to-install set of data center power cords: lengths, A/B colours, labels and connector types.</p>
+    <p><a href="./bom/">Request a rack kit quote from the BOM page</a></p>
+
+    <h2>Check one server and one PDU</h2>
+    <p>Single-pair server PDU compatibility. For a full rack power cable BOM use <a href="./bom/">Build Rack BOM</a>.</p>
 
     <form id="form" action="#" method="get">
       <label for="server">Server model</label>

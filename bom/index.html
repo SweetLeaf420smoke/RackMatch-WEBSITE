@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Build a rack power cable BOM | RackMatch</title>
+  <meta name="description" content="Build a rack equipment BOM and get a validated rack power connectivity BOM: connectors, quantities, A/B feeds, warnings, and a request for a ready-to-install rack cable kit.">
+  <meta name="robots" content="index, follow">
+  <meta name="google-site-verification" content="Op8AESilG-2JBeSHhb3C3REZSKV5EnoilcB01g9pOek">
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+   (function(m,e,t,r,i,k,a){
+    m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+   })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=112306015', 'ym');
+   ym(112306015, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/112306015" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PPCCYQHCFD"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PPCCYQHCFD');
+  </script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E">
+  <link rel="canonical" href="https://rackmatch.vercel.app/bom/">
+  <link rel="stylesheet" href="../pair.css">
+  <style>
+    header, main { max-width: 1100px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+    @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } }
+    .table-wrap { overflow-x: auto; margin: 12px 0; }
+    .bom-table { font-size: 13px; width: 100%; }
+    .bom-table th, .bom-table td { border: 1px solid #ccc; padding: 4px 6px; text-align: left; vertical-align: top; }
+    .bom-table th { background: #f4f4f4; }
+    .st-incompatible td:nth-child(14) { color: #00e; font-weight: bold; }
+    button { margin-right: 8px; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="../">home</a>
+    <a href="./">Build Rack BOM</a>
+    <a href="../suggest/">Suggest a correction / Add equipment</a>
+  </header>
+  <main>
+    <h1>Rack power connectivity BOM</h1>
+    <p>Add servers, switches, storage and PDUs. RackMatch uses the catalog where a model is known, and marks everything else as needing verification. It does not treat missing nameplate data as verified.</p>
+
+    <p>
+      <button type="button" id="btn-example">Try Example Rack</button>
+      <button type="button" id="btn-generate">Generate cable BOM</button>
+    </p>
+    <p>Example rack: 12 × Dell PowerEdge R760 (2400 W PSU, catalog), 2 × Cisco switches (model not in catalog), 2 × APC AP8853. Length, colour and labels in the output are sample kit fields.</p>
+
+    <h2>Add equipment</h2>
+    <div class="grid">
+      <div>
+        <label for="eq-catalog">Catalog model</label>
+        <select id="eq-catalog"></select>
+      </div>
+      <div>
+        <label for="eq-type">Equipment type</label>
+        <select id="eq-type">
+          <option value="server">Server</option>
+          <option value="switch">Network switch</option>
+          <option value="storage">Storage</option>
+          <option value="pdu">PDU</option>
+        </select>
+      </div>
+      <div>
+        <label for="eq-mfr">Manufacturer</label>
+        <input id="eq-mfr" type="text">
+      </div>
+      <div>
+        <label for="eq-model">Model</label>
+        <input id="eq-model" type="text">
+      </div>
+      <div>
+        <label for="eq-qty">Quantity</label>
+        <input id="eq-qty" type="number" min="1" value="1">
+      </div>
+      <div>
+        <label for="eq-u">Rack U position</label>
+        <input id="eq-u" type="text" placeholder="if known">
+      </div>
+      <div>
+        <label for="eq-inlet">Power inlet</label>
+        <select id="eq-inlet">
+          <option value="">if known</option>
+          <option value="C14">C14</option>
+          <option value="C20">C20</option>
+        </select>
+      </div>
+      <div>
+        <label for="eq-watt">PSU wattage</label>
+        <input id="eq-watt" type="text" placeholder="if known">
+      </div>
+      <div>
+        <label for="eq-psu-count">PSU count</label>
+        <input id="eq-psu-count" type="number" min="0" max="8" placeholder="if known">
+      </div>
+      <div>
+        <label for="eq-pdu">PDU model</label>
+        <select id="eq-pdu"></select>
+      </div>
+      <div>
+        <label for="eq-feed">A/B feed</label>
+        <select id="eq-feed">
+          <option value="">split A/B if two PSUs</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+        </select>
+      </div>
+    </div>
+    <p>
+      <button type="button" id="btn-add">Add to rack BOM</button>
+    </p>
+    <p id="add-status"></p>
+
+    <h2>Equipment BOM</h2>
+    <div class="table-wrap">
+      <table class="bom-table">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Manufacturer</th>
+            <th>Model</th>
+            <th>Qty</th>
+            <th>U</th>
+            <th>Inlet</th>
+            <th>Wattage</th>
+            <th>PDU</th>
+            <th>Feed</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="bom-lines"></tbody>
+      </table>
+    </div>
+
+    <div id="bom-result" hidden></div>
+
+    <div id="quote-block" hidden>
+      <h2>Request rack kit quote</h2>
+      <p>Request a quote for a complete ready-to-install rack cable kit.</p>
+      <form id="quote" action="#" method="post">
+        <label for="q-name">Name</label>
+        <input id="q-name" type="text" required>
+        <label for="q-company">Company</label>
+        <input id="q-company" type="text" required>
+        <label for="q-email">Email</label>
+        <input id="q-email" type="email" required>
+        <label for="q-country">Country</label>
+        <input id="q-country" type="text" required>
+        <label for="q-racks">Rack quantity</label>
+        <input id="q-racks" type="number" min="1" value="1" required>
+        <label for="q-date">Target installation date</label>
+        <input id="q-date" type="date">
+        <label for="q-notes">Notes</label>
+        <textarea id="q-notes"></textarea>
+        <div class="hp" aria-hidden="true">
+          <label for="q-hp">Company website</label>
+          <input id="q-hp" type="text" tabindex="-1" autocomplete="off">
+        </div>
+        <div>
+          <button type="submit">Request Rack Kit Quote</button>
+        </div>
+      </form>
+      <p id="quote-status" hidden></p>
+    </div>
+  </main>
+  <script src="../js/match.js"></script>
+  <script src="../js/bom.js"></script>
+</body>
+</html>

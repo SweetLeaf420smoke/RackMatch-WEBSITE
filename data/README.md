@@ -16,7 +16,7 @@ Vercel also runs the same command on every deploy (`vercel.json`).
 
 ## Add a server or PDU
 
-Confirm inlet/outlets from the vendor page. Add the JSON object (`id` is stable). Find on the homepage uses it as soon as JSON is live.
+Confirm inlet/outlets from the vendor page. Add the JSON object (`id` is stable). Find on the homepage uses it as soon as JSON is live. `/bom/` builds a rack power-cable BOM from the same JSON plus `js/match.js` / `js/bom.js`. Unknown models stay Needs verification.
 
 Do not invent counts. If the source is unclear, skip the model.
 
