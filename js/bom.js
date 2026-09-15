@@ -487,7 +487,7 @@
         catalog_id: "dell-r760-2400",
         manufacturer: "Dell",
         model: "PowerEdge R760",
-        qty: 12,
+        qty: 6,
         u_pos: "1",
         inlet: "",
         wattage: "2400 W (catalog)",
