@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Upload Spec / RFQ | RackMatch</title>
+  <meta name="description" content="Upload a rack specification PDF or paste RFQ text. RackMatch extracts equipment against the existing catalog and flags anything that needs verification.">
+  <meta name="robots" content="index, follow">
+  <meta name="google-site-verification" content="Op8AESilG-2JBeSHhb3C3REZSKV5EnoilcB01g9pOek">
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+   (function(m,e,t,r,i,k,a){
+    m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+   })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=112306015', 'ym');
+   ym(112306015, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/112306015" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PPCCYQHCFD"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PPCCYQHCFD');
+  </script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E">
+  <link rel="canonical" href="https://rackmatch.vercel.app/rfq/">
+  <link rel="stylesheet" href="../pair.css">
+  <style>
+    header, main { max-width: 1100px; }
+    .table-wrap { overflow-x: auto; margin: 12px 0; }
+    .bom-table { font-size: 13px; width: 100%; }
+    .bom-table th, .bom-table td { border: 1px solid #ccc; padding: 4px 6px; text-align: left; vertical-align: top; }
+    .bom-table th { background: #f4f4f4; }
+    button { margin-right: 8px; }
+    #spec-text { min-height: 180px; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="../">home</a>
+    <a href="../bom/">Build Rack BOM</a>
+    <a href="./">Upload Spec / RFQ</a>
+    <a href="../suggest/">Suggest a correction / Add equipment</a>
+  </header>
+  <main>
+    <h1>Upload Spec / RFQ</h1>
+    <p>Paste the specification or upload a PDF. Matching uses only the RackMatch catalog. Unknown models, missing PSU data, prices and stock are not invented. Those rows stay Needs verification.</p>
+
+    <h2>Specification</h2>
+    <label for="spec-file">PDF or text file</label>
+    <input id="spec-file" type="file" accept=".pdf,.txt,.text,.md,application/pdf,text/plain">
+    <p id="file-status"></p>
+    <label for="spec-text">Or paste text</label>
+    <textarea id="spec-text" placeholder="Example: 6 x Dell PowerEdge R760, 2 x Cisco C9300, 2 x APC AP8853"></textarea>
+    <p>
+      <button type="button" id="btn-extract">Extract requirements</button>
+    </p>
+    <p id="extract-status"></p>
+
+    <div id="rfq-result" hidden>
+      <h2>Extracted requirements</h2>
+      <p>Confirm the rows you want in the BOM Engine. Unconfirmed and Needs verification rows stay here until you check them.</p>
+      <div class="table-wrap">
+        <table class="bom-table">
+          <thead>
+            <tr>
+              <th>Confirm</th>
+              <th>Requirement</th>
+              <th>Suggested product</th>
+              <th>Compliance</th>
+              <th>Alternative</th>
+              <th>Needs verification</th>
+            </tr>
+          </thead>
+          <tbody id="rfq-rows"></tbody>
+        </table>
+      </div>
+      <p>
+        <button type="button" id="btn-to-bom">Send confirmed rows to BOM Engine</button>
+      </p>
+      <p id="bom-status"></p>
+    </div>
+  </main>
+  <script src="../js/match.js"></script>
+  <script src="../js/rfq.js"></script>
+</body>
+</html>

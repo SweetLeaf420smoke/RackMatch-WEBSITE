@@ -26,7 +26,7 @@ Change of address: rackmatch-website.vercel.app → rackmatch.vercel.app, ста
 ## Проверки
 
 - DATA: пары сервер/PDU и ссылки на источники
-- FLOW: главная → Build Rack BOM; Find один сервер + PDU; Feedback
+- FLOW: главная → Build Rack BOM; Upload Spec / RFQ (`/rfq/`) → подтверждённые строки в BOM; Find один сервер + PDU; Feedback
 - UI: белый фон, чёрный/синий текст, без анимаций
 
 ## Как сейчас

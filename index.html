@@ -62,6 +62,7 @@
   <header>
     <a href="./">home</a>
     <a href="./bom/">Build Rack BOM</a>
+    <a href="./rfq/">Upload Spec / RFQ</a>
     <a href="./suggest/">Suggest a correction / Add equipment</a>
   </header>
   <main>
@@ -69,12 +70,14 @@
     <p>Add your servers, switches and PDUs. RackMatch determines the correct connectors, quantities, cable lengths, A/B feeds and compatible power cords for the entire rack.</p>
     <p>
       <a href="./bom/"><button type="button">Build Rack BOM</button></a>
+      <a href="./rfq/"><button type="button">Upload Spec / RFQ</button></a>
       <a href="./bom/?example=1"><button type="button">Try Example Rack</button></a>
     </p>
+    <p>Upload Spec / RFQ reads a PDF or pasted specification, matches models that already exist in this catalog, and marks everything else Needs verification. Confirmed rows can go into Build Rack BOM.</p>
 
     <h2>How it works</h2>
     <div class="flow">
-      Equipment BOM → Power Requirements → Compatibility Validation → Cable BOM → Ready-to-Install Rack Kit
+      Upload Spec / RFQ → Equipment BOM → Power Requirements → Compatibility Validation → Cable BOM → Ready-to-Install Rack Kit
     </div>
 
     <h2>Example rack</h2>

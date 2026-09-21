@@ -605,7 +605,22 @@
       }, "— catalog model (optional) —");
       fillSelect(document.getElementById("eq-pdu"), CATALOG.pdus, pduLabel, "— assign PDU (optional) —");
       renderLines();
-      if (/[?&]example=1/.test(location.search)) exampleRack();
+      var imported = false;
+      try {
+        var raw = sessionStorage.getItem("rackmatch_rfq_bom");
+        if (raw) {
+          var extra = JSON.parse(raw);
+          sessionStorage.removeItem("rackmatch_rfq_bom");
+          if (extra && extra.length) {
+            lines = lines.concat(extra);
+            imported = true;
+            renderLines();
+            document.getElementById("add-status").textContent =
+              "Loaded " + extra.length + " confirmed row(s) from Upload Spec / RFQ.";
+          }
+        }
+      } catch (err) {}
+      if (!imported && /[?&]example=1/.test(location.search)) exampleRack();
     })
     .catch(function () {
       document.getElementById("add-status").textContent = "Catalog failed to load.";
