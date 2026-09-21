@@ -2,6 +2,9 @@
   var SERVERS = [];
   var PDUS = [];
   var rows = [];
+  var lastFileName = "";
+  var FORM =
+    "https://docs.google.com/forms/d/e/1FAIpQLSd7v9wX0zoeXfHHpWcfSLQpzAq0Ny8grFns6fhFI31FqM6cAw/formResponse";
 
   function esc(s) {
     return String(s == null ? "" : s)
@@ -347,6 +350,59 @@
     return out;
   }
 
+  function catalogFields() {
+    var servers = [];
+    var pdus = [];
+    for (var i = 0; i < rows.length; i++) {
+      var b = rows[i].bom;
+      if (!b || !b.catalog_id) continue;
+      var label = ((b.manufacturer || "") + " " + (b.model || "")).replace(/^\s+|\s+$/g, "");
+      if (b.eq_type === "pdu") pdus.push(label);
+      else servers.push(label);
+    }
+    return {
+      server: servers.join("; ").slice(0, 200) || "rfq",
+      pdu: pdus.join("; ").slice(0, 200) || "rfq-log"
+    };
+  }
+
+  function rowLogLine(r) {
+    return (
+      r.requirement +
+      " | " +
+      r.suggested +
+      " | needs=" +
+      r.needs +
+      (r.needs_reason ? " (" + r.needs_reason + ")" : "")
+    );
+  }
+
+  function postRfqLog(kind, extra) {
+    var fields = catalogFields();
+    var lines = [
+      kind,
+      "File: " + (lastFileName || "(pasted text)"),
+      "Chars: " + extra.chars,
+      "Rows: " + rows.length
+    ];
+    var max = Math.min(rows.length, 20);
+    for (var i = 0; i < max; i++) lines.push(rowLogLine(rows[i]));
+    if (rows.length > 20) lines.push("(" + (rows.length - 20) + " more rows not listed)");
+    if (extra.note) lines.push(extra.note);
+    var body = new URLSearchParams();
+    body.set("entry.389100888", lines.join("\n").slice(0, 8000));
+    body.set("entry.1165317586", "");
+    body.set("entry.563611403", window.location.href);
+    body.set("entry.770004551", fields.server);
+    body.set("entry.341373274", fields.pdu);
+    return fetch(FORM, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: body.toString()
+    });
+  }
+
   function render() {
     var tbody = document.getElementById("rfq-rows");
     tbody.innerHTML = "";
@@ -425,13 +481,16 @@
     }
     rows = buildRows(text);
     render();
-    document.getElementById("extract-status").textContent = "Extracted " + rows.length + " row(s) from the catalog match. No prices or stock.";
+    document.getElementById("extract-status").textContent =
+      "Extracted " + rows.length + " row(s) from the catalog match. No prices or stock.";
+    postRfqLog("RFQ EXTRACT", { chars: text.length }).catch(function () {});
   }
 
   document.getElementById("spec-file").addEventListener("change", function (e) {
     var f = e.target.files && e.target.files[0];
     var status = document.getElementById("file-status");
     if (!f) return;
+    lastFileName = f.name || "";
     var name = f.name.toLowerCase();
     if (name.slice(-4) === ".pdf" || f.type === "application/pdf") {
       status.textContent = "Reading PDF…";
@@ -480,7 +539,15 @@
       st.textContent = "Could not store the BOM lines in this browser.";
       return;
     }
-    window.location.href = "../bom/";
+    var text = document.getElementById("spec-text").value || "";
+    st.textContent = "Sending log, then opening BOM…";
+    postRfqLog("RFQ TO BOM", { chars: text.length, note: "Confirmed to BOM: " + lines.length })
+      .then(function () {
+        window.location.href = "../bom/";
+      })
+      .catch(function () {
+        window.location.href = "../bom/";
+      });
   });
 
   fetch("../data/equipment.json")
