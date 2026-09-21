@@ -191,19 +191,79 @@
     return { manufacturer: parts[0], model: parts.slice(1).join(" ") };
   }
 
+  function isBatteryMultiplier(text, matchIndex, matchLen) {
+    var rest = text.slice(matchIndex + matchLen).replace(/^\s+/, "");
+    return /^\d{1,4}\s*V(?:DC)?\s*\d+(?:\.\d+)?\s*Ah/i.test(rest);
+  }
+
+  function findItemStarts(text) {
+    var starts = [];
+    function add(index) {
+      if (index == null || index < 0) return;
+      for (var i = 0; i < starts.length; i++) {
+        if (Math.abs(starts[i] - index) <= 1) return;
+      }
+      starts.push(index);
+    }
+    function precededByQtyX(index) {
+      return /\d{1,4}\s*[x×]\s*$/i.test(text.slice(Math.max(0, index - 14), index));
+    }
+
+    var m;
+    var reQty = /(\d{1,4})\s*[x×]\s*/gi;
+    while ((m = reQty.exec(text))) {
+      if (isBatteryMultiplier(text, m.index, m[0].length)) continue;
+      add(m.index);
+    }
+
+    var rePower = /(\d+(?:[.,]\d+)?)\s*(kVA|kW)\s+(UPS|PDU)s?\b/gi;
+    while ((m = rePower.exec(text))) {
+      if (precededByQtyX(m.index)) continue;
+      add(m.index);
+    }
+
+    var reAmp = /(\d+(?:[.,]\d+)?)\s*A\s+(?:incomer\s+)?MCCBs?\b/gi;
+    while ((m = reAmp.exec(text))) {
+      if (precededByQtyX(m.index)) continue;
+      add(m.index);
+    }
+
+    var reStand = /(?:^|[,\n;+]|\band\b)\s*(Type\s+(?:1|2|I|II)\s+SPD|SPD\b|multifunction\s+energy\s+meter|(?:multifunction\s+)?energy\s+meter)/gi;
+    while ((m = reStand.exec(text))) {
+      var inner = m[0].search(/Type\s+|SPD\b|multifunction|energy\s+meter/i);
+      add(m.index + (inner < 0 ? 0 : inner));
+    }
+
+    starts.sort(function (a, b) {
+      return a - b;
+    });
+    return starts;
+  }
+
   function splitChunks(text) {
     var t = String(text || "").replace(/\r\n/g, "\n").replace(/\r/g, "\n");
     t = t.replace(/[•·]/g, "\n");
-    var parts = [];
-    var lines = t.split("\n");
-    for (var i = 0; i < lines.length; i++) {
-      var line = lines[i].replace(/^\s+|\s+$/g, "");
-      if (!line) continue;
-      var bits = line.split(/\s*[,;]\s*(?=\d{1,4}\s*[x×])/i);
-      for (var b = 0; b < bits.length; b++) {
-        var bit = bits[b].replace(/^\s+|\s+$/g, "");
-        if (bit) parts.push(bit);
+    var starts = findItemStarts(t);
+    if (!starts.length) {
+      var lineParts = [];
+      var lines = t.split("\n");
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i].replace(/^\s+|\s+$/g, "");
+        if (!line) continue;
+        var bits = line.split(/\s*[,;]\s*(?=\d{1,4}\s*[x×])/i);
+        for (var b = 0; b < bits.length; b++) {
+          var bit = bits[b].replace(/^\s+|\s+$/g, "");
+          if (bit) lineParts.push(bit);
+        }
       }
+      return lineParts.length ? lineParts : [t.replace(/^\s+|\s+$/g, "")];
+    }
+    var parts = [];
+    for (var s = 0; s < starts.length; s++) {
+      var from = s === 0 ? 0 : starts[s];
+      var to = s + 1 < starts.length ? starts[s + 1] : t.length;
+      var chunk = t.slice(from, to).replace(/^\s*[,;+]+\s*|\s+$/g, "").replace(/^\band\s+/i, "");
+      if (chunk) parts.push(chunk);
     }
     return parts;
   }
@@ -212,6 +272,9 @@
     var n = text.toLowerCase();
     if (/\buninterruptible power|\bups\b/.test(n)) return "ups";
     if (/\bpower distribution unit|\bpdu\b/.test(n)) return "pdu";
+    if (/\bmccbs?\b|\bincomer\b|\boutgoing\b|\bbreaker\b/.test(n)) return "mccb";
+    if (/\bspd\b|surge\s+protect/.test(n)) return "spd";
+    if (/\benergy\s+meter|\bkwh\s+meter|\bmultifunction\s+meter/.test(n)) return "meter";
     if (/\bgenerator|\bgenset\b/.test(n)) return "generator";
     if (/\bautomatic transfer|\bats\b/.test(n)) return "ats";
     if (/\bstorage\b|\bsan\b|\bnas\b/.test(n)) return "storage";
@@ -223,24 +286,52 @@
   function parseChunk(chunk) {
     var rec = {
       source: chunk,
-      qty: 1,
+      qty: "",
       eq_type: "",
       power: "",
       voltage: "",
+      input_voltage: "",
+      output_voltage: "",
       phase: "",
+      frequency: "",
       topology: "",
       battery: "",
+      battery_qty: "",
+      battery_voltage: "",
+      battery_ah: "",
       backup: "",
+      current_rating: "",
+      efficiency: "",
+      load_condition: "",
+      manufacturer_pref: "",
+      approved_equivalent: "",
+      monitoring: "",
+      installation: "",
+      commissioning: "",
+      maintenance_term: "",
+      accessories: "",
       mandatory: [],
       optional: []
     };
-    var qtyM = chunk.match(/^(\d{1,4})\s*[x×]\s*/i);
     var body = chunk;
-    if (qtyM) {
+
+    var batt = body.match(/(\d{1,4})\s*[x×]\s*(\d{1,4})\s*V(?:DC)?\s*(\d+(?:\.\d+)?)\s*Ah/i);
+    if (batt) {
+      rec.battery_qty = batt[1];
+      rec.battery_voltage = batt[2] + " V";
+      rec.battery_ah = batt[3] + " Ah";
+      body = body.replace(batt[0], " ");
+    }
+
+    var qtyM;
+    var reQty = /(\d{1,4})\s*[x×]\s*/gi;
+    while ((qtyM = reQty.exec(body))) {
+      if (isBatteryMultiplier(body, qtyM.index, qtyM[0].length)) continue;
       rec.qty = parseInt(qtyM[1], 10);
-      body = chunk.slice(qtyM[0].length);
-    } else {
-      var q2 = chunk.match(/\b(?:qty|quantity)\s*[:#]?\s*(\d{1,4})\b/i);
+      break;
+    }
+    if (rec.qty === "") {
+      var q2 = body.match(/\b(?:qty|quantity)\s*[:#]?\s*(\d{1,4})\b/i);
       if (q2) rec.qty = parseInt(q2[1], 10);
     }
 
@@ -249,8 +340,22 @@
     var pm = body.match(/(\d+(?:[.,]\d+)?)\s*(kVA|kW|VA|W)\b/i);
     if (pm) rec.power = pm[1].replace(",", ".") + " " + pm[2];
 
-    var vm = body.match(/(\d{2,4}(?:\s*[\/-]\s*\d{2,4})?)\s*V(?:AC|DC)?\b/i);
-    if (vm) rec.voltage = vm[0].replace(/\s+/g, " ");
+    var amp = body.match(/(\d+(?:[.,]\d+)?)\s*A\b/i);
+    if (amp && (rec.eq_type === "mccb" || rec.eq_type === "spd" || /\bmccb\b|\bincomer\b|\boutgoing\b/i.test(chunk))) {
+      rec.current_rating = amp[1].replace(",", ".") + " A";
+    }
+
+    var inV = body.match(/\binput(?:\s+voltage)?\s*[:=]?\s*(\d{2,4}(?:\s*[\/-]\s*\d{2,4})?\s*V(?:AC|DC)?)/i);
+    if (inV) rec.input_voltage = inV[1].replace(/\s+/g, " ");
+    var outV = body.match(/\boutput(?:\s+voltage)?\s*[:=]?\s*(\d{2,4}(?:\s*[\/-]\s*\d{2,4})?\s*V(?:AC|DC)?)/i);
+    if (outV) rec.output_voltage = outV[1].replace(/\s+/g, " ");
+    if (!rec.input_voltage && !rec.output_voltage) {
+      var vm = body.match(/(\d{2,4}(?:\s*[\/-]\s*\d{2,4})?)\s*V(?:AC|DC)?\b/i);
+      if (vm) rec.voltage = vm[0].replace(/\s+/g, " ");
+    }
+
+    var hz = body.match(/(\d{2,3})\s*Hz\b/i);
+    if (hz) rec.frequency = hz[1] + " Hz";
 
     if (/3[\s-]*ph(?:ase)?|three[\s-]*phase/i.test(body)) rec.phase = "3-phase";
     else if (/1[\s-]*ph(?:ase)?|single[\s-]*phase/i.test(body)) rec.phase = "1-phase";
@@ -271,11 +376,54 @@
     var bm = body.match(/(\d+(?:[.,]\d+)?)\s*(minutes?|mins?|hours?|hrs?|h)\b/i);
     if (bm && (/backup|runtime|autonomy|endur/i.test(body) || rec.eq_type === "ups" || /\bups\b/i.test(body))) {
       var unit = bm[2].toLowerCase();
-      if (unit.charAt(0) === "h") unit = unit.indexOf("r") !== -1 ? "h" : "h";
       if (/^min/.test(unit)) unit = "min";
       else if (/^h/.test(unit)) unit = "h";
       rec.backup = bm[1].replace(",", ".") + " " + unit;
     }
+
+    var eff = body.match(/(?:efficiency|eff\.?)\s*(?:of\s*)?(?:≥|>=|min(?:imum)?\.?\s*)?(\d+(?:\.\d+)?)\s*%/i);
+    if (!eff) eff = body.match(/(\d+(?:\.\d+)?)\s*%\s*(?:efficiency|eff\.?)/i);
+    if (eff) rec.efficiency = (/≥|>=/.test(body) ? "≥" : "") + eff[1] + "%";
+
+    var load = body.match(/(?:load(?:\s+condition)?\s*(?:of\s+)?)(\d+(?:\.\d+)?)\s*%/i);
+    if (!load) load = body.match(/(\d+(?:\.\d+)?)\s*%\s*load/i);
+    if (load) rec.load_condition = load[1] + "%";
+
+    var brand = body.match(/\b(?:preferred\s+(?:manufacturer|brand|supplier)|manufacturer\s+preference|manufacturer)\s*:?\s*([A-Za-z][A-Za-z0-9 .\/-]{1,40}?)(?=[,.;]|$|\s+and\s)/i);
+    if (!brand) brand = body.match(/\bprefer(?:red)?\s+([A-Z][A-Za-z0-9 .\/-]{1,30})/);
+    if (brand) rec.manufacturer_pref = brand[1].replace(/^\s+|\s+$/g, "");
+
+    if (/approved\s+equivalent|or\s+equivalent|or\s+approved\s+equal/i.test(body)) {
+      var eqm = body.match(/((?:approved\s+equivalent|or\s+equivalent|or\s+approved\s+equal)[^,.;]*)/i);
+      rec.approved_equivalent = eqm ? eqm[1].replace(/^\s+|\s+$/g, "") : "approved equivalent";
+    }
+
+    var proto = [];
+    if (/\bSNMP\b/i.test(body)) proto.push("SNMP");
+    if (/\bModbus\b/i.test(body)) proto.push("Modbus");
+    if (/\bBACnet\b/i.test(body)) proto.push("BACnet");
+    rec.monitoring = proto.join(", ");
+
+    if (/\binstallation\b/i.test(body)) {
+      var inst = body.match(/([^,.;]*installation[^,.;]*)/i);
+      rec.installation = inst ? inst[1].replace(/^\s+|\s+$/g, "") : "installation";
+    }
+    if (/\bcommissioning\b/i.test(body)) {
+      var com = body.match(/([^,.;]*commissioning[^,.;]*)/i);
+      rec.commissioning = com ? com[1].replace(/^\s+|\s+$/g, "") : "commissioning";
+    }
+    var maint = body.match(/(\d+)\s*(year|yr|month|mo)s?\s+maintenance/i);
+    if (!maint) maint = body.match(/maintenance\s+(?:term|period|for)?\s*:?\s*(\d+)\s*(year|yr|month|mo)s?/i);
+    if (maint) rec.maintenance_term = maint[1] + " " + maint[2];
+    else if (/\bmaintenance\b/i.test(body) && !/maintenance\s+bypass/i.test(body)) {
+      var mt = body.match(/([^,.;]*maintenance[^,.;]*)/i);
+      rec.maintenance_term = mt ? mt[1].replace(/^\s+|\s+$/g, "") : "";
+    }
+
+    var acc = [];
+    if (/maintenance\s+bypass/i.test(body)) acc.push("maintenance bypass");
+    if (/internal\s+bypass/i.test(body)) acc.push("internal bypass");
+    rec.accessories = acc.join("; ");
 
     if (/\bmodular\b/i.test(body)) rec.mandatory.push("modular");
     if (/\bredundant\b|\bn\+1\b/i.test(body)) rec.mandatory.push("redundant");
@@ -299,7 +447,20 @@
 
   function isSpecRow(rec, catalogHits, vendor) {
     if (catalogHits.length || vendor) return true;
-    if (rec.eq_type || rec.power || rec.voltage || rec.phase || rec.topology || rec.battery || rec.backup) {
+    if (
+      rec.eq_type ||
+      rec.power ||
+      rec.voltage ||
+      rec.phase ||
+      rec.topology ||
+      rec.battery ||
+      rec.backup ||
+      rec.current_rating ||
+      rec.frequency ||
+      rec.battery_qty ||
+      rec.monitoring ||
+      rec.accessories
+    ) {
       return true;
     }
     return false;
@@ -309,17 +470,38 @@
     return arr && arr.length ? arr.join("; ") : "";
   }
 
+  function qtyPrefix(qty) {
+    if (qty === "" || qty == null) return "";
+    return qty + " × ";
+  }
+
   function requirementLabel(rec, catalogHits, vendor) {
     if (catalogHits.length) {
       var hit = catalogHits[0];
       var name = hit.kind === "pdu" ? pduLabel(hit.item) : serverLabel(hit.item);
-      return rec.qty + " × " + name;
+      return qtyPrefix(rec.qty) + name;
     }
-    if (vendor) return rec.qty + " × " + vendor.name;
-    var bits = [rec.qty + " ×"];
+    if (vendor) return qtyPrefix(rec.qty) + vendor.name;
+    var bits = [];
+    if (rec.qty !== "" && rec.qty != null) bits.push(rec.qty + " ×");
     if (rec.power) bits.push(rec.power);
-    if (rec.eq_type) bits.push(rec.eq_type.toUpperCase());
-    else bits.push(rec.source);
+    if (rec.current_rating) bits.push(rec.current_rating);
+    if (rec.eq_type === "spd") {
+      var spd = rec.source.match(/Type\s+(?:1|2|I|II)\s+SPD/i);
+      bits.push(spd ? spd[0].replace(/\s+/g, " ") : "SPD");
+    } else if (rec.eq_type === "meter") {
+      bits.push(/multifunction/i.test(rec.source) ? "multifunction energy meter" : "energy meter");
+    } else if (rec.eq_type === "mccb") {
+      if (/outgoing/i.test(rec.source)) bits.push("outgoing MCCB");
+      else if (/incomer/i.test(rec.source)) bits.push("incomer MCCB");
+      else bits.push("MCCB");
+    } else if (rec.eq_type === "ups") {
+      bits.push("UPS");
+    } else if (rec.eq_type) {
+      bits.push(rec.eq_type.toUpperCase());
+    } else if (!bits.length) {
+      bits.push(rec.source);
+    }
     return bits.join(" ");
   }
 
@@ -490,10 +672,26 @@
     row.qty = rec.qty;
     row.power = rec.power;
     row.voltage = rec.voltage;
+    row.input_voltage = rec.input_voltage;
+    row.output_voltage = rec.output_voltage;
     row.phase = rec.phase;
+    row.frequency = rec.frequency;
     row.topology = rec.topology;
     row.battery = rec.battery;
+    row.battery_qty = rec.battery_qty;
+    row.battery_voltage = rec.battery_voltage;
+    row.battery_ah = rec.battery_ah;
     row.backup = rec.backup;
+    row.current_rating = rec.current_rating;
+    row.efficiency = rec.efficiency;
+    row.load_condition = rec.load_condition;
+    row.manufacturer_pref = rec.manufacturer_pref;
+    row.approved_equivalent = rec.approved_equivalent;
+    row.monitoring = rec.monitoring;
+    row.installation = rec.installation;
+    row.commissioning = rec.commissioning;
+    row.maintenance_term = rec.maintenance_term;
+    row.accessories = rec.accessories;
     row.mandatory = joinList(rec.mandatory);
     row.optional = joinList(rec.optional);
     return row;
@@ -519,8 +717,8 @@
       var local = findCatalogHits(chunk);
       var vendorHits = findUnknownVendor(chunk, local.used.slice());
       if (!isSpecRow(rec, local.hits, vendorHits[0])) continue;
-      if (local.hits.length && rec.qty === 1 && local.hits[0].qty) rec.qty = local.hits[0].qty;
-      if (vendorHits[0] && rec.qty === 1) rec.qty = vendorHits[0].qty;
+      if (local.hits.length && (rec.qty === "" || rec.qty == null) && local.hits[0].qty) rec.qty = local.hits[0].qty;
+      if (vendorHits[0] && (rec.qty === "" || rec.qty == null)) rec.qty = vendorHits[0].qty;
       if (local.hits.length && !rec.eq_type) {
         rec.eq_type = local.hits[0].kind === "pdu" ? "pdu" : local.hits[0].item.equipment_type || "server";
       }
@@ -584,6 +782,9 @@
       "type=" + (r.eq_type || ""),
       "qty=" + (r.qty || ""),
       "power=" + (r.power || ""),
+      "freq=" + (r.frequency || ""),
+      "batt=" + [r.battery_qty, r.battery_voltage, r.battery_ah].filter(Boolean).join(" "),
+      "mon=" + (r.monitoring || ""),
       "suggested=" + r.suggested,
       "needs=" + r.needs + (r.needs_reason ? " (" + r.needs_reason + ")" : "")
     ].join(" | ");
@@ -637,15 +838,47 @@
         "</td><td>" +
         esc(r.power) +
         "</td><td>" +
+        esc(r.current_rating) +
+        "</td><td>" +
         esc(r.voltage) +
         "</td><td>" +
+        esc(r.input_voltage) +
+        "</td><td>" +
+        esc(r.output_voltage) +
+        "</td><td>" +
         esc(r.phase) +
+        "</td><td>" +
+        esc(r.frequency) +
         "</td><td>" +
         esc(r.topology) +
         "</td><td>" +
         esc(r.battery) +
         "</td><td>" +
+        esc(r.battery_qty) +
+        "</td><td>" +
+        esc(r.battery_voltage) +
+        "</td><td>" +
+        esc(r.battery_ah) +
+        "</td><td>" +
         esc(r.backup) +
+        "</td><td>" +
+        esc(r.efficiency) +
+        "</td><td>" +
+        esc(r.load_condition) +
+        "</td><td>" +
+        esc(r.manufacturer_pref) +
+        "</td><td>" +
+        esc(r.approved_equivalent) +
+        "</td><td>" +
+        esc(r.monitoring) +
+        "</td><td>" +
+        esc(r.installation) +
+        "</td><td>" +
+        esc(r.commissioning) +
+        "</td><td>" +
+        esc(r.maintenance_term) +
+        "</td><td>" +
+        esc(r.accessories) +
         "</td><td>" +
         esc(r.mandatory) +
         "</td><td>" +
