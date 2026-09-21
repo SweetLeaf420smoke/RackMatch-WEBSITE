@@ -49,7 +49,7 @@
   </header>
   <main>
     <h1>Upload Spec / RFQ</h1>
-    <p>Paste the specification or upload a PDF. Matching uses only the RackMatch catalog. Unknown models, missing PSU data, prices and stock are not invented. Those rows stay Needs verification.</p>
+    <p>Paste the specification or upload a PDF. The parser first reads equipment type, quantity, power, voltage, phase, topology, battery and backup from the wording. After that it tries the RackMatch catalog. If nothing in the catalog fits, the requirement stays and is marked Needs verification / No catalog match. Models and missing specs are not invented.</p>
     <p>Extract and send-to-BOM each write a short log to the same Feedback sheet: file name, character count, models and quantities. The PDF itself is not uploaded.</p>
 
     <h2>Specification</h2>
@@ -57,7 +57,7 @@
     <input id="spec-file" type="file" accept=".pdf,.txt,.text,.md,application/pdf,text/plain">
     <p id="file-status"></p>
     <label for="spec-text">Or paste text</label>
-    <textarea id="spec-text" placeholder="Example: 6 x Dell PowerEdge R760, 2 x Cisco C9300, 2 x APC AP8853"></textarea>
+    <textarea id="spec-text" placeholder="Example: 2x120kVA modular 3-phase online UPS with 20 min VRLA backup"></textarea>
     <p>
       <button type="button" id="btn-extract">Extract requirements</button>
     </p>
@@ -72,6 +72,16 @@
             <tr>
               <th>Confirm</th>
               <th>Requirement</th>
+              <th>Equipment type</th>
+              <th>Qty</th>
+              <th>Power rating</th>
+              <th>Voltage</th>
+              <th>Phase</th>
+              <th>Topology</th>
+              <th>Battery type</th>
+              <th>Backup time</th>
+              <th>Mandatory</th>
+              <th>Optional</th>
               <th>Suggested product</th>
               <th>Compliance</th>
               <th>Alternative</th>

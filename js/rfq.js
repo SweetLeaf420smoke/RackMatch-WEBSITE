@@ -119,14 +119,16 @@
         hits.push({
           kind: n.kind,
           item: n.item,
-          qty: qtyNear(text, start, end)
+          qty: qtyNear(text, start, end),
+          start: start,
+          end: end
         });
       }
     }
     return { hits: hits, used: used };
   }
 
-  function findUnknown(text, used) {
+  function findUnknownVendor(text, used) {
     var out = [];
     var re =
       /(\d{1,4})\s*[x×]\s+((?:Dell|HPE|HP|Lenovo|Supermicro|Cisco|NVIDIA|Juniper|Arista|APC|Eaton|Raritan|Schneider|NetApp|IBM)(?:[\t ]+[A-Za-z0-9._\/-]+){0,8}?)(?=\s+\d{1,4}\s*[x×]|\s*$|[,;\n])/gi;
@@ -172,180 +174,387 @@
     return names;
   }
 
-  function guessType(name) {
-    var n = name.toLowerCase();
+  function guessTypeFromName(name) {
+    var n = (name || "").toLowerCase();
+    if (/\bups\b|uninterruptible/.test(n)) return "ups";
     if (/\bpdu\b|apc|raritan|eaton|netshelter/.test(n)) return "pdu";
-    if (/switch|nexus|catalyst|arista|juniper/.test(n)) return "switch";
+    if (/switch|nexus|catalyst|arista|juniper|\bcisco\b/.test(n)) return "switch";
     if (/storage|netapp|powervault|isilon/.test(n)) return "storage";
+    if (/generator|genset/.test(n)) return "generator";
+    if (/\bats\b|transfer switch/.test(n)) return "ats";
     return "server";
   }
 
   function splitMfrModel(name) {
-    var parts = name.split(/\s+/);
-    if (parts.length < 2) return { manufacturer: "", model: name };
+    var parts = (name || "").split(/\s+/);
+    if (parts.length < 2) return { manufacturer: "", model: name || "" };
     return { manufacturer: parts[0], model: parts.slice(1).join(" ") };
   }
 
-  function buildRows(text) {
-    var found = findCatalogHits(text);
-    var unknown = findUnknown(text, found.used);
-    var out = [];
-    var catalogPdusInSpec = [];
-    var i;
-    for (i = 0; i < found.hits.length; i++) {
-      if (found.hits[i].kind === "pdu") catalogPdusInSpec.push(found.hits[i].item);
-    }
-
-    for (i = 0; i < found.hits.length; i++) {
-      var hit = found.hits[i];
-      var item = hit.item;
-      var req = hit.qty + " × " + (hit.kind === "pdu" ? pduLabel(item) : serverLabel(item));
-      var compliance = "";
-      var alt = "";
-      var needs = "No";
-      var reason = "";
-
-      if (hit.kind === "server") {
-        var inlet = RackMatch.inletOf(item);
-        compliance =
-          "In catalog. PSU inlet " +
-          inlet +
-          ". Voltage " +
-          RackMatch.volt(item) +
-          ". Current " +
-          RackMatch.amp(item) +
-          ".";
-        if (item.pair_note) {
-          compliance += " " + item.pair_note;
-          needs = "Yes";
-          reason = "Catalog nameplate note";
-        }
-        if (item.nameplate_note) {
-          needs = "Yes";
-          reason = reason || "Catalog nameplate note";
-        }
-        var alts = otherServers(item.id, inlet);
-        var pduAlts = pduAlternatives(item);
-        var altParts = [];
-        if (alts.length) altParts.push("Other catalog servers with the same inlet: " + alts.join("; "));
-        if (pduAlts.length) altParts.push("Catalog PDUs that match this inlet: " + pduAlts.join("; "));
-        alt = altParts.length ? altParts.join(". ") : "None in this catalog";
-        if (catalogPdusInSpec.length) {
-          var notes = [];
-          for (var p = 0; p < catalogPdusInSpec.length; p++) {
-            var m = RackMatch.match(item, catalogPdusInSpec[p]);
-            notes.push(
-              pduLabel(catalogPdusInSpec[p]) + ": " + (m.ok ? "Compatible" : "Not compatible") + (m.note ? " (" + m.note + ")" : "")
-            );
-            if (!m.ok) {
-              needs = "Yes";
-              reason = "PDU in this spec is not a standard match";
-            }
-          }
-          compliance += " Spec PDUs: " + notes.join("; ") + ".";
-        }
-        out.push({
-          requirement: req,
-          suggested: serverLabel(item),
-          compliance: compliance,
-          alternative: alt,
-          needs: needs,
-          needs_reason: reason,
-          confirm: needs !== "Yes",
-          bom: {
-            eq_type: item.equipment_type || "server",
-            catalog_id: item.id,
-            manufacturer: item.manufacturer,
-            model: item.model,
-            qty: hit.qty,
-            u_pos: "",
-            inlet: "",
-            wattage: item.id === "dell-r760-2400" ? "2400 W (catalog)" : "",
-            psu_count: "2",
-            pdu_id: "",
-            feed: "",
-            voltage: "",
-            current: ""
-          }
-        });
-      } else {
-        compliance =
-          "In catalog. Outlets " +
-          outletText(item) +
-          ". Voltage " +
-          (item.voltage || "") +
-          ". Current " +
-          (item.current || "") +
-          ".";
-        alt = otherPdus(item.id).join("; ") || "None in this catalog";
-        out.push({
-          requirement: req,
-          suggested: pduLabel(item),
-          compliance: compliance,
-          alternative: alt,
-          needs: "No",
-          needs_reason: "",
-          confirm: true,
-          bom: {
-            eq_type: "pdu",
-            catalog_id: item.id,
-            manufacturer: item.manufacturer,
-            model: item.model,
-            qty: hit.qty,
-            u_pos: "",
-            inlet: "",
-            wattage: "",
-            psu_count: "0",
-            pdu_id: "",
-            feed: "",
-            voltage: "",
-            current: ""
-          }
-        });
+  function splitChunks(text) {
+    var t = String(text || "").replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+    t = t.replace(/[•·]/g, "\n");
+    var parts = [];
+    var lines = t.split("\n");
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i].replace(/^\s+|\s+$/g, "");
+      if (!line) continue;
+      var bits = line.split(/\s*[,;]\s*(?=\d{1,4}\s*[x×])/i);
+      for (var b = 0; b < bits.length; b++) {
+        var bit = bits[b].replace(/^\s+|\s+$/g, "");
+        if (bit) parts.push(bit);
       }
     }
+    return parts;
+  }
 
-    for (i = 0; i < unknown.length; i++) {
-      var u = unknown[i];
-      var sm = splitMfrModel(u.name);
-      var t = guessType(u.name);
-      out.push({
-        requirement: u.qty + " × " + u.name,
-        suggested: "Not in catalog",
-        compliance: "Needs verification. This model is not in the RackMatch catalog.",
-        alternative: "None from catalog",
-        needs: "Yes",
-        needs_reason: "Unknown model",
-        confirm: false,
+  function detectType(text) {
+    var n = text.toLowerCase();
+    if (/\buninterruptible power|\bups\b/.test(n)) return "ups";
+    if (/\bpower distribution unit|\bpdu\b/.test(n)) return "pdu";
+    if (/\bgenerator|\bgenset\b/.test(n)) return "generator";
+    if (/\bautomatic transfer|\bats\b/.test(n)) return "ats";
+    if (/\bstorage\b|\bsan\b|\bnas\b/.test(n)) return "storage";
+    if (/\bswitch|\bnexus|\bcatalyst|\bcisco\b/.test(n)) return "switch";
+    if (/\bserver|\bpoweredge|\bproliant|\bthinksystem\b/.test(n)) return "server";
+    return "";
+  }
+
+  function parseChunk(chunk) {
+    var rec = {
+      source: chunk,
+      qty: 1,
+      eq_type: "",
+      power: "",
+      voltage: "",
+      phase: "",
+      topology: "",
+      battery: "",
+      backup: "",
+      mandatory: [],
+      optional: []
+    };
+    var qtyM = chunk.match(/^(\d{1,4})\s*[x×]\s*/i);
+    var body = chunk;
+    if (qtyM) {
+      rec.qty = parseInt(qtyM[1], 10);
+      body = chunk.slice(qtyM[0].length);
+    } else {
+      var q2 = chunk.match(/\b(?:qty|quantity)\s*[:#]?\s*(\d{1,4})\b/i);
+      if (q2) rec.qty = parseInt(q2[1], 10);
+    }
+
+    rec.eq_type = detectType(chunk);
+
+    var pm = body.match(/(\d+(?:[.,]\d+)?)\s*(kVA|kW|VA|W)\b/i);
+    if (pm) rec.power = pm[1].replace(",", ".") + " " + pm[2];
+
+    var vm = body.match(/(\d{2,4}(?:\s*[\/-]\s*\d{2,4})?)\s*V(?:AC|DC)?\b/i);
+    if (vm) rec.voltage = vm[0].replace(/\s+/g, " ");
+
+    if (/3[\s-]*ph(?:ase)?|three[\s-]*phase/i.test(body)) rec.phase = "3-phase";
+    else if (/1[\s-]*ph(?:ase)?|single[\s-]*phase/i.test(body)) rec.phase = "1-phase";
+
+    var tops = [];
+    if (/double[\s-]*conversion/i.test(body)) tops.push("double-conversion");
+    if (/\bonline\b/i.test(body)) tops.push("online");
+    if (/line[\s-]*interactive/i.test(body)) tops.push("line-interactive");
+    if (/\boffline\b|\bstandby\b/i.test(body)) tops.push("offline");
+    rec.topology = tops.join(", ");
+
+    if (/\bVRLA\b/i.test(body)) rec.battery = "VRLA";
+    else if (/valve[\s-]*regulated lead/i.test(body)) rec.battery = "VRLA";
+    else if (/li[\s-]*ion|lithium/i.test(body)) rec.battery = "Li-ion";
+    else if (/ni[\s-]*cd|nickel[\s-]*cadmium/i.test(body)) rec.battery = "NiCd";
+    else if (/lead[\s-]*acid/i.test(body)) rec.battery = "lead-acid";
+
+    var bm = body.match(/(\d+(?:[.,]\d+)?)\s*(minutes?|mins?|hours?|hrs?|h)\b/i);
+    if (bm && (/backup|runtime|autonomy|endur/i.test(body) || rec.eq_type === "ups" || /\bups\b/i.test(body))) {
+      var unit = bm[2].toLowerCase();
+      if (unit.charAt(0) === "h") unit = unit.indexOf("r") !== -1 ? "h" : "h";
+      if (/^min/.test(unit)) unit = "min";
+      else if (/^h/.test(unit)) unit = "h";
+      rec.backup = bm[1].replace(",", ".") + " " + unit;
+    }
+
+    if (/\bmodular\b/i.test(body)) rec.mandatory.push("modular");
+    if (/\bredundant\b|\bn\+1\b/i.test(body)) rec.mandatory.push("redundant");
+    var iec = body.match(/\b(C13|C14|C19|C20)\b/gi);
+    if (iec) {
+      var seen = [];
+      for (var i = 0; i < iec.length; i++) {
+        var u = iec[i].toUpperCase();
+        if (seen.indexOf(u) === -1) seen.push(u);
+      }
+      rec.mandatory.push("connectors " + seen.join(", "));
+    }
+
+    var opt = body.match(/\boptional(?:ly)?\s*:?\s*([^.;]+)/i);
+    if (opt) rec.optional.push(opt[1].replace(/^\s+|\s+$/g, ""));
+    var pref = body.match(/\bpreferably\s+([^.;]+)/i);
+    if (pref) rec.optional.push(pref[1].replace(/^\s+|\s+$/g, ""));
+
+    return rec;
+  }
+
+  function isSpecRow(rec, catalogHits, vendor) {
+    if (catalogHits.length || vendor) return true;
+    if (rec.eq_type || rec.power || rec.voltage || rec.phase || rec.topology || rec.battery || rec.backup) {
+      return true;
+    }
+    return false;
+  }
+
+  function joinList(arr) {
+    return arr && arr.length ? arr.join("; ") : "";
+  }
+
+  function requirementLabel(rec, catalogHits, vendor) {
+    if (catalogHits.length) {
+      var hit = catalogHits[0];
+      var name = hit.kind === "pdu" ? pduLabel(hit.item) : serverLabel(hit.item);
+      return rec.qty + " × " + name;
+    }
+    if (vendor) return rec.qty + " × " + vendor.name;
+    var bits = [rec.qty + " ×"];
+    if (rec.power) bits.push(rec.power);
+    if (rec.eq_type) bits.push(rec.eq_type.toUpperCase());
+    else bits.push(rec.source);
+    return bits.join(" ");
+  }
+
+  function catalogRowExtras(hit, rec, catalogPdusInSpec) {
+    var item = hit.item;
+    var compliance = "";
+    var alt = "";
+    var needs = "No";
+    var reason = "";
+    var suggested = "";
+    if (hit.kind === "server") {
+      var inlet = RackMatch.inletOf(item);
+      suggested = serverLabel(item);
+      compliance =
+        "In catalog. PSU inlet " +
+        inlet +
+        ". Voltage " +
+        RackMatch.volt(item) +
+        ". Current " +
+        RackMatch.amp(item) +
+        ".";
+      if (item.pair_note) {
+        compliance += " " + item.pair_note;
+        needs = "Yes";
+        reason = "Catalog nameplate note";
+      }
+      if (item.nameplate_note) {
+        needs = "Yes";
+        reason = reason || "Catalog nameplate note";
+      }
+      if (rec.power) {
+        needs = "Yes";
+        reason = "Spec power rating is not a catalog field match";
+        compliance += " Spec power " + rec.power + " is not verified against a catalog PSU SKU.";
+      }
+      var alts = otherServers(item.id, inlet);
+      var pduAlts = pduAlternatives(item);
+      var altParts = [];
+      if (alts.length) altParts.push("Other catalog servers with the same inlet: " + alts.join("; "));
+      if (pduAlts.length) altParts.push("Catalog PDUs that match this inlet: " + pduAlts.join("; "));
+      alt = altParts.length ? altParts.join(". ") : "None in this catalog";
+      if (catalogPdusInSpec.length) {
+        var notes = [];
+        for (var p = 0; p < catalogPdusInSpec.length; p++) {
+          var m = RackMatch.match(item, catalogPdusInSpec[p]);
+          notes.push(
+            pduLabel(catalogPdusInSpec[p]) + ": " + (m.ok ? "Compatible" : "Not compatible") + (m.note ? " (" + m.note + ")" : "")
+          );
+          if (!m.ok) {
+            needs = "Yes";
+            reason = "PDU in this spec is not a standard match";
+          }
+        }
+        compliance += " Spec PDUs: " + notes.join("; ") + ".";
+      }
+      return {
+        suggested: suggested,
+        compliance: compliance,
+        alternative: alt,
+        needs: needs,
+        needs_reason: reason,
+        confirm: needs !== "Yes",
         bom: {
-          eq_type: t,
-          catalog_id: "",
-          manufacturer: sm.manufacturer,
-          model: sm.model,
-          qty: u.qty,
+          eq_type: item.equipment_type || "server",
+          catalog_id: item.id,
+          manufacturer: item.manufacturer,
+          model: item.model,
+          qty: rec.qty,
           u_pos: "",
           inlet: "",
-          wattage: "",
-          psu_count: t === "pdu" ? "0" : "",
+          wattage: item.id === "dell-r760-2400" ? "2400 W (catalog)" : "",
+          psu_count: "2",
           pdu_id: "",
           feed: "",
           voltage: "",
           current: ""
         }
-      });
+      };
+    }
+    suggested = pduLabel(item);
+    compliance =
+      "In catalog. Outlets " +
+      outletText(item) +
+      ". Voltage " +
+      (item.voltage || "") +
+      ". Current " +
+      (item.current || "") +
+      ".";
+    return {
+      suggested: suggested,
+      compliance: compliance,
+      alternative: otherPdus(item.id).join("; ") || "None in this catalog",
+      needs: "No",
+      needs_reason: "",
+      confirm: true,
+      bom: {
+        eq_type: "pdu",
+        catalog_id: item.id,
+        manufacturer: item.manufacturer,
+        model: item.model,
+        qty: rec.qty,
+        u_pos: "",
+        inlet: "",
+        wattage: "",
+        psu_count: "0",
+        pdu_id: "",
+        feed: "",
+        voltage: "",
+        current: ""
+      }
+    };
+  }
+
+  function unmatchedRow(rec, vendor) {
+    var sm = vendor ? splitMfrModel(vendor.name) : { manufacturer: "", model: "" };
+    var t = rec.eq_type || (vendor ? guessTypeFromName(vendor.name) : "unknown");
+    var model = sm.model;
+    if (!model) {
+      var bits = [];
+      if (rec.power) bits.push(rec.power);
+      if (rec.eq_type) bits.push(rec.eq_type);
+      if (rec.topology) bits.push(rec.topology);
+      model = bits.join(" ") || rec.source.slice(0, 80);
+    }
+    var reason = vendor ? "Unknown model" : "No catalog match";
+    return {
+      suggested: "Not in catalog",
+      compliance: "Needs verification. No catalog match.",
+      alternative: "None from catalog",
+      needs: "Yes",
+      needs_reason: reason,
+      confirm: false,
+      bom: {
+        eq_type: t,
+        catalog_id: "",
+        manufacturer: sm.manufacturer,
+        model: model,
+        qty: rec.qty,
+        u_pos: "",
+        inlet: "",
+        wattage: "",
+        psu_count: t === "pdu" ? "0" : "",
+        pdu_id: "",
+        feed: "",
+        voltage: rec.voltage,
+        current: ""
+      }
+    };
+  }
+
+  function emptySpecFields() {
+    return {
+      eq_type: "",
+      qty: "",
+      power: "",
+      voltage: "",
+      phase: "",
+      topology: "",
+      battery: "",
+      backup: "",
+      mandatory: "",
+      optional: ""
+    };
+  }
+
+  function attachSpec(row, rec) {
+    row.eq_type = rec.eq_type || (row.bom && row.bom.eq_type) || "";
+    row.qty = rec.qty;
+    row.power = rec.power;
+    row.voltage = rec.voltage;
+    row.phase = rec.phase;
+    row.topology = rec.topology;
+    row.battery = rec.battery;
+    row.backup = rec.backup;
+    row.mandatory = joinList(rec.mandatory);
+    row.optional = joinList(rec.optional);
+    return row;
+  }
+
+  function buildRows(text) {
+    var chunks = splitChunks(text);
+    if (!chunks.length) chunks = [String(text || "").replace(/^\s+|\s+$/g, "")];
+    var catalogPdusInSpec = [];
+    var whole = findCatalogHits(text);
+    var i;
+    for (i = 0; i < whole.hits.length; i++) {
+      if (whole.hits[i].kind === "pdu") catalogPdusInSpec.push(whole.hits[i].item);
+    }
+    var out = [];
+    var seenKey = {};
+
+    for (i = 0; i < chunks.length; i++) {
+      var chunk = chunks[i];
+      if (chunk.length < 4) continue;
+      if (/^(scope|introduction|contents|index|page \d+)$/i.test(chunk)) continue;
+      var rec = parseChunk(chunk);
+      var local = findCatalogHits(chunk);
+      var vendorHits = findUnknownVendor(chunk, local.used.slice());
+      if (!isSpecRow(rec, local.hits, vendorHits[0])) continue;
+      if (local.hits.length && rec.qty === 1 && local.hits[0].qty) rec.qty = local.hits[0].qty;
+      if (vendorHits[0] && rec.qty === 1) rec.qty = vendorHits[0].qty;
+      if (local.hits.length && !rec.eq_type) {
+        rec.eq_type = local.hits[0].kind === "pdu" ? "pdu" : local.hits[0].item.equipment_type || "server";
+      }
+      var extras;
+      if (local.hits.length) extras = catalogRowExtras(local.hits[0], rec, catalogPdusInSpec);
+      else extras = unmatchedRow(rec, vendorHits[0] || null);
+      var row = {
+        requirement: requirementLabel(rec, local.hits, vendorHits[0] || null),
+        suggested: extras.suggested,
+        compliance: extras.compliance,
+        alternative: extras.alternative,
+        needs: extras.needs,
+        needs_reason: extras.needs_reason,
+        confirm: extras.confirm,
+        bom: extras.bom
+      };
+      attachSpec(row, rec);
+      var key = row.requirement + "|" + row.suggested + "|" + row.power;
+      if (seenKey[key]) continue;
+      seenKey[key] = true;
+      out.push(row);
     }
 
     if (!out.length) {
-      out.push({
-        requirement: "No catalog models or qty × vendor lines found",
-        suggested: "Not in catalog",
-        compliance: "Needs verification. Paste a list with model names from the spec.",
-        alternative: "None from catalog",
-        needs: "Yes",
-        needs_reason: "Nothing extracted",
-        confirm: false,
-        bom: null
-      });
+      var fallback = emptySpecFields();
+      fallback.requirement = "No equipment requirement extracted";
+      fallback.suggested = "Not in catalog";
+      fallback.compliance = "Needs verification. No structured requirement and no catalog model found.";
+      fallback.alternative = "None from catalog";
+      fallback.needs = "Yes";
+      fallback.needs_reason = "Nothing extracted";
+      fallback.confirm = false;
+      fallback.bom = null;
+      out.push(fallback);
     }
     return out;
   }
@@ -355,9 +564,12 @@
     var pdus = [];
     for (var i = 0; i < rows.length; i++) {
       var b = rows[i].bom;
-      if (!b || !b.catalog_id) continue;
+      if (!b) continue;
       var label = ((b.manufacturer || "") + " " + (b.model || "")).replace(/^\s+|\s+$/g, "");
-      if (b.eq_type === "pdu") pdus.push(label);
+      if (!label) label = rows[i].eq_type || "rfq";
+      if (b.catalog_id && b.eq_type === "pdu") pdus.push(label);
+      else if (b.catalog_id) servers.push(label);
+      else if (b.eq_type === "pdu") pdus.push(label);
       else servers.push(label);
     }
     return {
@@ -367,14 +579,14 @@
   }
 
   function rowLogLine(r) {
-    return (
-      r.requirement +
-      " | " +
-      r.suggested +
-      " | needs=" +
-      r.needs +
-      (r.needs_reason ? " (" + r.needs_reason + ")" : "")
-    );
+    return [
+      r.requirement,
+      "type=" + (r.eq_type || ""),
+      "qty=" + (r.qty || ""),
+      "power=" + (r.power || ""),
+      "suggested=" + r.suggested,
+      "needs=" + r.needs + (r.needs_reason ? " (" + r.needs_reason + ")" : "")
+    ].join(" | ");
   }
 
   function postRfqLog(kind, extra) {
@@ -418,6 +630,26 @@
         (r.bom ? "" : " disabled") +
         "></td><td>" +
         esc(r.requirement) +
+        "</td><td>" +
+        esc(r.eq_type) +
+        "</td><td>" +
+        esc(r.qty) +
+        "</td><td>" +
+        esc(r.power) +
+        "</td><td>" +
+        esc(r.voltage) +
+        "</td><td>" +
+        esc(r.phase) +
+        "</td><td>" +
+        esc(r.topology) +
+        "</td><td>" +
+        esc(r.battery) +
+        "</td><td>" +
+        esc(r.backup) +
+        "</td><td>" +
+        esc(r.mandatory) +
+        "</td><td>" +
+        esc(r.optional) +
         "</td><td>" +
         esc(r.suggested) +
         "</td><td>" +
@@ -482,7 +714,7 @@
     rows = buildRows(text);
     render();
     document.getElementById("extract-status").textContent =
-      "Extracted " + rows.length + " row(s) from the catalog match. No prices or stock.";
+      "Extracted " + rows.length + " requirement row(s). Catalog match only where a catalog product exists. No invented models.";
     postRfqLog("RFQ EXTRACT", { chars: text.length }).catch(function () {});
   }
 
