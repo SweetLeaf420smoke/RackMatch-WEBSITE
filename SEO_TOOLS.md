@@ -18,16 +18,7 @@ robots: https://rackmatch.vercel.app/robots.txt
 - Документация MCP: https://auriti-labs.github.io/geo-optimizer-skill/mcp-server/
 - Каталог: https://www.mcpgee.com/servers/geo-optimizer-skill
 
-Cursor MCP (пока не добавлять без разрешения: `npx` качает пакет):
-
-```json
-"geo-optimizer": {
-  "command": "npx",
-  "args": ["-y", "geo-optimizer-mcp"]
-}
-```
-
-Альтернатива после `pip install geo-optimizer-skill[mcp]`: команда `geo-mcp`. pip тоже только после явного «ставь».
+Уже в `~/.cursor/mcp.json` как `geo-optimizer` (`npx -y geo-optimizer-mcp`).
 
 ## 2. OpenSEO
 
@@ -62,11 +53,9 @@ Cursor MCP:
 - Cursor Marketplace: искать `mcp-search-console`
 - GSC UI сайта: https://search.google.com/search-console?resource_id=https://rackmatch.vercel.app/
 
-Нужен OAuth `client_secrets.json` или service account. Файлы секретов в git не класть.
+Уже в `~/.cursor/mcp.json` как `gsc` (`uvx mcp-search-console`). OAuth `client_secrets.json` на диске пока нет, поэтому этот сервер может быть красным, пока не будет файл секрета. Цифры GSC пока брать через OpenSEO (уже залогинен) или Chrome.
 
-Пока MCP GSC не подключён: смотреть GSC в Chrome (hunt A → B → C → CDP), не invent цифры.
-
-OpenSEO GSC tools: запасной путь без Google Cloud, если проект OpenSEO привязан к этому свойству.
+Файлы секретов в git не класть.
 
 ## Как ими пользоваться по очереди
 
@@ -82,4 +71,4 @@ OpenSEO GSC tools: запасной путь без Google Cloud, если пр�
 - JSON-LD / schema.org в HTML нет.
 - Органика Google в прошлых проверках GSC: 0 кликов / 0 показов, проиндексировано 0 URL. Визиты в Метрике и GA были Direct (в том числе заходы через ChatGPT), это не поиск Google.
 
-Следующий шаг с инструментами: подключить OpenSEO MCP (логин) и/или плагин `mcp-search-console`, прогнать индекс главной, потом GEO-аудит `https://rackmatch.vercel.app/`. Не ставить pip/npx, пока в чате нет «ставь».
+Следующий шаг: прогнать индекс главной через OpenSEO/GSC, потом GEO-аудит `https://rackmatch.vercel.app/`.
