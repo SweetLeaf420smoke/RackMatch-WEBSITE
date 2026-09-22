@@ -58,6 +58,8 @@ RFQ Extract и Send to BOM пишут в ту же таблицу коротко
 
 GSC это не таблица. Запросы до входа смотреть в Search Console (Performance), не в Feedback.
 
+Инструменты роста трафика (адреса, как подключать, что уже проверено на сайте): `SEO_TOOLS.md`. Три штуки: GEO Optimizer, OpenSEO MCP, MCP GSC.
+
 Таблица: https://docs.google.com/spreadsheets/d/1At7v0iErDZshwZ5_51VXpXsiyRNkXf2FFhv12ixBtD0/edit
 entry.389100888 = Message, entry.1165317586 = Contact (Email).
 entry.563611403 = Page URL, entry.770004551 = Server model, entry.341373274 = PDU model.
