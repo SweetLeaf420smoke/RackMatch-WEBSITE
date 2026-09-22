@@ -40,7 +40,7 @@ Cursor MCP:
 }
 ```
 
-После добавления нужен логин OpenSEO (OAuth в Cursor). API-ключ `oseo_…` в репо не класть. Если ключ появится, хранить в `KEYS_MASTER.env`, в `mcp.json` только через env, не в git.
+После добавления MCP-логин OpenSEO в этом чате уже есть: аккаунт `vertobanner@gmail.com`. Credits remaining: **0**. Проект OpenSEO: `96601b40-8b71-466e-ad6d-62d160497f69` (RackMatch, rackmatch.vercel.app, рынок 2840/en). Search Console к этому проекту **не** привязан. Keyword/SERP через OpenSEO без кредитов не идут.
 
 ## 3. MCP GSC (Search Console)
 
@@ -71,4 +71,12 @@ Cursor MCP:
 - JSON-LD / schema.org в HTML нет.
 - Органика Google в прошлых проверках GSC: 0 кликов / 0 показов, проиндексировано 0 URL. Визиты в Метрике и GA были Direct (в том числе заходы через ChatGPT), это не поиск Google.
 
-Следующий шаг: прогнать индекс главной через OpenSEO/GSC, потом GEO-аудит `https://rackmatch.vercel.app/`.
+## Прогон 22 Sep 2026 (вечер)
+
+- GEO Optimizer `analyze_geo_score` по `rackmatch.vercel.app`: **0/100**, grade C. Нулевые пункты: robots для AI-ботов, Schema.org, FAQ schema, глубина контента, NAP, freshness. Отчёт: https://causabi.com/score/rackmatch.vercel.app
+- `get_geo_fixes` вернул шаблоны с заглушками (телефон 555, «Your Business Name»). На сайт так не копировать.
+- OpenSEO MCP: залогинен, кредитов 0, GSC в проекте не подключён.
+- `uvx mcp-search-console`: сервер в списке. `list_properties` падает: нет `GSC_OAUTH_CLIENT_SECRETS_FILE`.
+- Подключение GSC через браузер OpenSEO: Chrome C дошёл до Google passkey для `vertobanner@gmail.com`. Дальше без касания ключа не пройти. Hunt: A `about:blank`, B не трогал (занят), CDP `127.0.0.1:9222` отказ в соединении.
+
+Следующее, что реально двигает посещаемость: индекс Google (GSC) и живой `llms.txt`/schema своими формулировками с сайта, не шаблоном GEO. OpenSEO keyword-объёмы: сначала кредиты на аккаунте.
