@@ -40,6 +40,9 @@
       <tr><td>PSU inlet C20</td><td>Need a PDU C19 outlet and a C19–C20 jumper</td></tr>
       <tr><td>C14 inlet + C19-only PDU</td><td>C13–C20 jumper; still 10 A on the C13/C14 side</td></tr>
     </table>
+    <h2>Which end goes where</h2>
+    <p>C13 into the server C14 inlet. C14 into a PDU C13 outlet. C19 into a server C20 inlet. C20 into a PDU C19 outlet.</p>
+    <p>Worked pair: <a href="../dell-poweredge-r650-apc-ap8941/">Dell PowerEdge R650 + APC AP8941</a>. C13 into the R650. C14 into one C13 outlet. The C19 outlets on that PDU are not for this PSU.</p>
     <h2>Length</h2>
     <p>Vendor default jumpers are often 0.6 m, 2 m or about 2 m (HPE A0K02A is 6 ft). A Zero-U PDU in a shallow rack needs a much shorter cord so the loop does not fight the rails.</p>
     <p>Related: <a href="../what-power-cord-does-my-server-need/">What power cord does my server need</a>, <a href="../pdu-power-cord-compatibility/">PDU power cord compatibility</a>.</p>
