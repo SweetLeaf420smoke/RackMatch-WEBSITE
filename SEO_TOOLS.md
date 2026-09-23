@@ -53,7 +53,7 @@ Cursor MCP:
 - Cursor Marketplace: искать `mcp-search-console`
 - GSC UI сайта: https://search.google.com/search-console?resource_id=https://rackmatch.vercel.app/
 
-Уже в `~/.cursor/mcp.json` как `gsc` (`uvx mcp-search-console`). OAuth `client_secrets.json` на диске пока нет, поэтому этот сервер может быть красным, пока не будет файл секрета. Цифры GSC пока брать через OpenSEO (уже залогинен) или Chrome.
+Уже в `~/.cursor/mcp.json` как `gsc` (`uvx mcp-search-console`). Файл OAuth: `~/.cursor/gsc-client-secrets.json` (не в git). Первый вход: инструмент `reauthenticate` (браузер, scope Search Console). Google Cloud проект клиента: `rnp-ozon`. Если API Search Console в этом проекте выключен, `list_properties` даст 403, а не «нет файла».
 
 Файлы секретов в git не класть.
 
