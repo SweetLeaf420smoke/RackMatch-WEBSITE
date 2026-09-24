@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>C19 vs C20 | IEC High-Current Server Connectors</title>
-  <meta name="description" content="C19 is the cord coupler. C20 is the inlet. This is the 16 A IEC pair used on high-watt PSUs and many AI systems.">
+  <meta name="description" content="C19 plugs into the server C20 inlet. C20 plugs into the PDU C19 outlet. A C14 inlet needs a C13 cord instead.">
   <meta name="robots" content="index, follow">
   <meta name="google-site-verification" content="Op8AESilG-2JBeSHhb3C3REZSKV5EnoilcB01g9pOek">
   <!-- Yandex.Metrika counter -->
@@ -35,14 +35,21 @@
   <main>
     <h1>C19 vs C20</h1>
     <p>This is the larger IEC 60320 pair. It is the usual jumper for 16 A class inlets.</p>
+    <h2>Which end goes where</h2>
     <table>
-      <tr><td>C20</td><td>Inlet on a high-watt PSU</td></tr>
-      <tr><td>C19</td><td>Connector on the jumper that plugs into that inlet</td></tr>
-      <tr><td>Jumper</td><td>IEC C19–C20. C19 into the server. C20 into a PDU C19 outlet</td></tr>
-      <tr><td>Current class</td><td>16 A class. A C13–C14 jumper does not belong here</td></tr>
+      <tr><td>Into the server</td><td>The C19 coupler goes into the C20 inlet on the PSU</td></tr>
+      <tr><td>Into the PDU</td><td>The C20 plug goes into a C19 outlet on the PDU</td></tr>
+      <tr><td>C20</td><td>Inlet on a high-watt PSU, and the plug end of the jumper</td></tr>
+      <tr><td>C19</td><td>Coupler on the jumper, and the outlet on the PDU</td></tr>
+      <tr><td>Current class</td><td>16 A class. A C13–C14 jumper does not mate with a C20 inlet</td></tr>
     </table>
+    <h2>When you need C13 instead</h2>
+    <p>If the inlet on the PSU is C14, the cord is a C13–C14 jumper, not this pair. See <a href="../c13-vs-c14/">C13 vs C14</a>.</p>
     <h2>How to remember it</h2>
     <p>Same odd/even rule as C13/C14: C19 coupler into C20 inlet. NVIDIA DGX H100/H200 and B200 ship locking C19/C20 cords rated 250 VAC, 20 A, 1200 mm.</p>
+    <h2>One server and one PDU</h2>
+    <p>Dell PowerEdge R760 with the 2400 W PSU in this catalog uses a C20 inlet. APC AP8941 has 21 C13 outlets and 3 C19 outlets. The jumper is C19–C20: C19 into the R760, C20 into one C19 outlet. A lower-watt R760 PSU can be C14 and then uses a C13 outlet instead.</p>
+    <p>Worked pair: <a href="../dell-poweredge-r760-apc-ap8941/">R760 + AP8941</a>.</p>
     <p>Related: <a href="../c19-to-c20-compatibility/">C19 to C20 compatibility</a>, <a href="../c19-c20-server-power-cord/">C19 C20 server power cord</a>.</p>
     <footer>Source for DGX cords: NVIDIA DGX H100/H200 user guide, locking power cord table.</footer>
   </main>
