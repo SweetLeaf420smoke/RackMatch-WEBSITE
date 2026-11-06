@@ -10,12 +10,12 @@ The inlet on the installed power supply decides the cord. The chassis name alone
 
 ## Pages
 
-- [Home](https://rackmatch.vercel.app/): matcher for one server and one PDU from the catalog
-- [What power cord does my server need](https://rackmatch.vercel.app/what-power-cord-does-my-server-need/)
-- [C13 vs C14](https://rackmatch.vercel.app/c13-vs-c14/)
-- [C19 vs C20](https://rackmatch.vercel.app/c19-vs-c20/)
-- [Server to PDU power cord](https://rackmatch.vercel.app/server-to-pdu-power-cord/)
-- [Dell PowerEdge R650 + APC AP8941](https://rackmatch.vercel.app/dell-poweredge-r650-apc-ap8941/)
-- [Dell PowerEdge R760 + APC AP8941](https://rackmatch.vercel.app/dell-poweredge-r760-apc-ap8941/)
+- [Home](https://rackmatch.net/): matcher for one server and one PDU from the catalog
+- [What power cord does my server need](https://rackmatch.net/what-power-cord-does-my-server-need/)
+- [C13 vs C14](https://rackmatch.net/c13-vs-c14/)
+- [C19 vs C20](https://rackmatch.net/c19-vs-c20/)
+- [Server to PDU power cord](https://rackmatch.net/server-to-pdu-power-cord/)
+- [Dell PowerEdge R650 + APC AP8941](https://rackmatch.net/dell-poweredge-r650-apc-ap8941/)
+- [Dell PowerEdge R760 + APC AP8941](https://rackmatch.net/dell-poweredge-r760-apc-ap8941/)
 
 Check the live nameplate. A high-watt PSU in the same chassis can use C20 instead of C14.

@@ -15,9 +15,9 @@ HARD: внутренние ссылки RackMatch открываются в то
 HARD: новую внешнюю ссылку открывать в браузере и смотреть заголовок страницы. HTTP 403 от curl не равен 404. Страница Sorry у Dell и редирект Schneider на `/all-products/` это битая ссылка.
 
 Хостинг: Vercel, проект `rackmatch`, команда dima's projects.
-Сайт: https://rackmatch.vercel.app
+Сайт: https://rackmatch.net (домен куплен 6 Nov 2026 на Porkbun; DNS: A @ 216.198.79.1, CNAME www → cf85d2c969d99ce1.vercel-dns-017.com; www → 308 на apex). Vercel-аккаунт с проектом: bank@ya.ru
 GitHub: https://github.com/SweetLeaf420smoke/RackMatch-WEBSITE
-Канонический URL: https://rackmatch.vercel.app/
+Канонический URL: https://rackmatch.net/ (с 6 Nov 2026; rackmatch.vercel.app и rackmatch-website.vercel.app → 308 на rackmatch.net)
 
 Google Search Console: свойство https://rackmatch.vercel.app/ подтверждено (HTML file + HTML tag). Sitemap `/sitemap.xml` Success.
 Яндекс.Метрика: счётчик 112306015, сайт rackmatch.vercel.app, вебвизор включён.

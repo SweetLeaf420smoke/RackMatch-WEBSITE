@@ -9,7 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data" / "equipment.json"
-SITE = "https://rackmatch.vercel.app"
+SITE = "https://rackmatch.net"
 GSC = "Op8AESilG-2JBeSHhb3C3REZSKV5EnoilcB01g9pOek"
 YM = "112306015"
 GA = "G-PPCCYQHCFD"
