@@ -21,7 +21,8 @@ Google Search Console: свойство https://rackmatch.vercel.app/ подтв
 Яндекс.Метрика: счётчик 112306015, сайт rackmatch.vercel.app, вебвизор включён.
 Google Analytics 4: измерение G-PPCCYQHCFD, поток https://rackmatch.vercel.app.
 Change of address: rackmatch-website.vercel.app → rackmatch.vercel.app, старт 4 Sep 2026.
-Старый Vercel-домен: 308 на https://rackmatch.vercel.app/.
+Старый Vercel-домен: 308 на https://rackmatch.vercel.app/. Старый sitemap и старое свойство GSC не удалять (нужны для смены адреса).
+IndexNow (Bing + Яндекс): ключ `57e463bd1b96c9f2cab824545d95824c`, файл в корне `/57e463bd1b96c9f2cab824545d95824c.txt`. После новых/изменённых страниц: POST на https://api.indexnow.org/indexnow с urlList. Первая отправка всех 34 URL: 6 Nov 2026, ответ 202.
 
 ## Проверки
 
