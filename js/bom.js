@@ -463,7 +463,7 @@
     var out = [];
     for (var i = 0; i < allLines.length; i++) {
       var l = allLines[i];
-      out.push(l.qty + " x " + l.eq_type + ": " + l.manufacturer + " " + l.model + (l.psu_count ? " (" + l.psu_count + " PSU)" : ""));
+      out.push(l.qty + " x " + l.eq_type + ": " + l.manufacturer + " " + l.model + (l.eq_type !== "pdu" && Number(l.psu_count) > 0 ? " (" + l.psu_count + " PSU)" : ""));
     }
     return out;
   }
