@@ -148,32 +148,45 @@
     <div id="bom-result" hidden></div>
 
     <div id="quote-block" hidden>
-      <h2>Request rack kit quote</h2>
-      <p>Request a quote for a complete ready-to-install rack cable kit.</p>
+      <h2>Get a quote for this cable kit</h2>
+      <p>Free, no obligation. We send the cable list above to a power-cord supplier that ships to your country, and they email you a price and lead time. RackMatch does not sell cables itself.</p>
       <form id="quote" action="#" method="post">
-        <label for="q-name">Name</label>
-        <input id="q-name" type="text" required>
-        <label for="q-company">Company</label>
-        <input id="q-company" type="text" required>
-        <label for="q-email">Email</label>
-        <input id="q-email" type="email" required>
-        <label for="q-country">Country</label>
-        <input id="q-country" type="text" required>
-        <label for="q-racks">Rack quantity</label>
+        <label for="q-length">Cord length</label>
+        <select id="q-length" required>
+          <option value="0.6 m (2 ft)">0.6 m (2 ft)</option>
+          <option value="1 m (3 ft)">1 m (3 ft)</option>
+          <option value="1.5 m (5 ft)">1.5 m (5 ft)</option>
+          <option value="2 m (6 ft)" selected>2 m (6 ft)</option>
+          <option value="3 m (10 ft)">3 m (10 ft)</option>
+          <option value="mixed / not sure">Mixed / not sure</option>
+        </select>
+        <label><input id="q-colour" type="checkbox"> Colour-coded by feed (e.g. A red, B blue)</label>
+        <label><input id="q-locking" type="checkbox"> Locking connectors</label>
+        <label for="q-racks">Number of identical racks</label>
         <input id="q-racks" type="number" min="1" value="1" required>
-        <label for="q-date">Target installation date</label>
+        <label for="q-country">Delivery country and city</label>
+        <input id="q-country" type="text" required>
+        <label for="q-date">Needed by</label>
         <input id="q-date" type="date">
+        <label for="q-company">Company (optional)</label>
+        <input id="q-company" type="text">
+        <label for="q-name">Name (optional)</label>
+        <input id="q-name" type="text">
+        <label for="q-email">Work email</label>
+        <input id="q-email" type="email" required>
         <label for="q-notes">Notes</label>
-        <textarea id="q-notes"></textarea>
+        <textarea id="q-notes" placeholder="Labels, spares, other cables you need"></textarea>
         <div class="hp" aria-hidden="true">
           <label for="q-hp">Company website</label>
           <input id="q-hp" type="text" tabindex="-1" autocomplete="off">
         </div>
+        <label><input id="q-consent" type="checkbox" required> I agree that RackMatch sends this request and my email to a cable supplier so they can quote. I will check the PSU nameplate before ordering.</label>
         <div>
-          <button type="submit">Request Rack Kit Quote</button>
+          <button type="submit">Request a quote</button>
         </div>
       </form>
       <p id="quote-status" hidden></p>
+      <p>Questions: <a href="mailto:hello@rackmatch.net">hello@rackmatch.net</a></p>
     </div>
   </main>
   <script src="../js/match.js"></script>

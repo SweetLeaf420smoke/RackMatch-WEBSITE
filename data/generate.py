@@ -227,6 +227,15 @@ def pair_html(server: dict, pdu: dict, slug: str, r: dict, extra_links: str) -> 
     if server.get("nameplate_note"):
         footer += " High-watt PSUs on the same chassis can change the inlet."
     why = why_html(server, pdu, r, extra_links)
+    kit = ""
+    if r["ok"]:
+        kit_url = f"../bom/?server={server['id']}&pdu={pdu['id']}&qty=10"
+        kit = (
+            "<h2>Cabling a whole rack?</h2>\n"
+            f"    <p>Build the cable list for 10 × {escape(server['model'])} with 2 × {escape(pdu['manufacturer'])} {escape(pdu['model'])} (A/B feeds), "
+            "then request a free quote for the complete cable kit.</p>\n"
+            f'    <p><a href="{kit_url}">Build the rack cable kit →</a></p>'
+        )
     return f"""<!DOCTYPE html>
 <!-- generated from data/equipment.json; run python3 data/generate.py -->
 <html lang="en">
@@ -254,6 +263,7 @@ def pair_html(server: dict, pdu: dict, slug: str, r: dict, extra_links: str) -> 
       <tr><td>Locking</td><td>{escape(r["lock"])}</td></tr>
     </table>
     {why}
+    {kit}
     <h2>Sources</h2>
     <p>Server: <a href="{escape(server["source"])}" target="_blank" rel="noopener">{escape(server["source_title"])}</a></p>
     <p>PDU: <a href="{escape(pdu["source"])}" target="_blank" rel="noopener">{escape(pdu["source_title"])}</a></p>

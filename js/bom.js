@@ -431,13 +431,100 @@
       html += "</tr>";
     }
     html += "</tbody></table></div>";
-    html += "<h2>Get this rack as a complete cable kit</h2>";
-    html += "<p>We can supply the complete set of rack power cables with the correct lengths, A/B colours, labels and connector types.</p>";
-    html += "<p><button type=\"button\" id=\"btn-csv\">Export BOM</button></p>";
+    html += "<p><button type=\"button\" id=\"btn-csv\">Export BOM</button> <button type=\"button\" id=\"btn-quote\">Get a quote for this cable kit</button></p>";
     box.innerHTML = html;
     box.hidden = false;
     document.getElementById("quote-block").hidden = false;
     document.getElementById("btn-csv").addEventListener("click", exportCsv);
+    document.getElementById("btn-quote").addEventListener("click", function () {
+      document.getElementById("quote-block").scrollIntoView({ behavior: "smooth", block: "start" });
+      document.getElementById("q-length").focus();
+    });
+  }
+
+  function cableSummary(rows) {
+    var groups = {};
+    var order = [];
+    for (var i = 0; i < rows.length; i++) {
+      var r = rows[i];
+      var key = (r.connector_a || "?") + " to " + (r.connector_b || "?") + " | " + (r.status || "");
+      if (!groups[key]) {
+        groups[key] = 0;
+        order.push(key);
+      }
+      groups[key] += parseIntSafe(r.qty, 1);
+    }
+    var out = [];
+    for (var j = 0; j < order.length; j++) out.push(groups[order[j]] + " x " + order[j]);
+    return out;
+  }
+
+  function equipmentSummary(allLines) {
+    var out = [];
+    for (var i = 0; i < allLines.length; i++) {
+      var l = allLines[i];
+      out.push(l.qty + " x " + l.eq_type + ": " + l.manufacturer + " " + l.model + (l.psu_count ? " (" + l.psu_count + " PSU)" : ""));
+    }
+    return out;
+  }
+
+  function requestId() {
+    var d = new Date();
+    var rnd = Math.random().toString(36).slice(2, 6).toUpperCase();
+    return "RM-" + d.getFullYear() + pad(d.getMonth() + 1) + pad(d.getDate()) + "-" + rnd;
+  }
+
+  function prefillFromQuery() {
+    var q = new URLSearchParams(location.search);
+    var sid = q.get("server");
+    var pid = q.get("pdu");
+    if (!sid && !pid) return false;
+    var server = sid ? byId(CATALOG.servers, sid) : null;
+    var pdu = pid ? byId(CATALOG.pdus, pid) : null;
+    var n = parseIntSafe(q.get("qty"), 10);
+    lines = [];
+    if (server) {
+      lines.push({
+        eq_type: server.equipment_type || "server",
+        catalog_id: server.id,
+        manufacturer: server.manufacturer,
+        model: server.model,
+        qty: n,
+        u_pos: "",
+        inlet: "",
+        wattage: "",
+        psu_count: "2",
+        pdu_id: "",
+        feed: "",
+        voltage: "",
+        current: ""
+      });
+    }
+    if (pdu) {
+      lines.push({
+        eq_type: "pdu",
+        catalog_id: pdu.id,
+        manufacturer: pdu.manufacturer,
+        model: pdu.model,
+        qty: 2,
+        u_pos: "",
+        inlet: "",
+        wattage: "",
+        psu_count: "0",
+        pdu_id: "",
+        feed: "",
+        voltage: "",
+        current: ""
+      });
+    }
+    if (!lines.length) return false;
+    renderLines();
+    renderResult(generate(lines));
+    document.getElementById("add-status").textContent =
+      "Loaded " + n + " × " + (server ? server.display_name || server.model : "server") +
+      (pdu ? " with 2 × " + pdu.manufacturer + " " + pdu.model + " (A/B)" : "") +
+      ". Change the quantity or add equipment, then press Generate cable BOM again.";
+    return true;
   }
 
   function csvCell(v) {
@@ -620,7 +707,7 @@
           }
         }
       } catch (err) {}
-      if (!imported && /[?&]example=1/.test(location.search)) exampleRack();
+      if (!imported && !prefillFromQuery() && /[?&]example=1/.test(location.search)) exampleRack();
     })
     .catch(function () {
       document.getElementById("add-status").textContent = "Catalog failed to load.";
@@ -652,17 +739,36 @@
       status.textContent = "Sent.";
       return;
     }
+    if (!document.getElementById("q-consent").checked) {
+      status.hidden = false;
+      status.textContent = "Please tick the consent box so we can pass the request to a supplier.";
+      return;
+    }
+    var rid = requestId();
+    var racks = parseIntSafe(document.getElementById("q-racks").value, 1);
     var msg = [
-      "RACK KIT QUOTE",
-      "Name: " + document.getElementById("q-name").value,
-      "Company: " + document.getElementById("q-company").value,
-      "Country: " + document.getElementById("q-country").value,
-      "Rack quantity: " + document.getElementById("q-racks").value,
-      "Target installation date: " + document.getElementById("q-date").value,
-      "Notes: " + document.getElementById("q-notes").value,
-      "BOM cords: " + (lastSummary ? lastSummary.cords : 0),
-      "Verified: " + (lastSummary ? lastSummary.verified : 0),
-      "Warnings: " + (lastSummary ? lastSummary.warnings : 0)
+      "RACK KIT QUOTE " + rid,
+      "Cords per rack: " + (lastSummary ? lastSummary.cords : 0) + " | Racks: " + racks +
+        " | Total cords: " + (lastSummary ? lastSummary.cords * racks : 0),
+      "Length: " + document.getElementById("q-length").value,
+      "Colour-coded A/B: " + (document.getElementById("q-colour").checked ? "yes" : "no"),
+      "Locking: " + (document.getElementById("q-locking").checked ? "yes" : "no"),
+      "Deliver to: " + document.getElementById("q-country").value,
+      "Needed by: " + (document.getElementById("q-date").value || "not given"),
+      "Company: " + (document.getElementById("q-company").value || "-"),
+      "Name: " + (document.getElementById("q-name").value || "-"),
+      "Notes: " + (document.getElementById("q-notes").value || "-"),
+      "Consent to share with supplier: yes",
+      "",
+      "Cables per rack:",
+      cableSummary(lastRows).join("\n"),
+      "",
+      "Equipment per rack:",
+      equipmentSummary(lines).join("\n"),
+      "",
+      "Verified: " + (lastSummary ? lastSummary.verified : 0) +
+        " | Warnings: " + (lastSummary ? lastSummary.warnings : 0) +
+        " | Missing data: " + (lastSummary ? lastSummary.missing : 0)
     ].join("\n");
     var body = new URLSearchParams();
     body.set("entry.389100888", msg);
@@ -679,7 +785,9 @@
       .then(function () {
         document.getElementById("quote").reset();
         status.hidden = false;
-        status.textContent = "Sent.";
+        status.textContent = "Request " + rid + " sent. We will email you when a supplier has quoted. Questions: hello@rackmatch.net";
+        try { if (window.ym) ym(112306015, "reachGoal", "quote_sent"); } catch (err) {}
+        try { if (window.gtag) gtag("event", "generate_lead", { event_category: "quote", event_label: rid }); } catch (err) {}
       })
       .catch(function () {
         status.hidden = false;
