@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dell PowerEdge R740 Power Cord (C13 or C19?)</title>
+  <meta name="description" content="Dell PowerEdge R740 / R740xd power cord by PSU: 495, 750, 1100 and 1600 W use C14 inlets (C13 cord); 2000 and 2400 W use C20 inlets (C19 cord).">
+  <meta name="robots" content="index, follow">
+  <meta name="google-site-verification" content="Op8AESilG-2JBeSHhb3C3REZSKV5EnoilcB01g9pOek">
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+   (function(m,e,t,r,i,k,a){
+    m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+   })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=112306015', 'ym');
+   ym(112306015, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/112306015" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PPCCYQHCFD"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PPCCYQHCFD');
+  </script>
+  <link rel="canonical" href="https://rackmatch.net/dell-poweredge-r740-power-cord/">
+  <link rel="stylesheet" href="../pair.css">
+</head>
+<body>
+  <header><a href="../">home</a> <a href="../bom/">Build a rack cable BOM</a> <a href="../suggest/">Suggest a correction / Add equipment</a></header>
+  <main>
+    <h1>Dell PowerEdge R740 power cord</h1>
+    <p>The cord depends on which PSU is installed. Check the wattage on the PSU label.</p>
+    <table>
+      <tr><th>PSU</th><th>Inlet</th><th>Cord</th><th>Note</th></tr>
+      <tr><td>495 W, 750 W, 1100 W</td><td>C14</td><td>C13–C14 to a PDU C13 outlet</td><td>1100 W gives 1050 W on 100–120 V</td></tr>
+      <tr><td>1600 W</td><td>C14</td><td>C13–C14</td><td>Only 800 W on 100–120 V</td></tr>
+      <tr><td>2000 W</td><td>C20</td><td>C19–C20 to a PDU C19 outlet</td><td>Dell kit note: C19/C20 cord required; 1000 W on 100–120 V</td></tr>
+      <tr><td>2400 W</td><td>C20</td><td>C19–C20</td><td>200–240 V only</td></tr>
+    </table>
+    <p>The same applies to the R740xd. Both PSUs in one server must be the same wattage.</p>
+    <h2>Which PDU outlets</h2>
+    <p>With 495–1600 W PSUs, any C13 outlet works, and a standard Dell C13–C14 PDU-style jumper (for example 450-ABLE, 0.6 m, 10 A) fits. With 2000 or 2400 W PSUs you need C19 outlets, and most PDUs only have a few. Plan them before ordering.</p>
+    <h2>Sources</h2>
+    <p><a href="https://www.xbyte.com/products/95hr5-co1-del" target="_blank" rel="noopener">Dell 1600 W PSU 95HR5: C14 inlet, 800 W at low line</a></p>
+    <p><a href="https://www.itcreations.com/product/88577" target="_blank" rel="noopener">Dell 2000 W PSU: 1000 W at 100–120 V, 2000 W at 200–240 V</a></p>
+    <p><a href="https://www.itcreations.com/product/73415" target="_blank" rel="noopener">Dell 495 W PSU for R640/R740: C14 connector, C13 cord</a></p>
+    <p>Related: <a href="../dell-poweredge-r640-power-cord/">R640 power cord</a>, <a href="../dell-poweredge-r730-power-cord/">R730 power cord</a>, <a href="../dell-poweredge-r760-power-cord/">R760 power cord</a>, <a href="../c13-vs-c19/">C13 vs C19</a>.</p>
+    <footer>Confirm inlet and amps on the PSU nameplate before you buy.</footer>
+    <p>Cabling a whole rack? <a href="../bom/">Build the full cord list</a> and get a free quote.</p>
+  </main>
+</body>
+</html>

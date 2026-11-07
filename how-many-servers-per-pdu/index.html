@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How Many Servers per PDU? Simple Calculation</title>
+  <meta name="description" content="How to work out how many servers one rack PDU can feed: usable PDU power, real server draw, A/B redundancy and outlet count, with worked examples.">
+  <meta name="robots" content="index, follow">
+  <meta name="google-site-verification" content="Op8AESilG-2JBeSHhb3C3REZSKV5EnoilcB01g9pOek">
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+   (function(m,e,t,r,i,k,a){
+    m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+   })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=112306015', 'ym');
+   ym(112306015, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/112306015" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PPCCYQHCFD"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PPCCYQHCFD');
+  </script>
+  <link rel="canonical" href="https://rackmatch.net/how-many-servers-per-pdu/">
+  <link rel="stylesheet" href="../pair.css">
+</head>
+<body>
+  <header><a href="../">home</a> <a href="../bom/">Build a rack cable BOM</a> <a href="../suggest/">Suggest a correction / Add equipment</a></header>
+  <main>
+    <h1>How many servers per PDU?</h1>
+    <p>Two limits decide it: how much power the PDU can deliver, and how many outlets of the right type it has. The lower of the two wins.</p>
+    <h2>1. Usable PDU power</h2>
+    <p>Single-phase: volts × amps. In North America, keep continuous load at 80% of the breaker, so multiply by 0.8. Three-phase: volts × amps × 1.732 (× 0.8 in North America).</p>
+    <table>
+      <tr><th>PDU</th><th>Input</th><th>Usable power</th></tr>
+      <tr><td><a href="../dell-poweredge-r650-apc-ap8941/">APC AP8941</a></td><td>208 V, 30 A single-phase</td><td>208 × 30 × 0.8 ≈ 5.0 kW</td></tr>
+      <tr><td><a href="../dell-poweredge-r760-apc-ap8853/">APC AP8853</a></td><td>230 V, 32 A single-phase</td><td>7.4 kW rated</td></tr>
+    </table>
+    <h2>2. Real server draw, not PSU rating</h2>
+    <p>A server with two 1100 W PSUs does not draw 2200 W. Use the vendor's power calculator (Dell EIPT, HPE Power Advisor, Lenovo LCP) or a measured peak from the BMC. Add about 20% margin for spikes and future upgrades.</p>
+    <h2>3. A/B redundancy</h2>
+    <p>With dual PSUs on two PDUs (A feed and B feed), each PDU must be able to carry the whole rack if the other feed fails. So the total rack load must fit on one PDU, not two.</p>
+    <h2>4. Outlets</h2>
+    <p>Each server with two PSUs uses one outlet on PDU A and one on PDU B. A C14-inlet PSU needs a C13 outlet. A C20-inlet PSU needs a C19 outlet, and PDUs usually have only 3–6 of those.</p>
+    <h2>Worked example</h2>
+    <p>A/B pair of APC AP8941 (5.0 kW usable each, 21 C13 + 3 C19). Servers measured at 450 W peak, plus 20% margin = 540 W. Power limit: 5000 / 540 ≈ 9 servers. Outlet limit: 21. Answer: 9 servers per A/B pair. Power runs out long before outlets do.</p>
+    <p>GPU servers flip this: one 8-GPU system can need 6 × C19 outlets and more than 10 kW, so a single PDU may not be enough. See <a href="../dgx-h100-pdu-requirements/">DGX H100 PDU requirements</a>.</p>
+    <p>Related: <a href="../pdu-power-cord-compatibility/">PDU power cord compatibility</a>, <a href="../server-to-pdu-power-cord/">server to PDU power cord</a>.</p>
+    <footer>Rules on derating differ by country and code. Ask the site electrician for the branch circuit limits.</footer>
+    <p>Cabling a whole rack? <a href="../bom/">Build the full cord list</a> and get a free quote.</p>
+  </main>
+</body>
+</html>

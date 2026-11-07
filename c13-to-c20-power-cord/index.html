@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>C13 to C20 Power Cord: When You Need One</title>
+  <meta name="description" content="A C13 to C20 cord connects a server with a C14 inlet to a C19 outlet on a PDU or UPS. When to use it and what to check.">
+  <meta name="robots" content="index, follow">
+  <meta name="google-site-verification" content="Op8AESilG-2JBeSHhb3C3REZSKV5EnoilcB01g9pOek">
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+   (function(m,e,t,r,i,k,a){
+    m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+   })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=112306015', 'ym');
+   ym(112306015, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/112306015" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PPCCYQHCFD"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PPCCYQHCFD');
+  </script>
+  <link rel="canonical" href="https://rackmatch.net/c13-to-c20-power-cord/">
+  <link rel="stylesheet" href="../pair.css">
+</head>
+<body>
+  <header><a href="../">home</a> <a href="../bom/">Build a rack cable BOM</a> <a href="../suggest/">Suggest a correction / Add equipment</a></header>
+  <main>
+    <h1>C13 to C20 power cord</h1>
+    <p>This cord has a C13 coupler on one end and a C20 plug on the other. It connects equipment with a normal C14 inlet to a C19 outlet.</p>
+    <table>
+      <tr><td>C13 end</td><td>Goes into the C14 inlet on the server, switch or storage PSU</td></tr>
+      <tr><td>C20 end</td><td>Goes into a C19 outlet on a rack PDU or UPS</td></tr>
+      <tr><td>Rating</td><td>Limited by the C13 end: 10 A (IEC) or 15 A (North America)</td></tr>
+    </table>
+    <h2>When it is useful</h2>
+    <ul>
+      <li>All C13 outlets on the PDU are taken, but C19 outlets are free.</li>
+      <li>A UPS has C19 outlets and you want to plug in a server with a C14 inlet.</li>
+      <li>You are mixing high-watt GPU servers (C20) and normal 1U/2U servers (C14) on the same PDU and want to use every outlet.</li>
+    </ul>
+    <h2>What to check</h2>
+    <p>The C19 outlet is usually on a 16 A or 20 A branch, and the C13 end of this cord is rated lower. That is fine for a PSU that draws within the C13 rating (most PSUs up to about 1600 W on 200–240 V). Do not use it to daisy-chain power strips. Check the PDU's per-bank breaker so the total load on that bank stays under its limit.</p>
+    <h2>The reverse case</h2>
+    <p>A C19-to-C14 cord (C20-inlet server into a C13 outlet) exists, but a high-watt PSU can draw more than a C13 outlet is rated for. Avoid it unless the PSU is power-capped. See <a href="../c13-pdu-c19-server/">C13 PDU, C19 server</a>.</p>
+    <p>Related: <a href="../c13-vs-c19/">C13 vs C19</a>, <a href="../c19-vs-c20/">C19 vs C20</a>, <a href="../pdu-power-cord-compatibility/">PDU power cord compatibility</a>.</p>
+    <footer>Confirm the inlet and amps on the PSU nameplate before you buy.</footer>
+    <p>Cabling a whole rack? <a href="../bom/">Build the full cord list</a> and get a free quote.</p>
+  </main>
+</body>
+</html>

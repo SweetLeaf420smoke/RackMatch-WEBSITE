@@ -89,4 +89,9 @@
   <url><loc>https://rackmatch.net/nvidia-dgx-b300-power-cord/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://rackmatch.net/dgx-h100-pdu-requirements/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://rackmatch.net/suggest/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://rackmatch.net/c13-vs-c19/</loc><lastmod>2026-11-07</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://rackmatch.net/c13-to-c20-power-cord/</loc><lastmod>2026-11-07</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://rackmatch.net/how-many-servers-per-pdu/</loc><lastmod>2026-11-07</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://rackmatch.net/dell-poweredge-r740-power-cord/</loc><lastmod>2026-11-07</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://rackmatch.net/dell-poweredge-r640-power-cord/</loc><lastmod>2026-11-07</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
 </urlset>

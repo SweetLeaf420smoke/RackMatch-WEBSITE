@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>C13 vs C19: What Is the Difference?</title>
+  <meta name="description" content="C13 is the 10 A IEC coupler for C14 inlets; C19 is the larger 16 A coupler for C20 inlets. How to tell them apart and which one your server needs.">
+  <meta name="robots" content="index, follow">
+  <meta name="google-site-verification" content="Op8AESilG-2JBeSHhb3C3REZSKV5EnoilcB01g9pOek">
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+   (function(m,e,t,r,i,k,a){
+    m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+   })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=112306015', 'ym');
+   ym(112306015, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/112306015" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PPCCYQHCFD"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PPCCYQHCFD');
+  </script>
+  <link rel="canonical" href="https://rackmatch.net/c13-vs-c19/">
+  <link rel="stylesheet" href="../pair.css">
+</head>
+<body>
+  <header><a href="../">home</a> <a href="../bom/">Build a rack cable BOM</a> <a href="../suggest/">Suggest a correction / Add equipment</a></header>
+  <main>
+    <h1>C13 vs C19</h1>
+    <p>Both are IEC 60320 couplers (the female end of a cord, or an outlet on a PDU). They are different sizes and do not fit each other's inlets.</p>
+    <table>
+      <tr><th></th><th>C13</th><th>C19</th></tr>
+      <tr><td>Mates with</td><td>C14 inlet / C14 plug</td><td>C20 inlet / C20 plug</td></tr>
+      <tr><td>Current class</td><td>10 A (IEC), often 15 A in North America</td><td>16 A (IEC), often 20 A in North America</td></tr>
+      <tr><td>Shape</td><td>Three pins in a row-and-point layout, small body</td><td>Three flat pins in a horizontal row, wider body</td></tr>
+      <tr><td>Typical use</td><td>1U/2U servers, switches, storage with PSUs up to about 1600 W</td><td>High-watt PSUs (2000–3000 W), GPU servers, PDU inputs, UPS outputs</td></tr>
+      <tr><td>On a rack PDU</td><td>Most outlets</td><td>A few outlets, usually 3–6</td></tr>
+    </table>
+    <h2>How to tell which one you need</h2>
+    <p>Look at the inlet on the power supply, not the server model. A C14 inlet takes a C13 cord. A C20 inlet takes a C19 cord. The same chassis can ship with either, depending on the PSU wattage. Example: Dell PowerEdge R740 uses C14 on 495–1600 W PSUs and C20 on the 2000 W and 2400 W PSUs (<a href="../dell-poweredge-r740-power-cord/">details</a>).</p>
+    <h2>Can I plug a C13 into a C19 outlet?</h2>
+    <p>No, the shapes are different. To feed a C14-inlet server from a C19 outlet you use a C13-to-C20 cord: C13 into the server, C20 into the C19 outlet. See <a href="../c13-to-c20-power-cord/">C13 to C20 power cord</a>. The other way round (C20-inlet server, PDU with only C13 outlets) does not work: one C13 outlet cannot safely feed a 16 A PSU. See <a href="../c13-pdu-c19-server/">C13 PDU, C19 server</a>.</p>
+    <p>Related: <a href="../c13-vs-c14/">C13 vs C14</a>, <a href="../c19-vs-c20/">C19 vs C20</a>, <a href="../what-power-cord-does-my-server-need/">what power cord does my server need</a>.</p>
+    <footer>Ratings vary by cord and country. Check the cord's own marking and the PSU nameplate.</footer>
+    <p>Cabling a whole rack? <a href="../bom/">Build the full cord list</a> and get a free quote.</p>
+  </main>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dell PowerEdge R640 Power Cord</title>
+  <meta name="description" content="Dell PowerEdge R640 AC PSUs (495, 750, 1100, 1600 W) use C14 inlets, so the cord is C13 to C14 into a PDU C13 outlet. Low-line derating notes.">
+  <meta name="robots" content="index, follow">
+  <meta name="google-site-verification" content="Op8AESilG-2JBeSHhb3C3REZSKV5EnoilcB01g9pOek">
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+   (function(m,e,t,r,i,k,a){
+    m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+   })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=112306015', 'ym');
+   ym(112306015, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/112306015" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PPCCYQHCFD"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PPCCYQHCFD');
+  </script>
+  <link rel="canonical" href="https://rackmatch.net/dell-poweredge-r640-power-cord/">
+  <link rel="stylesheet" href="../pair.css">
+</head>
+<body>
+  <header><a href="../">home</a> <a href="../bom/">Build a rack cable BOM</a> <a href="../suggest/">Suggest a correction / Add equipment</a></header>
+  <main>
+    <h1>Dell PowerEdge R640 power cord</h1>
+    <p>Common R640 AC PSUs have a C14 inlet. The cord is a C13–C14 jumper: C13 into the server, C14 into a C13 outlet on the PDU.</p>
+    <table>
+      <tr><th>PSU</th><th>Inlet</th><th>On 100–120 V</th></tr>
+      <tr><td>495 W</td><td>C14</td><td>Full rating</td></tr>
+      <tr><td>750 W</td><td>C14</td><td>Full rating</td></tr>
+      <tr><td>1100 W</td><td>C14</td><td>Derated to 1050 W</td></tr>
+      <tr><td>1600 W</td><td>C14</td><td>Derated to 800 W</td></tr>
+    </table>
+    <p>Dell's R640 technical guide notes that PSUs rated 1600 W and higher need 200–240 V to deliver their full capacity. On a 120 V homelab circuit, a 1600 W PSU behaves like an 800 W one.</p>
+    <h2>Which cord to buy</h2>
+    <p>A C13–C14 PDU-style jumper, 10 A, such as Dell 450-ABLE (0.6 m) or 450-ABLC (2 m). For a wall outlet instead of a PDU, use a country cord with a C13 end (for example NEMA 5-15P to C13 in North America).</p>
+    <h2>Sources</h2>
+    <p><a href="https://www.manualslib.com/manual/3325648/Dell-0g8dw.html?page=35" target="_blank" rel="noopener">Dell PowerEdge R640 PSU specifications (derating notes)</a></p>
+    <p><a href="https://www.itcreations.com/product/73415" target="_blank" rel="noopener">Dell 495 W PSU for R640: C14 connector, C13 cord</a></p>
+    <p>Related: <a href="../dell-poweredge-r740-power-cord/">R740 power cord</a>, <a href="../dell-poweredge-r650-power-cord/">R650 power cord</a>, <a href="../c13-vs-c14/">C13 vs C14</a>.</p>
+    <footer>Confirm inlet and amps on the PSU nameplate before you buy.</footer>
+    <p>Cabling a whole rack? <a href="../bom/">Build the full cord list</a> and get a free quote.</p>
+  </main>
+</body>
+</html>
