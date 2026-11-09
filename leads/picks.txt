@@ -1,0 +1,4 @@
+https://www.reddit.com/r/homelab/comments/1xri34y/whats_the_best_way_to_fit_33060_full_size_cards/
+https://www.reddit.com/r/homelab/comments/1xs0s0u/two_proliants_and_two_gpu_towers_on_basement_wire/
+https://www.reddit.com/r/sysadmin/comments/1xrps0p/temperature_sensor_placement/
+https://www.reddit.com/r/homelab/comments/1xrubgo/any_way_to_cool_down_my_cards/
