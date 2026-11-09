@@ -53,7 +53,7 @@ rows.sort(reverse=True)
 
 def reddit_comments(link):
     """Return list of 'author: text' for a Reddit post via its .rss (post + comments)."""
-    root = ET.fromstring(get(link.rstrip("/") + "/.rss?limit=25"))
+    root = ET.fromstring(get(link.rstrip("/") + "/.rss?limit=100"))
     out = []
     for e in root.findall("a:entry", ns)[1:]:
         a = e.findtext("a:author/a:name", default="", namespaces=ns).replace("/u/", "")
@@ -92,6 +92,8 @@ if os.environ.get("PICKS") == "1" and picks_file.exists():
             cm = sth_comments(u) if "servethehome" in u else reddit_comments(u)
             res.append(f"## {u}\n- comments: {len(cm)}")
             res += [f"  - {c}" for c in cm[:15]]
+            mine = [c for c in cm if c.startswith("No_Engineering_2443")]
+            res += [f"  - MINE: {c}" for c in mine]
         except Exception as ex:
             res.append(f"## {u}\n- ERROR {ex}")
         res.append("")
