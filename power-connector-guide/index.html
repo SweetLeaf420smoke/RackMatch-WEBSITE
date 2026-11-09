@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Server Power Connector Guide: C13, C19, NEMA, IEC 60309</title>
+  <meta name="description" content="Reference for rack power connectors: IEC C5-C22, NEMA 5-15 to L21-30, IEC 60309, Schuko, BS 1363, SA Type M/N. Ratings, mating and typical use. Free PDF cheat sheet.">
+  <meta name="robots" content="index, follow">
+  <meta name="google-site-verification" content="Op8AESilG-2JBeSHhb3C3REZSKV5EnoilcB01g9pOek">
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+   (function(m,e,t,r,i,k,a){
+    m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+   })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=112306015', 'ym');
+   ym(112306015, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/112306015" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PPCCYQHCFD"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PPCCYQHCFD');
+  </script>
+  <link rel="canonical" href="https://rackmatch.net/power-connector-guide/">
+  <link rel="stylesheet" href="../pair.css">
+</head>
+<body>
+  <header><a href="../">home</a> <a href="../bom/">Build a rack cable BOM</a> <a href="../suggest/">Suggest a correction / Add equipment</a></header>
+  <main>
+    <h1>Server and rack power connector guide</h1>
+    <p>Every common plug and socket you meet in a rack, with ratings and where it is used. Printable version: <a href="../rackmatch-power-cheat-sheet.pdf">one-page PDF cheat sheet</a>.</p>
+    <h2>IEC 60320 equipment connectors</h2>
+    <p>These are the cords between equipment and the PDU or wall cord. The pair names always go odd (female) to even (male).</p>
+    <table border="1" cellpadding="4" style="border-collapse:collapse"><tr><th>Pair</th><th>Rating</th><th>How it mates</th><th>Typical use</th></tr><tr><td>C5 / C6</td><td>2.5 A</td><td>C5 coupler into C6 inlet</td><td>Laptop power bricks (&quot;cloverleaf&quot;)</td></tr><tr><td>C7 / C8</td><td>2.5 A</td><td>C7 coupler into C8 inlet</td><td>Small devices, some mini PCs and set-top boxes (&quot;figure 8&quot;)</td></tr><tr><td>C13 / C14</td><td>10 A IEC, 15 A UL</td><td>C13 coupler into C14 inlet</td><td>Most 1U/2U servers, switches, storage, PCs, monitors. Most PDU outlets are C13</td></tr><tr><td>C15 / C16</td><td>10 A, 120 °C</td><td>C15 fits C16 and C14 inlets; C13 does not fit C16</td><td>Hot-running gear, some network switches and kettles</td></tr><tr><td>C19 / C20</td><td>16 A IEC, 20 A UL</td><td>C19 coupler into C20 inlet</td><td>High-watt server PSUs (about 2000 W and up), GPU servers, PDU and UPS inputs</td></tr><tr><td>C21 / C22</td><td>16 A, 155 °C</td><td>C21 fits C22 and C20 inlets</td><td>High-temperature version of C19/C20</td></tr></table>
+    <h2>Wall and PDU input plugs</h2>
+    <table border="1" cellpadding="4" style="border-collapse:collapse"><tr><th>Plug</th><th>Rating</th><th>Region</th><th>Typical use</th></tr><tr><td>NEMA 5-15</td><td>15 A, 125 V</td><td>North America</td><td>Standard US/Canada wall outlet</td></tr><tr><td>NEMA 5-20</td><td>20 A, 125 V</td><td>North America</td><td>20 A outlet with a T-shaped neutral slot</td></tr><tr><td>NEMA L5-30</td><td>30 A, 125 V, locking</td><td>North America</td><td>Some 120 V rack PDUs and UPS inputs</td></tr><tr><td>NEMA L6-20</td><td>20 A, 250 V, locking</td><td>North America</td><td>208/240 V rack PDUs</td></tr><tr><td>NEMA L6-30</td><td>30 A, 250 V, locking</td><td>North America</td><td>Common 208/240 V single-phase rack PDU input</td></tr><tr><td>NEMA L21-30</td><td>30 A, 120/208 V 3-phase, locking</td><td>North America</td><td>Three-phase rack PDUs</td></tr><tr><td>IEC 60309 blue 2P+E</td><td>16 A or 32 A, 200-250 V</td><td>Europe, Africa, Asia</td><td>Single-phase rack PDU inputs (e.g. 32 A, 7.4 kW at 230 V)</td></tr><tr><td>IEC 60309 red 3P+N+E</td><td>16 A or 32 A, 380-415 V</td><td>Europe, Africa, Asia</td><td>Three-phase rack PDU inputs</td></tr><tr><td>CEE 7/7 (Schuko)</td><td>16 A, 250 V</td><td>Most of Europe</td><td>Wall outlet</td></tr><tr><td>BS 1363</td><td>13 A fused, 250 V</td><td>UK, Ireland, parts of Africa/Asia</td><td>Wall outlet</td></tr><tr><td>SANS 164-1 (Type M)</td><td>15 A, 250 V</td><td>South Africa</td><td>Large round-pin wall outlet</td></tr><tr><td>SANS 164-2 (Type N)</td><td>16 A, 250 V</td><td>South Africa, Brazil</td><td>Newer compact wall outlet</td></tr></table>
+    <h2>Rules that prevent wrong orders</h2>
+    <ol><li>The inlet on the installed PSU decides the cord, not the server model. Read the PSU label.</li><li>Odd numbers are the female end (coupler/outlet), even numbers the male end (inlet/plug): C13 goes into C14, C19 into C20.</li><li>A C13 cord does not fit a C20 inlet. A C19 cord does not fit a C14 inlet.</li><li>Cord current rating is set by its weakest end. A C13-to-C20 cord is still a 10 A cord.</li><li>North America: load circuits to 80% of the breaker for continuous load (30 A circuit = 24 A usable).</li><li>A/B feeds: plug each PSU into a different PDU on a different circuit. One PDU must carry the whole load alone.</li><li>High-watt PSUs often give full power only on 200-240 V. On 120 V they are derated.</li></ol>
+    <h2>Next steps</h2>
+    <p>Find the cord for one server and one PDU on the <a href="../">home page matcher</a>. Size a PDU with the <a href="../pdu-calculator/">PDU calculator</a>. Estimate running cost with the <a href="../homelab-power-cost-calculator/">power cost calculator</a>. Detail pages: <a href="../c13-vs-c14/">C13 vs C14</a>, <a href="../c19-vs-c20/">C19 vs C20</a>, <a href="../c13-vs-c19/">C13 vs C19</a>.</p>
+    <p>Cabling a whole rack? <a href="../bom/">Build the full cord list</a> and get a free quote.</p>
+    <footer>Ratings are typical values from the standards. Always check the marking on the cord and the PSU nameplate. Wiring of wall and PDU circuits is a job for a licensed electrician.</footer>
+  </main>
+</body>
+</html>

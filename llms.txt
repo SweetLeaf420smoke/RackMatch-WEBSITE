@@ -16,6 +16,8 @@ The inlet on the installed power supply decides the cord. The chassis name alone
 - [C19 vs C20](https://rackmatch.net/c19-vs-c20/)
 - [C13 vs C19](https://rackmatch.net/c13-vs-c19/)
 - [C13 to C20 power cord](https://rackmatch.net/c13-to-c20-power-cord/)
+- [Power connector guide](https://rackmatch.net/power-connector-guide/): IEC C5-C22, NEMA, IEC 60309, Schuko, BS 1363, SA plugs; PDF cheat sheet at https://rackmatch.net/rackmatch-power-cheat-sheet.pdf
+- [Homelab power cost calculator](https://rackmatch.net/homelab-power-cost-calculator/)
 - [PDU calculator](https://rackmatch.net/pdu-calculator/): servers per PDU from volts, amps, phase and server draw
 - [How many servers per PDU](https://rackmatch.net/how-many-servers-per-pdu/)
 - [Dell PowerEdge R740 power cord](https://rackmatch.net/dell-poweredge-r740-power-cord/)

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Homelab power cost calculator by RackMatch</title>
+  <meta name="description" content="Embeddable homelab power cost calculator by RackMatch.">
+  <meta name="robots" content="noindex, follow">
+  <meta name="google-site-verification" content="Op8AESilG-2JBeSHhb3C3REZSKV5EnoilcB01g9pOek">
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+   (function(m,e,t,r,i,k,a){
+    m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+   })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=112306015', 'ym');
+   ym(112306015, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/112306015" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PPCCYQHCFD"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PPCCYQHCFD');
+  </script>
+  <link rel="canonical" href="https://rackmatch.net/homelab-power-cost-calculator/">
+  <style>body{margin:0;padding:10px;font:15px/1.4 Arial,Helvetica,sans-serif} label{display:block;margin:6px 0 2px} input,select,button{font:inherit} h1{font-size:17px;margin:0 0 8px} .by{margin-top:10px;font-size:13px}</style>
+</head>
+<body>
+<h1>What does your homelab cost to run?</h1>
+<div id="hc" style="max-width:640px">
+<table id="hc-rows" style="width:100%"><tr><th align="left">Device</th><th align="left">Watts</th><th align="left">Hours/day</th><th></th></tr></table>
+<p><button type="button" id="hc-add">+ Add device</button>
+ Presets: <select id="hc-preset"><option value="">choose…</option>
+ <option value="Raspberry Pi 5|5">Raspberry Pi 5 (~5 W)</option>
+ <option value="Mini PC (idle)|12">Mini PC idle (~12 W)</option>
+ <option value="4-bay NAS with HDDs|35">4-bay NAS with HDDs (~35 W)</option>
+ <option value="24-port switch|20">24-port switch (~20 W)</option>
+ <option value="PoE switch with cameras|60">PoE switch with cameras (~60 W)</option>
+ <option value="1U/2U server, idle|120">1U/2U server idle (~120 W)</option>
+ <option value="Server under load|300">Server under load (~300 W)</option>
+ <option value="GPU box, inference|450">GPU box inference (~450 W)</option>
+ <option value="Router / firewall|15">Router / firewall (~15 W)</option>
+ </select></p>
+<label>Electricity price per kWh <input id="hc-price" type="number" value="0.20" step="0.01" min="0" style="width:6em"></label>
+<label>Currency <input id="hc-cur" type="text" value="$" style="width:4em"></label>
+<label>UPS / PSU overhead <input id="hc-ovh" type="number" value="8" min="0" step="1" style="width:4em"> %</label>
+<div id="hc-out" style="margin-top:12px;padding:10px;border:1px solid #ccc"></div>
+</div>
+<script>
+(function(){
+ var rows=document.getElementById('hc-rows');
+ function add(n,w,h){var tr=document.createElement('tr');
+  tr.innerHTML='<td><input type="text" value="'+(n||'Device')+'" style="width:95%"></td><td><input type="number" min="0" value="'+(w||50)+'" style="width:6em"></td><td><input type="number" min="0" max="24" value="'+(h==null?24:h)+'" style="width:4em"></td><td><button type="button">x</button></td>';
+  tr.querySelector('button').onclick=function(){tr.remove();calc();};
+  tr.querySelectorAll('input').forEach(function(i){i.addEventListener('input',calc);});
+  rows.appendChild(tr);calc();}
+ function calc(){var wh=0,w=0;
+  rows.querySelectorAll('tr').forEach(function(tr,i){if(!i)return;var x=tr.querySelectorAll('input');var ww=+x[1].value||0,hh=Math.min(24,+x[2].value||0);w+=ww;wh+=ww*hh;});
+  var o=1+(+document.getElementById('hc-ovh').value||0)/100, p=+document.getElementById('hc-price').value||0, c=document.getElementById('hc-cur').value||'';
+  var kday=wh*o/1000, kmon=kday*30.42, kyr=kday*365;
+  var avg=wh*o/24;
+  document.getElementById('hc-out').innerHTML='<b>'+c+(kmon*p).toFixed(2)+' per month</b> · '+c+(kyr*p).toFixed(0)+' per year<br>'+
+   'Energy: '+kday.toFixed(2)+' kWh/day, '+kmon.toFixed(0)+' kWh/month<br>'+
+   'Average draw '+avg.toFixed(0)+' W (peak if all on: '+(w*o).toFixed(0)+' W)<br>'+
+   'Rule of thumb: every 10 W running 24/7 costs '+c+(10*24*365/1000*p).toFixed(2)+' a year at this price.';}
+ document.getElementById('hc-add').onclick=function(){add();};
+ document.getElementById('hc-preset').onchange=function(){if(!this.value)return;var a=this.value.split('|');add(a[0],+a[1],24);this.value='';};
+ ['hc-price','hc-cur','hc-ovh'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);});
+ add('Mini PC (idle)',12,24);add('4-bay NAS with HDDs',35,24);add('24-port switch',20,24);
+})();
+</script>
+<p class="by">Free <a href="https://rackmatch.net/homelab-power-cost-calculator/" target="_blank" rel="noopener">homelab power cost calculator by RackMatch</a></p>
+</body>
+</html>
