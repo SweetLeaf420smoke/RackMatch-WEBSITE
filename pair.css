@@ -23,3 +23,18 @@ footer { margin-top: 24px; font-size: 13px; color: #333; }
 .related h2{margin-top:0;font-size:1.15rem}
 .related ul{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.4rem 1.5rem;padding-left:1.1rem;margin:.5rem 0 1rem}
 .related li{line-height:1.4}
+.crumbs{font-size:13px;color:#555;margin-bottom:8px}
+.crumbs a{color:#555}
+.byline{font-size:13px;color:#555;margin-top:-6px}
+.toc{border-left:3px solid #00e;padding:6px 12px;margin:16px 0;background:#f7f9fb;font-size:14px}
+.toc ol{margin:6px 0 0}
+.faq details{border-bottom:1px solid #e3e7ec;padding:8px 0}
+.faq summary{cursor:pointer;font-weight:bold}
+.faq details p{margin:8px 0 0}
+.sitefoot{max-width:960px;margin:24px auto 0;padding:24px 12px 32px;border-top:1px solid #ccc;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;font-size:13px}
+.sitefoot h3{font-size:14px;margin:0 0 6px}
+.sitefoot ul{list-style:none;padding:0;margin:0}
+.sitefoot li{margin:3px 0}
+.sitefoot p{grid-column:1/-1;color:#555;margin:0}
+figure.diagram{margin:16px 0}
+figure.diagram figcaption{font-size:13px;color:#555}

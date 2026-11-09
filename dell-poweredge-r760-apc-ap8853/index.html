@@ -33,6 +33,9 @@
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<!-- LD -->
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "@id": "https://rackmatch.net/dell-poweredge-r760-apc-ap8853/#article", "headline": "Dell PowerEdge R760 + APC AP8853 Power Cable", "description": "Dell PowerEdge R760 + APC AP8853: IEC C19–C20 jumper. PDU outlets: 36 × C13 and 6 × C19.", "url": "https://rackmatch.net/dell-poweredge-r760-apc-ap8853/", "mainEntityOfPage": "https://rackmatch.net/dell-poweredge-r760-apc-ap8853/", "datePublished": "2026-09-28", "dateModified": "2026-11-10", "inLanguage": "en", "image": "https://rackmatch.net/icon-192.png", "author": {"@type": "Organization", "name": "RackMatch", "url": "https://rackmatch.net/"}, "publisher": {"@type": "Organization", "name": "RackMatch", "url": "https://rackmatch.net/", "logo": {"@type": "ImageObject", "url": "https://rackmatch.net/icon-192.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "RackMatch", "item": "https://rackmatch.net/"}, {"@type": "ListItem", "position": 2, "name": "Server + PDU pairs"}, {"@type": "ListItem", "position": 3, "name": "Dell PowerEdge R760 + APC AP8853 Power Cable", "item": "https://rackmatch.net/dell-poweredge-r760-apc-ap8853/"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What power cable connects the Dell PowerEdge R760 to the APC AP8853?", "acceptedAnswer": {"@type": "Answer", "text": "An IEC C19–C20 jumper. C19 into the R760 C20 inlet; C20 into an AP8853 C19 outlet."}}, {"@type": "Question", "name": "What outlets does the APC AP8853 have?", "acceptedAnswer": {"@type": "Answer", "text": "The vendor lists 36 × C13 and 6 × C19, input 230 V, 32 A input."}}, {"@type": "Question", "name": "Does the Dell PowerEdge R760 need locking power cords?", "acceptedAnswer": {"@type": "Answer", "text": "Not required for a standard install. Locking option on this PDU: Optional locking C13 (AP870x / similar); this pair uses C19."}}, {"@type": "Question", "name": "Should both server PSUs go into the same PDU?", "acceptedAnswer": {"@type": "Answer", "text": "No. Use two PDUs on separate circuits (A and B feeds), one PSU in each, and size each PDU for the full load."}}]}]}</script>
+  <!-- /LD -->
 </head>
 <body>
   <header>
@@ -40,23 +43,36 @@
     <a href="../suggest/">Suggest a correction / Add equipment</a>
   </header>
   <main>
-    <h1>Dell PowerEdge R760 + APC AP8853 Power Cable</h1>
+    <!-- CRUMBS --><nav class="crumbs"><a href="../">RackMatch</a> › <span>Server + PDU pairs</span> › <span>Dell PowerEdge R760 + APC AP8853 Power Cable</span></nav>
+    <!-- /CRUMBS -->
+<h1>Dell PowerEdge R760 + APC AP8853 Power Cable</h1><!-- BYLINE -->
+    <p class="byline">By the RackMatch team · Updated <time datetime="2026-11-10">2026-11-10</time> · Sources linked on the page</p><!-- /BYLINE -->
     <p><b>Compatible</b> for the 2400 W PSU. Required cable: IEC C19–C20.</p>
     <table>
       <tr><td>Connector</td><td>C19 into the R760 C20 inlet; C20 into an AP8853 C19 outlet</td></tr>
       <tr><td>Voltage / current</td><td>Server PSU 200–240 V / 16 A. PDU 230 V, 32 A input</td></tr>
       <tr><td>Locking</td><td>Optional locking C13 (AP870x / similar); this pair uses C19</td></tr>
     </table>
-    <h2>Why this cable</h2>
+    <!-- FIG --><figure class="diagram"><img src="/img/server-pdu-jumpers.svg" width="680" height="300" style="max-width:100%;height:auto" alt="Diagram of which jumper joins a server PSU inlet to a PDU outlet: C13-C14, C19-C20, or C13-C20" loading="lazy"><figcaption>Server inlet → jumper → PDU outlet.</figcaption></figure><!-- /FIG -->
+    <!-- TOC -->
+    <nav class="toc"><b>On this page</b><ol><li><a href="#why-this-cable">Why this cable</a></li><li><a href="#cabling-a-whole-rack">Cabling a whole rack?</a></li><li><a href="#sources">Sources</a></li><li><a href="#faq">Frequently asked questions</a></li></ol></nav>
+    <!-- /TOC -->
+    <h2 id="why-this-cable">Why this cable</h2>
     <p>A R760 PSU in this catalog uses a C20 inlet. APC lists AP8853 as 36 × C13 and 6 × C19. Use a C19 outlet and a C19–C20 jumper. A C13–C14 cord does not fit this inlet. Lower-watt R760 PSUs can be C14 and then use a C13 outlet instead.</p>
-    <h2>Cabling a whole rack?</h2>
+    <h2 id="cabling-a-whole-rack">Cabling a whole rack?</h2>
     <p>Build the cable list for 10 × PowerEdge R760 with 2 × APC AP8853 (A/B feeds), then request a free quote for the complete cable kit.</p>
     <p><a href="../bom/?server=dell-r760-2400&pdu=apc-ap8853&qty=10">Build the rack cable kit →</a></p>
-    <h2>Sources</h2>
+    <h2 id="sources">Sources</h2>
     <p>Server: <a href="https://www.dell.com/support/manuals/en-us/oth-r760/per760_ism_pub/psu-specifications?guid=guid-2903fb7d-7d40-42ec-b044-fa724d2ea2e1&amp;lang=en-us" target="_blank" rel="noopener">Dell PowerEdge R760 PSU specifications</a></p>
     <p>PDU: <a href="https://www.se.com/uk/en/product/AP8853/apc-netshelter-metered-rack-pdu-0u-1ph-7-4kw-230v-32a-36-c13-and-6-c19-outlets-iec-309-2p+e-cord/" target="_blank" rel="noopener">Schneider Electric APC AP8853</a></p>
     <footer>Check the live nameplate and the vendor PDF before you order cable. High-watt PSUs on the same chassis can change the inlet.</footer>
-    <!-- RELATED -->
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+      <h2>Frequently asked questions</h2>
+      <details><summary>What power cable connects the Dell PowerEdge R760 to the APC AP8853?</summary><p>An IEC C19–C20 jumper. C19 into the R760 C20 inlet; C20 into an AP8853 C19 outlet.</p></details><details><summary>What outlets does the APC AP8853 have?</summary><p>The vendor lists 36 × C13 and 6 × C19, input 230 V, 32 A input.</p></details><details><summary>Does the Dell PowerEdge R760 need locking power cords?</summary><p>Not required for a standard install. Locking option on this PDU: Optional locking C13 (AP870x / similar); this pair uses C19.</p></details><details><summary>Should both server PSUs go into the same PDU?</summary><p>No. Use two PDUs on separate circuits (A and B feeds), one PSU in each, and size each PDU for the full load.</p></details>
+    </section>
+    <!-- /FAQ -->
+<!-- RELATED -->
     <section class="related">
       <h2>You may also need</h2>
       <ul><li><a href="../dell-poweredge-r650-apc-ap8853/">Dell PowerEdge R650 + APC AP8853 Power Cable</a></li><li><a href="../dell-poweredge-r760-apc-ap8941/">Dell PowerEdge R760 + APC AP8941 Power Cable</a></li><li><a href="../dell-poweredge-r650-apc-ap8941/">Dell PowerEdge R650 + APC AP8941 Power Cable</a></li><li><a href="../dell-poweredge-r760-raritan-px3-5496v/">Dell PowerEdge R760 + Raritan PX3-5496V Power Cable</a></li><li><a href="../pdu-calculator/">PDU calculator: how many servers per PDU</a></li><li><a href="../homelab-power-cost-calculator/">Homelab power cost calculator</a></li><li><a href="../power-connector-guide/">Server and rack power connector guide</a></li><li><a href="../dell-poweredge-r760-power-cord/">Dell PowerEdge R760 power cord</a></li><li><a href="../dell-poweredge-r640-power-cord/">Dell PowerEdge R640 power cord</a></li></ul>
@@ -64,5 +80,8 @@
     </section>
     <!-- /RELATED -->
   </main>
+<!-- SITEFOOT -->
+  <nav class="sitefoot" aria-label="All pages"><div><h3>Guides</h3><ul><li><a href="../c13-c14-server-power-cord/">C13 C14 server power cord</a></li><li><a href="../c13-pdu-c19-server/">C13 PDU, C19 server</a></li><li><a href="../c13-to-c14-compatibility/">C13 to C14 compatibility</a></li><li><a href="../c13-to-c20-power-cord/">C13 to C20 power cord</a></li><li><a href="../c13-vs-c14/">C13 vs C14</a></li><li><a href="../c13-vs-c19/">C13 vs C19</a></li><li><a href="../c19-c20-server-power-cord/">C19 C20 server power cord</a></li><li><a href="../c19-to-c20-compatibility/">C19 to C20 compatibility</a></li><li><a href="../c19-vs-c20/">C19 vs C20</a></li><li><a href="../how-many-servers-per-pdu/">How many servers per PDU?</a></li><li><a href="../pdu-power-cord-compatibility/">PDU power cord compatibility</a></li><li><a href="../server-to-pdu-power-cord/">Server to PDU power cord</a></li><li><a href="../what-power-cord-does-my-server-need/">What power cord does my server need?</a></li></ul></div><div><h3>Tools</h3><ul><li><a href="../">Server-PDU matcher</a></li><li><a href="../bom/">Rack cord BOM builder</a></li><li><a href="../homelab-power-cost-calculator/">Homelab power cost calculator</a></li><li><a href="../pdu-calculator/">PDU calculator: how many servers per PDU</a></li><li><a href="../power-connector-guide/">Server and rack power connector guide</a></li><li><a href="../rackmatch-power-cheat-sheet.pdf">Power cheat sheet (PDF)</a></li></ul></div><div><h3>Server power cords</h3><ul><li><a href="../dell-poweredge-r640-power-cord/">Dell PowerEdge R640 power cord</a></li><li><a href="../dell-poweredge-r650-power-cord/">Dell PowerEdge R650 power cord</a></li><li><a href="../dell-poweredge-r730-power-cord/">Dell PowerEdge R730 power cord</a></li><li><a href="../dell-poweredge-r740-power-cord/">Dell PowerEdge R740 power cord</a></li><li><a href="../dell-poweredge-r760-power-cord/">Dell PowerEdge R760 power cord</a></li><li><a href="../dgx-h100-pdu-requirements/">DGX H100 PDU requirements</a></li><li><a href="../hpe-proliant-dl380-gen10-power-cord/">HPE ProLiant DL380 Gen10 power cord</a></li><li><a href="../hpe-proliant-dl380-gen11-power-cord/">HPE ProLiant DL380 Gen11 power cord</a></li><li><a href="../nvidia-dgx-b200-power-cord/">NVIDIA DGX B200 power cord</a></li><li><a href="../nvidia-dgx-b300-power-cord/">NVIDIA DGX B300 power cord</a></li><li><a href="../nvidia-dgx-h100-power-cord/">NVIDIA DGX H100 power cord</a></li><li><a href="../nvidia-dgx-h200-power-cord/">NVIDIA DGX H200 power cord</a></li></ul></div><div><h3>Server + PDU pairs</h3><ul><li><a href="../dell-poweredge-r650-apc-ap8853/">Dell PowerEdge R650 + APC AP8853 Power Cable</a></li><li><a href="../dell-poweredge-r650-apc-ap8941/">Dell PowerEdge R650 + APC AP8941 Power Cable</a></li><li><a href="../dell-poweredge-r650-eaton-ema333-10/">Dell PowerEdge R650 + Eaton EMA333-10 Power Cable</a></li><li><a href="../dell-poweredge-r650-raritan-px3-5496v/">Dell PowerEdge R650 + Raritan PX3-5496V Power Cable</a></li><li><a href="../dell-poweredge-r760-apc-ap8853/">Dell PowerEdge R760 + APC AP8853 Power Cable</a></li><li><a href="../dell-poweredge-r760-apc-ap8941/">Dell PowerEdge R760 + APC AP8941 Power Cable</a></li><li><a href="../dell-poweredge-r760-raritan-px3-5496v/">Dell PowerEdge R760 + Raritan PX3-5496V Power Cable</a></li><li><a href="../hpe-proliant-dl380-gen11-apc-ap8853/">HPE ProLiant DL380 Gen11 + APC AP8853 Power Cable</a></li><li><a href="../hpe-proliant-dl380-gen11-apc-ap8941/">HPE ProLiant DL380 Gen11 + APC AP8941 Power Cable</a></li><li><a href="../lenovo-thinksystem-sr650-v3-apc-ap8853/">Lenovo ThinkSystem SR650 V3 + APC AP8853 Power Cable</a></li></ul></div><p>RackMatch: rack power cord and PDU compatibility reference. <a href="../suggest/">Suggest a correction</a></p></nav>
+  <!-- /SITEFOOT -->
 </body>
 </html>

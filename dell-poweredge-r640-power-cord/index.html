@@ -32,11 +32,17 @@
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<!-- LD -->
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "@id": "https://rackmatch.net/dell-poweredge-r640-power-cord/#article", "headline": "Dell PowerEdge R640 power cord", "description": "Dell PowerEdge R640 AC PSUs (495, 750, 1100, 1600 W) use C14 inlets, so the cord is C13 to C14 into a PDU C13 outlet. Low-line derating notes.", "url": "https://rackmatch.net/dell-poweredge-r640-power-cord/", "mainEntityOfPage": "https://rackmatch.net/dell-poweredge-r640-power-cord/", "datePublished": "2026-11-07", "dateModified": "2026-11-10", "inLanguage": "en", "image": "https://rackmatch.net/icon-192.png", "author": {"@type": "Organization", "name": "RackMatch", "url": "https://rackmatch.net/"}, "publisher": {"@type": "Organization", "name": "RackMatch", "url": "https://rackmatch.net/", "logo": {"@type": "ImageObject", "url": "https://rackmatch.net/icon-192.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "RackMatch", "item": "https://rackmatch.net/"}, {"@type": "ListItem", "position": 2, "name": "Server power cords"}, {"@type": "ListItem", "position": 3, "name": "Dell PowerEdge R640 power cord", "item": "https://rackmatch.net/dell-poweredge-r640-power-cord/"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What power cord does the Dell PowerEdge R640 need?", "acceptedAnswer": {"@type": "Answer", "text": "It depends on the PSU that is installed, not on the chassis. A PSU with a C14 inlet takes a C13 cord; a PSU with a C20 inlet takes a C19 cord. The table on this page lists which PSUs use which inlet."}}, {"@type": "Question", "name": "Can I use a C13 cord on a C20 inlet?", "acceptedAnswer": {"@type": "Answer", "text": "No. C13 and C20 have different shapes and do not fit. A C20 inlet needs a C19 cord."}}, {"@type": "Question", "name": "What cord goes from the Dell PowerEdge R640 to a rack PDU?", "acceptedAnswer": {"@type": "Answer", "text": "Usually a short jumper with the same connector family at both ends: C13 to C14 for a C13 PDU outlet, or C19 to C20 for a C19 outlet. A wall plug cord (NEMA 5-15, Schuko, BS 1363) is only for a wall socket."}}, {"@type": "Question", "name": "Should both PSUs go to the same PDU?", "acceptedAnswer": {"@type": "Answer", "text": "No. For redundancy plug each PSU into a different PDU on a different circuit (A and B feeds). Size each PDU so it can carry the whole server load alone."}}]}]}</script>
+  <!-- /LD -->
 </head>
 <body>
   <header><a href="../">home</a> <a href="../bom/">Build a rack cable BOM</a> <a href="../suggest/">Suggest a correction / Add equipment</a></header>
   <main>
-    <h1>Dell PowerEdge R640 power cord</h1>
+    <!-- CRUMBS --><nav class="crumbs"><a href="../">RackMatch</a> › <span>Server power cords</span> › <span>Dell PowerEdge R640 power cord</span></nav>
+    <!-- /CRUMBS -->
+<h1>Dell PowerEdge R640 power cord</h1><!-- BYLINE -->
+    <p class="byline">By the RackMatch team · Updated <time datetime="2026-11-10">2026-11-10</time> · Sources linked on the page</p><!-- /BYLINE -->
     <p>Common R640 AC PSUs have a C14 inlet. The cord is a C13–C14 jumper: C13 into the server, C14 into a C13 outlet on the PDU.</p>
     <table>
       <tr><th>PSU</th><th>Inlet</th><th>On 100–120 V</th></tr>
@@ -45,16 +51,26 @@
       <tr><td>1100 W</td><td>C14</td><td>Derated to 1050 W</td></tr>
       <tr><td>1600 W</td><td>C14</td><td>Derated to 800 W</td></tr>
     </table>
+    <!-- FIG --><figure class="diagram"><img src="/img/server-pdu-jumpers.svg" width="680" height="300" style="max-width:100%;height:auto" alt="Diagram of which jumper joins a server PSU inlet to a PDU outlet: C13-C14, C19-C20, or C13-C20" loading="lazy"><figcaption>Server inlet → jumper → PDU outlet.</figcaption></figure><!-- /FIG -->
     <p>Dell's R640 technical guide notes that PSUs rated 1600 W and higher need 200–240 V to deliver their full capacity. On a 120 V homelab circuit, a 1600 W PSU behaves like an 800 W one.</p>
-    <h2>Which cord to buy</h2>
+    <!-- TOC -->
+    <nav class="toc"><b>On this page</b><ol><li><a href="#which-cord-to-buy">Which cord to buy</a></li><li><a href="#sources">Sources</a></li><li><a href="#faq">Frequently asked questions</a></li></ol></nav>
+    <!-- /TOC -->
+    <h2 id="which-cord-to-buy">Which cord to buy</h2>
     <p>A C13–C14 PDU-style jumper, 10 A, such as Dell 450-ABLE (0.6 m) or 450-ABLC (2 m). For a wall outlet instead of a PDU, use a country cord with a C13 end (for example NEMA 5-15P to C13 in North America).</p>
-    <h2>Sources</h2>
+    <h2 id="sources">Sources</h2>
     <p><a href="https://www.manualslib.com/manual/3325648/Dell-0g8dw.html?page=35" target="_blank" rel="noopener">Dell PowerEdge R640 PSU specifications (derating notes)</a></p>
     <p><a href="https://www.itcreations.com/product/73415" target="_blank" rel="noopener">Dell 495 W PSU for R640: C14 connector, C13 cord</a></p>
     <p>Related: <a href="../dell-poweredge-r740-power-cord/">R740 power cord</a>, <a href="../dell-poweredge-r650-power-cord/">R650 power cord</a>, <a href="../c13-vs-c14/">C13 vs C14</a>.</p>
     <footer>Confirm inlet and amps on the PSU nameplate before you buy.</footer>
     <p>Cabling a whole rack? <a href="../bom/">Build the full cord list</a> and get a free quote.</p>
-    <!-- RELATED -->
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+      <h2>Frequently asked questions</h2>
+      <details><summary>What power cord does the Dell PowerEdge R640 need?</summary><p>It depends on the PSU that is installed, not on the chassis. A PSU with a C14 inlet takes a C13 cord; a PSU with a C20 inlet takes a C19 cord. The table on this page lists which PSUs use which inlet.</p></details><details><summary>Can I use a C13 cord on a C20 inlet?</summary><p>No. C13 and C20 have different shapes and do not fit. A C20 inlet needs a C19 cord.</p></details><details><summary>What cord goes from the Dell PowerEdge R640 to a rack PDU?</summary><p>Usually a short jumper with the same connector family at both ends: C13 to C14 for a C13 PDU outlet, or C19 to C20 for a C19 outlet. A wall plug cord (NEMA 5-15, Schuko, BS 1363) is only for a wall socket.</p></details><details><summary>Should both PSUs go to the same PDU?</summary><p>No. For redundancy plug each PSU into a different PDU on a different circuit (A and B feeds). Size each PDU so it can carry the whole server load alone.</p></details>
+    </section>
+    <!-- /FAQ -->
+<!-- RELATED -->
     <section class="related">
       <h2>You may also need</h2>
       <ul><li><a href="../dell-poweredge-r650-power-cord/">Dell PowerEdge R650 power cord</a></li><li><a href="../dell-poweredge-r730-power-cord/">Dell PowerEdge R730 power cord</a></li><li><a href="../dell-poweredge-r740-power-cord/">Dell PowerEdge R740 power cord</a></li><li><a href="../dell-poweredge-r760-power-cord/">Dell PowerEdge R760 power cord</a></li><li><a href="../pdu-calculator/">PDU calculator: how many servers per PDU</a></li><li><a href="../homelab-power-cost-calculator/">Homelab power cost calculator</a></li><li><a href="../power-connector-guide/">Server and rack power connector guide</a></li><li><a href="../c13-c14-server-power-cord/">C13 C14 server power cord</a></li><li><a href="../c13-to-c20-power-cord/">C13 to C20 power cord</a></li></ul>
@@ -62,5 +78,8 @@
     </section>
     <!-- /RELATED -->
   </main>
+<!-- SITEFOOT -->
+  <nav class="sitefoot" aria-label="All pages"><div><h3>Guides</h3><ul><li><a href="../c13-c14-server-power-cord/">C13 C14 server power cord</a></li><li><a href="../c13-pdu-c19-server/">C13 PDU, C19 server</a></li><li><a href="../c13-to-c14-compatibility/">C13 to C14 compatibility</a></li><li><a href="../c13-to-c20-power-cord/">C13 to C20 power cord</a></li><li><a href="../c13-vs-c14/">C13 vs C14</a></li><li><a href="../c13-vs-c19/">C13 vs C19</a></li><li><a href="../c19-c20-server-power-cord/">C19 C20 server power cord</a></li><li><a href="../c19-to-c20-compatibility/">C19 to C20 compatibility</a></li><li><a href="../c19-vs-c20/">C19 vs C20</a></li><li><a href="../how-many-servers-per-pdu/">How many servers per PDU?</a></li><li><a href="../pdu-power-cord-compatibility/">PDU power cord compatibility</a></li><li><a href="../server-to-pdu-power-cord/">Server to PDU power cord</a></li><li><a href="../what-power-cord-does-my-server-need/">What power cord does my server need?</a></li></ul></div><div><h3>Tools</h3><ul><li><a href="../">Server-PDU matcher</a></li><li><a href="../bom/">Rack cord BOM builder</a></li><li><a href="../homelab-power-cost-calculator/">Homelab power cost calculator</a></li><li><a href="../pdu-calculator/">PDU calculator: how many servers per PDU</a></li><li><a href="../power-connector-guide/">Server and rack power connector guide</a></li><li><a href="../rackmatch-power-cheat-sheet.pdf">Power cheat sheet (PDF)</a></li></ul></div><div><h3>Server power cords</h3><ul><li><a href="../dell-poweredge-r640-power-cord/">Dell PowerEdge R640 power cord</a></li><li><a href="../dell-poweredge-r650-power-cord/">Dell PowerEdge R650 power cord</a></li><li><a href="../dell-poweredge-r730-power-cord/">Dell PowerEdge R730 power cord</a></li><li><a href="../dell-poweredge-r740-power-cord/">Dell PowerEdge R740 power cord</a></li><li><a href="../dell-poweredge-r760-power-cord/">Dell PowerEdge R760 power cord</a></li><li><a href="../dgx-h100-pdu-requirements/">DGX H100 PDU requirements</a></li><li><a href="../hpe-proliant-dl380-gen10-power-cord/">HPE ProLiant DL380 Gen10 power cord</a></li><li><a href="../hpe-proliant-dl380-gen11-power-cord/">HPE ProLiant DL380 Gen11 power cord</a></li><li><a href="../nvidia-dgx-b200-power-cord/">NVIDIA DGX B200 power cord</a></li><li><a href="../nvidia-dgx-b300-power-cord/">NVIDIA DGX B300 power cord</a></li><li><a href="../nvidia-dgx-h100-power-cord/">NVIDIA DGX H100 power cord</a></li><li><a href="../nvidia-dgx-h200-power-cord/">NVIDIA DGX H200 power cord</a></li></ul></div><div><h3>Server + PDU pairs</h3><ul><li><a href="../dell-poweredge-r650-apc-ap8853/">Dell PowerEdge R650 + APC AP8853 Power Cable</a></li><li><a href="../dell-poweredge-r650-apc-ap8941/">Dell PowerEdge R650 + APC AP8941 Power Cable</a></li><li><a href="../dell-poweredge-r650-eaton-ema333-10/">Dell PowerEdge R650 + Eaton EMA333-10 Power Cable</a></li><li><a href="../dell-poweredge-r650-raritan-px3-5496v/">Dell PowerEdge R650 + Raritan PX3-5496V Power Cable</a></li><li><a href="../dell-poweredge-r760-apc-ap8853/">Dell PowerEdge R760 + APC AP8853 Power Cable</a></li><li><a href="../dell-poweredge-r760-apc-ap8941/">Dell PowerEdge R760 + APC AP8941 Power Cable</a></li><li><a href="../dell-poweredge-r760-raritan-px3-5496v/">Dell PowerEdge R760 + Raritan PX3-5496V Power Cable</a></li><li><a href="../hpe-proliant-dl380-gen11-apc-ap8853/">HPE ProLiant DL380 Gen11 + APC AP8853 Power Cable</a></li><li><a href="../hpe-proliant-dl380-gen11-apc-ap8941/">HPE ProLiant DL380 Gen11 + APC AP8941 Power Cable</a></li><li><a href="../lenovo-thinksystem-sr650-v3-apc-ap8853/">Lenovo ThinkSystem SR650 V3 + APC AP8853 Power Cable</a></li></ul></div><p>RackMatch: rack power cord and PDU compatibility reference. <a href="../suggest/">Suggest a correction</a></p></nav>
+  <!-- /SITEFOOT -->
 </body>
 </html>

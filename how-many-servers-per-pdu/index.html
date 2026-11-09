@@ -32,33 +32,76 @@
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<!-- LD -->
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "@id": "https://rackmatch.net/how-many-servers-per-pdu/#article", "headline": "How many servers per PDU?", "description": "How to work out how many servers one rack PDU can feed: usable PDU power, real server draw, A/B redundancy and outlet count, with worked examples.", "url": "https://rackmatch.net/how-many-servers-per-pdu/", "mainEntityOfPage": "https://rackmatch.net/how-many-servers-per-pdu/", "datePublished": "2026-11-07", "dateModified": "2026-11-10", "inLanguage": "en", "image": "https://rackmatch.net/icon-192.png", "author": {"@type": "Organization", "name": "RackMatch", "url": "https://rackmatch.net/"}, "publisher": {"@type": "Organization", "name": "RackMatch", "url": "https://rackmatch.net/", "logo": {"@type": "ImageObject", "url": "https://rackmatch.net/icon-192.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "RackMatch", "item": "https://rackmatch.net/"}, {"@type": "ListItem", "position": 2, "name": "Guides"}, {"@type": "ListItem", "position": 3, "name": "How many servers per PDU?", "item": "https://rackmatch.net/how-many-servers-per-pdu/"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How many servers can one PDU power?", "acceptedAnswer": {"@type": "Answer", "text": "Divide the usable PDU power by the real server draw. Usable power is volts × amps (× 1.732 for three-phase), reduced to 80% for continuous load in North America."}}, {"@type": "Question", "name": "Should I use nameplate watts or measured watts?", "acceptedAnswer": {"@type": "Answer", "text": "Measured or vendor-calculated typical draw gives a realistic count. Nameplate watts give a safe worst case. Use measured draw plus a margin of 20–30%."}}, {"@type": "Question", "name": "Does A/B redundancy change the count?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. With two PDUs each one must carry the whole load alone if the other feed fails, so size each PDU for the full rack."}}]}]}</script>
+  <!-- /LD -->
 </head>
 <body>
   <header><a href="../">home</a> <a href="../bom/">Build a rack cable BOM</a> <a href="../suggest/">Suggest a correction / Add equipment</a></header>
   <main>
-    <h1>How many servers per PDU?</h1>
+    <!-- CRUMBS --><nav class="crumbs"><a href="../">RackMatch</a> › <span>Guides</span> › <span>How many servers per PDU?</span></nav>
+    <!-- /CRUMBS -->
+<h1>How many servers per PDU?</h1><!-- BYLINE -->
+    <p class="byline">By the RackMatch team · Updated <time datetime="2026-11-10">2026-11-10</time> · Sources linked on the page</p><!-- /BYLINE -->
     <p><b>Quick answer: use the <a href="../pdu-calculator/">PDU calculator</a>.</b></p>
     <p>Two limits decide it: how much power the PDU can deliver, and how many outlets of the right type it has. The lower of the two wins.</p>
-    <h2>1. Usable PDU power</h2>
+    <!-- TOC -->
+    <nav class="toc"><b>On this page</b><ol><li><a href="#1-usable-pdu-power">1. Usable PDU power</a></li><li><a href="#2-real-server-draw-not-psu-rating">2. Real server draw, not PSU rating</a></li><li><a href="#3-a-b-redundancy">3. A/B redundancy</a></li><li><a href="#4-outlets">4. Outlets</a></li><li><a href="#worked-example">Worked example</a></li><li><a href="#common-pdu-sizes-and-how-many-servers-they-carry">Common PDU sizes and how many servers they carry</a></li><li><a href="#outlet-banks-and-breakers">Outlet banks and breakers</a></li><li><a href="#three-phase-pdus-balance-the-phases">Three-phase PDUs: balance the phases</a></li><li><a href="#mistakes-that-make-the-count-wrong">Mistakes that make the count wrong</a></li><li><a href="#faq">Frequently asked questions</a></li></ol></nav>
+    <!-- /TOC -->
+    <h2 id="1-usable-pdu-power">1. Usable PDU power</h2>
     <p>Single-phase: volts × amps. In North America, keep continuous load at 80% of the breaker, so multiply by 0.8. Three-phase: volts × amps × 1.732 (× 0.8 in North America).</p>
     <table>
       <tr><th>PDU</th><th>Input</th><th>Usable power</th></tr>
       <tr><td><a href="../dell-poweredge-r650-apc-ap8941/">APC AP8941</a></td><td>208 V, 30 A single-phase</td><td>208 × 30 × 0.8 ≈ 5.0 kW</td></tr>
       <tr><td><a href="../dell-poweredge-r760-apc-ap8853/">APC AP8853</a></td><td>230 V, 32 A single-phase</td><td>7.4 kW rated</td></tr>
     </table>
-    <h2>2. Real server draw, not PSU rating</h2>
+    <h2 id="2-real-server-draw-not-psu-rating">2. Real server draw, not PSU rating</h2>
     <p>A server with two 1100 W PSUs does not draw 2200 W. Use the vendor's power calculator (Dell EIPT, HPE Power Advisor, Lenovo LCP) or a measured peak from the BMC. Add about 20% margin for spikes and future upgrades.</p>
-    <h2>3. A/B redundancy</h2>
+    <h2 id="3-a-b-redundancy">3. A/B redundancy</h2>
     <p>With dual PSUs on two PDUs (A feed and B feed), each PDU must be able to carry the whole rack if the other feed fails. So the total rack load must fit on one PDU, not two.</p>
-    <h2>4. Outlets</h2>
+    <h2 id="4-outlets">4. Outlets</h2>
     <p>Each server with two PSUs uses one outlet on PDU A and one on PDU B. A C14-inlet PSU needs a C13 outlet. A C20-inlet PSU needs a C19 outlet, and PDUs usually have only 3–6 of those.</p>
-    <h2>Worked example</h2>
+    <h2 id="worked-example">Worked example</h2>
     <p>A/B pair of APC AP8941 (5.0 kW usable each, 21 C13 + 3 C19). Servers measured at 450 W peak, plus 20% margin = 540 W. Power limit: 5000 / 540 ≈ 9 servers. Outlet limit: 21. Answer: 9 servers per A/B pair. Power runs out long before outlets do.</p>
     <p>GPU servers flip this: one 8-GPU system can need 6 × C19 outlets and more than 10 kW, so a single PDU may not be enough. See <a href="../dgx-h100-pdu-requirements/">DGX H100 PDU requirements</a>.</p>
     <p>Related: <a href="../pdu-power-cord-compatibility/">PDU power cord compatibility</a>, <a href="../server-to-pdu-power-cord/">server to PDU power cord</a>.</p>
+    <!-- EXT -->
+    <figure class="diagram"><img src="/img/ab-feeds-rack.svg" width="640" height="360" style="max-width:100%;height:auto" alt="Rack diagram: six dual-PSU servers, one PSU on PDU A and one on PDU B" loading="lazy"><figcaption>A/B feeds: each PDU must carry the whole rack alone.</figcaption></figure>
+    <h2 id="common-pdu-sizes-and-how-many-servers-they-carry">Common PDU sizes and how many servers they carry</h2>
+    <p>Usable power below uses the 80% continuous rule for North American circuits and the full rating for IEC circuits. Server counts are the power limit only, at measured draw plus 20% margin; check the outlet count too.</p>
+    <table border="1" cellpadding="4" style="border-collapse:collapse">
+      <tr><th>Circuit</th><th>Typical PDU plug</th><th>Usable power</th><th>400 W servers</th><th>700 W servers</th></tr>
+      <tr><td>120 V, 20 A, single-phase</td><td>NEMA 5-20 / L5-20</td><td>1.9 kW</td><td>4</td><td>2</td></tr>
+      <tr><td>120 V, 30 A, single-phase</td><td>NEMA L5-30</td><td>2.9 kW</td><td>6</td><td>3</td></tr>
+      <tr><td>208 V, 20 A, single-phase</td><td>NEMA L6-20</td><td>3.3 kW</td><td>6</td><td>3</td></tr>
+      <tr><td>208 V, 30 A, single-phase</td><td>NEMA L6-30</td><td>5.0 kW</td><td>10</td><td>5</td></tr>
+      <tr><td>208 V, 30 A, three-phase</td><td>NEMA L21-30</td><td>8.6 kW</td><td>18</td><td>10</td></tr>
+      <tr><td>230 V, 16 A, single-phase</td><td>IEC 60309 blue 16 A</td><td>3.7 kW</td><td>7</td><td>4</td></tr>
+      <tr><td>230 V, 32 A, single-phase</td><td>IEC 60309 blue 32 A</td><td>7.4 kW</td><td>15</td><td>8</td></tr>
+      <tr><td>400 V, 32 A, three-phase</td><td>IEC 60309 red 32 A</td><td>22 kW</td><td>46 (outlets run out first)</td><td>26</td></tr>
+    </table>
+    <h2 id="outlet-banks-and-breakers">Outlet banks and breakers</h2>
+    <p>Most rack PDUs split their outlets into banks, and each bank has its own breaker, often 16 A or 20 A. A PDU can have plenty of total capacity and still trip one bank if you load all the heavy servers on the same group of outlets. Spread high-draw servers across banks and read the per-bank current on metered PDUs.</p>
+    <h2 id="three-phase-pdus-balance-the-phases">Three-phase PDUs: balance the phases</h2>
+    <p>On a three-phase PDU the outlets are wired to different phases (or phase pairs at 208 V). Full capacity is only available when the three phases carry roughly the same load. Put the same number of similar servers on each phase group, and check per-phase current after the rack is live.</p>
+    <h2 id="mistakes-that-make-the-count-wrong">Mistakes that make the count wrong</h2>
+    <ol>
+      <li>Adding up PSU nameplate watts. It overstates the load and wastes PDU capacity.</li>
+      <li>Splitting the load across A and B and calling it double capacity. In a failure one side takes everything.</li>
+      <li>Forgetting C19 outlets. GPU and high-watt servers can run out of C19s before they run out of power.</li>
+      <li>Powering the whole rack on at once. Inrush current on start-up can trip a breaker; stagger power-on where the BMC allows it.</li>
+      <li>Ignoring growth. A rack filled to 100% on day one has no room for the next server.</li>
+    </ol>
+    <!-- /EXT -->
     <footer>Rules on derating differ by country and code. Ask the site electrician for the branch circuit limits.</footer>
     <p>Cabling a whole rack? <a href="../bom/">Build the full cord list</a> and get a free quote.</p>
-    <!-- RELATED -->
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+      <h2>Frequently asked questions</h2>
+      <details><summary>How many servers can one PDU power?</summary><p>Divide the usable PDU power by the real server draw. Usable power is volts × amps (× 1.732 for three-phase), reduced to 80% for continuous load in North America.</p></details><details><summary>Should I use nameplate watts or measured watts?</summary><p>Measured or vendor-calculated typical draw gives a realistic count. Nameplate watts give a safe worst case. Use measured draw plus a margin of 20–30%.</p></details><details><summary>Does A/B redundancy change the count?</summary><p>Yes. With two PDUs each one must carry the whole load alone if the other feed fails, so size each PDU for the full rack.</p></details>
+    </section>
+    <!-- /FAQ -->
+<!-- RELATED -->
     <section class="related">
       <h2>You may also need</h2>
       <ul><li><a href="../c13-pdu-c19-server/">C13 PDU, C19 server</a></li><li><a href="../pdu-power-cord-compatibility/">PDU power cord compatibility</a></li><li><a href="../server-to-pdu-power-cord/">Server to PDU power cord</a></li><li><a href="../c13-c14-server-power-cord/">C13 C14 server power cord</a></li><li><a href="../pdu-calculator/">PDU calculator: how many servers per PDU</a></li><li><a href="../homelab-power-cost-calculator/">Homelab power cost calculator</a></li><li><a href="../power-connector-guide/">Server and rack power connector guide</a></li><li><a href="../dgx-h100-pdu-requirements/">DGX H100 PDU requirements</a></li><li><a href="../dell-poweredge-r640-power-cord/">Dell PowerEdge R640 power cord</a></li></ul>
@@ -66,5 +109,8 @@
     </section>
     <!-- /RELATED -->
   </main>
+<!-- SITEFOOT -->
+  <nav class="sitefoot" aria-label="All pages"><div><h3>Guides</h3><ul><li><a href="../c13-c14-server-power-cord/">C13 C14 server power cord</a></li><li><a href="../c13-pdu-c19-server/">C13 PDU, C19 server</a></li><li><a href="../c13-to-c14-compatibility/">C13 to C14 compatibility</a></li><li><a href="../c13-to-c20-power-cord/">C13 to C20 power cord</a></li><li><a href="../c13-vs-c14/">C13 vs C14</a></li><li><a href="../c13-vs-c19/">C13 vs C19</a></li><li><a href="../c19-c20-server-power-cord/">C19 C20 server power cord</a></li><li><a href="../c19-to-c20-compatibility/">C19 to C20 compatibility</a></li><li><a href="../c19-vs-c20/">C19 vs C20</a></li><li><a href="../how-many-servers-per-pdu/">How many servers per PDU?</a></li><li><a href="../pdu-power-cord-compatibility/">PDU power cord compatibility</a></li><li><a href="../server-to-pdu-power-cord/">Server to PDU power cord</a></li><li><a href="../what-power-cord-does-my-server-need/">What power cord does my server need?</a></li></ul></div><div><h3>Tools</h3><ul><li><a href="../">Server-PDU matcher</a></li><li><a href="../bom/">Rack cord BOM builder</a></li><li><a href="../homelab-power-cost-calculator/">Homelab power cost calculator</a></li><li><a href="../pdu-calculator/">PDU calculator: how many servers per PDU</a></li><li><a href="../power-connector-guide/">Server and rack power connector guide</a></li><li><a href="../rackmatch-power-cheat-sheet.pdf">Power cheat sheet (PDF)</a></li></ul></div><div><h3>Server power cords</h3><ul><li><a href="../dell-poweredge-r640-power-cord/">Dell PowerEdge R640 power cord</a></li><li><a href="../dell-poweredge-r650-power-cord/">Dell PowerEdge R650 power cord</a></li><li><a href="../dell-poweredge-r730-power-cord/">Dell PowerEdge R730 power cord</a></li><li><a href="../dell-poweredge-r740-power-cord/">Dell PowerEdge R740 power cord</a></li><li><a href="../dell-poweredge-r760-power-cord/">Dell PowerEdge R760 power cord</a></li><li><a href="../dgx-h100-pdu-requirements/">DGX H100 PDU requirements</a></li><li><a href="../hpe-proliant-dl380-gen10-power-cord/">HPE ProLiant DL380 Gen10 power cord</a></li><li><a href="../hpe-proliant-dl380-gen11-power-cord/">HPE ProLiant DL380 Gen11 power cord</a></li><li><a href="../nvidia-dgx-b200-power-cord/">NVIDIA DGX B200 power cord</a></li><li><a href="../nvidia-dgx-b300-power-cord/">NVIDIA DGX B300 power cord</a></li><li><a href="../nvidia-dgx-h100-power-cord/">NVIDIA DGX H100 power cord</a></li><li><a href="../nvidia-dgx-h200-power-cord/">NVIDIA DGX H200 power cord</a></li></ul></div><div><h3>Server + PDU pairs</h3><ul><li><a href="../dell-poweredge-r650-apc-ap8853/">Dell PowerEdge R650 + APC AP8853 Power Cable</a></li><li><a href="../dell-poweredge-r650-apc-ap8941/">Dell PowerEdge R650 + APC AP8941 Power Cable</a></li><li><a href="../dell-poweredge-r650-eaton-ema333-10/">Dell PowerEdge R650 + Eaton EMA333-10 Power Cable</a></li><li><a href="../dell-poweredge-r650-raritan-px3-5496v/">Dell PowerEdge R650 + Raritan PX3-5496V Power Cable</a></li><li><a href="../dell-poweredge-r760-apc-ap8853/">Dell PowerEdge R760 + APC AP8853 Power Cable</a></li><li><a href="../dell-poweredge-r760-apc-ap8941/">Dell PowerEdge R760 + APC AP8941 Power Cable</a></li><li><a href="../dell-poweredge-r760-raritan-px3-5496v/">Dell PowerEdge R760 + Raritan PX3-5496V Power Cable</a></li><li><a href="../hpe-proliant-dl380-gen11-apc-ap8853/">HPE ProLiant DL380 Gen11 + APC AP8853 Power Cable</a></li><li><a href="../hpe-proliant-dl380-gen11-apc-ap8941/">HPE ProLiant DL380 Gen11 + APC AP8941 Power Cable</a></li><li><a href="../lenovo-thinksystem-sr650-v3-apc-ap8853/">Lenovo ThinkSystem SR650 V3 + APC AP8853 Power Cable</a></li></ul></div><p>RackMatch: rack power cord and PDU compatibility reference. <a href="../suggest/">Suggest a correction</a></p></nav>
+  <!-- /SITEFOOT -->
 </body>
 </html>

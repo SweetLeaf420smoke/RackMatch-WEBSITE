@@ -32,12 +32,19 @@
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<!-- LD -->
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "@id": "https://rackmatch.net/c13-vs-c19/#article", "headline": "C13 vs C19", "description": "C13 is the 10 A IEC coupler for C14 inlets; C19 is the larger 16 A coupler for C20 inlets. How to tell them apart and which one your server needs.", "url": "https://rackmatch.net/c13-vs-c19/", "mainEntityOfPage": "https://rackmatch.net/c13-vs-c19/", "datePublished": "2026-11-07", "dateModified": "2026-11-10", "inLanguage": "en", "image": "https://rackmatch.net/icon-192.png", "author": {"@type": "Organization", "name": "RackMatch", "url": "https://rackmatch.net/"}, "publisher": {"@type": "Organization", "name": "RackMatch", "url": "https://rackmatch.net/", "logo": {"@type": "ImageObject", "url": "https://rackmatch.net/icon-192.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "RackMatch", "item": "https://rackmatch.net/"}, {"@type": "ListItem", "position": 2, "name": "Guides"}, {"@type": "ListItem", "position": 3, "name": "C13 vs C19", "item": "https://rackmatch.net/c13-vs-c19/"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is C19 bigger than C13?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. C19 is wider, with three flat pins in a row, and rated 16 A IEC (20 A UL). C13 is rated 10 A IEC (15 A UL)."}}, {"@type": "Question", "name": "Can I plug a C13 into a C19 outlet?", "acceptedAnswer": {"@type": "Answer", "text": "No. Use a C13 to C20 cord: C13 into the server, C20 into the C19 outlet."}}, {"@type": "Question", "name": "How do I know if my server needs C13 or C19?", "acceptedAnswer": {"@type": "Answer", "text": "Look at the PSU inlet. A C14 inlet takes a C13 cord; a C20 inlet takes a C19 cord."}}]}]}</script>
+  <!-- /LD -->
 </head>
 <body>
   <header><a href="../">home</a> <a href="../bom/">Build a rack cable BOM</a> <a href="../suggest/">Suggest a correction / Add equipment</a></header>
   <main>
-    <h1>C13 vs C19</h1>
+    <!-- CRUMBS --><nav class="crumbs"><a href="../">RackMatch</a> › <span>Guides</span> › <span>C13 vs C19</span></nav>
+    <!-- /CRUMBS -->
+<h1>C13 vs C19</h1><!-- BYLINE -->
+    <p class="byline">By the RackMatch team · Updated <time datetime="2026-11-10">2026-11-10</time> · Sources linked on the page</p><!-- /BYLINE -->
     <p>Both are IEC 60320 couplers (the female end of a cord, or an outlet on a PDU). They are different sizes and do not fit each other's inlets.</p>
+    <!-- FIG --><figure class="diagram"><img src="/img/iec-c13-c14-c19-c20.svg" width="640" height="230" style="max-width:100%;height:auto" alt="Face view of IEC C13, C14, C19 and C20 connectors: C13/C14 have bevelled corners and upright pins, C19/C20 are rectangular with flat pins" loading="lazy"><figcaption>C13/C14 vs C19/C20: shape, pins and ratings.</figcaption></figure><!-- /FIG -->
     <table>
       <tr><th></th><th>C13</th><th>C19</th></tr>
       <tr><td>Mates with</td><td>C14 inlet / C14 plug</td><td>C20 inlet / C20 plug</td></tr>
@@ -46,14 +53,38 @@
       <tr><td>Typical use</td><td>1U/2U servers, switches, storage with PSUs up to about 1600 W</td><td>High-watt PSUs (2000–3000 W), GPU servers, PDU inputs, UPS outputs</td></tr>
       <tr><td>On a rack PDU</td><td>Most outlets</td><td>A few outlets, usually 3–6</td></tr>
     </table>
-    <h2>How to tell which one you need</h2>
+    <!-- TOC -->
+    <nav class="toc"><b>On this page</b><ol><li><a href="#how-to-tell-which-one-you-need">How to tell which one you need</a></li><li><a href="#can-i-plug-a-c13-into-a-c19-outlet">Can I plug a C13 into a C19 outlet?</a></li><li><a href="#power-per-connector">Power per connector</a></li><li><a href="#cord-wire-size">Cord wire size</a></li><li><a href="#which-pdu-outlet-mix-to-buy">Which PDU outlet mix to buy</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#faq">Frequently asked questions</a></li></ol></nav>
+    <!-- /TOC -->
+    <h2 id="how-to-tell-which-one-you-need">How to tell which one you need</h2>
     <p>Look at the inlet on the power supply, not the server model. A C14 inlet takes a C13 cord. A C20 inlet takes a C19 cord. The same chassis can ship with either, depending on the PSU wattage. Example: Dell PowerEdge R740 uses C14 on 495–1600 W PSUs and C20 on the 2000 W and 2400 W PSUs (<a href="../dell-poweredge-r740-power-cord/">details</a>).</p>
-    <h2>Can I plug a C13 into a C19 outlet?</h2>
+    <h2 id="can-i-plug-a-c13-into-a-c19-outlet">Can I plug a C13 into a C19 outlet?</h2>
     <p>No, the shapes are different. To feed a C14-inlet server from a C19 outlet you use a C13-to-C20 cord: C13 into the server, C20 into the C19 outlet. See <a href="../c13-to-c20-power-cord/">C13 to C20 power cord</a>. The other way round (C20-inlet server, PDU with only C13 outlets) does not work: one C13 outlet cannot safely feed a 16 A PSU. See <a href="../c13-pdu-c19-server/">C13 PDU, C19 server</a>.</p>
     <p>Related: <a href="../c13-vs-c14/">C13 vs C14</a>, <a href="../c19-vs-c20/">C19 vs C20</a>, <a href="../what-power-cord-does-my-server-need/">what power cord does my server need</a>.</p>
+    <!-- EXT -->
+    <h2 id="power-per-connector">Power per connector</h2>
+    <p>At 230 V a C13 connection carries up to 2.3 kW (10 A) and a C19 up to 3.7 kW (16 A). On 208 V North American circuits the UL ratings give about 3.1 kW for C13 (15 A) and 4.2 kW for C19 (20 A). A PSU above roughly 1600–2000 W is usually built with a C20 inlet for this reason. Full table: <a href="../power-connector-guide/">power connector guide</a>.</p>
+    <h2 id="cord-wire-size">Cord wire size</h2>
+    <p>C13 cords typically use 0.75–1.0 mm² conductors (18–14 AWG in North America). C19 cords use 1.5 mm² (14 or 12 AWG). The thicker cable of a C19 cord is a quick way to tell them apart in a bin of spares.</p>
+    <h2 id="which-pdu-outlet-mix-to-buy">Which PDU outlet mix to buy</h2>
+    <p>Count PSUs, not servers. For each PDU you need one C13 outlet per C14-inlet PSU and one C19 outlet per C20-inlet PSU on that feed. Common rack PDUs offer around 20–40 C13 and 3–12 C19. GPU racks often need all-C19 PDUs. The <a href="../pdu-calculator/">PDU calculator</a> checks the power side.</p>
+    <h2 id="common-mistakes">Common mistakes</h2>
+    <ol>
+      <li>Ordering cords by server model instead of PSU. The same chassis can use both.</li>
+      <li>Using a C13-to-C20 cord as if it were a 16 A cord. It stays a 10 A cord.</li>
+      <li>Buying C19 adapters to fit a C20 PSU on a C13 outlet. Not safe at full load.</li>
+      <li>Running out of C19 outlets on a PDU that has plenty of C13s.</li>
+    </ol>
+    <!-- /EXT -->
     <footer>Ratings vary by cord and country. Check the cord's own marking and the PSU nameplate.</footer>
     <p>Cabling a whole rack? <a href="../bom/">Build the full cord list</a> and get a free quote.</p>
-    <!-- RELATED -->
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+      <h2>Frequently asked questions</h2>
+      <details><summary>Is C19 bigger than C13?</summary><p>Yes. C19 is wider, with three flat pins in a row, and rated 16 A IEC (20 A UL). C13 is rated 10 A IEC (15 A UL).</p></details><details><summary>Can I plug a C13 into a C19 outlet?</summary><p>No. Use a C13 to C20 cord: C13 into the server, C20 into the C19 outlet.</p></details><details><summary>How do I know if my server needs C13 or C19?</summary><p>Look at the PSU inlet. A C14 inlet takes a C13 cord; a C20 inlet takes a C19 cord.</p></details>
+    </section>
+    <!-- /FAQ -->
+<!-- RELATED -->
     <section class="related">
       <h2>You may also need</h2>
       <ul><li><a href="../c13-pdu-c19-server/">C13 PDU, C19 server</a></li><li><a href="../c13-vs-c14/">C13 vs C14</a></li><li><a href="../c19-vs-c20/">C19 vs C20</a></li><li><a href="../c13-c14-server-power-cord/">C13 C14 server power cord</a></li><li><a href="../pdu-calculator/">PDU calculator: how many servers per PDU</a></li><li><a href="../homelab-power-cost-calculator/">Homelab power cost calculator</a></li><li><a href="../power-connector-guide/">Server and rack power connector guide</a></li><li><a href="../dell-poweredge-r640-power-cord/">Dell PowerEdge R640 power cord</a></li><li><a href="../dell-poweredge-r650-apc-ap8853/">Dell PowerEdge R650 + APC AP8853 Power Cable</a></li></ul>
@@ -61,5 +92,8 @@
     </section>
     <!-- /RELATED -->
   </main>
+<!-- SITEFOOT -->
+  <nav class="sitefoot" aria-label="All pages"><div><h3>Guides</h3><ul><li><a href="../c13-c14-server-power-cord/">C13 C14 server power cord</a></li><li><a href="../c13-pdu-c19-server/">C13 PDU, C19 server</a></li><li><a href="../c13-to-c14-compatibility/">C13 to C14 compatibility</a></li><li><a href="../c13-to-c20-power-cord/">C13 to C20 power cord</a></li><li><a href="../c13-vs-c14/">C13 vs C14</a></li><li><a href="../c13-vs-c19/">C13 vs C19</a></li><li><a href="../c19-c20-server-power-cord/">C19 C20 server power cord</a></li><li><a href="../c19-to-c20-compatibility/">C19 to C20 compatibility</a></li><li><a href="../c19-vs-c20/">C19 vs C20</a></li><li><a href="../how-many-servers-per-pdu/">How many servers per PDU?</a></li><li><a href="../pdu-power-cord-compatibility/">PDU power cord compatibility</a></li><li><a href="../server-to-pdu-power-cord/">Server to PDU power cord</a></li><li><a href="../what-power-cord-does-my-server-need/">What power cord does my server need?</a></li></ul></div><div><h3>Tools</h3><ul><li><a href="../">Server-PDU matcher</a></li><li><a href="../bom/">Rack cord BOM builder</a></li><li><a href="../homelab-power-cost-calculator/">Homelab power cost calculator</a></li><li><a href="../pdu-calculator/">PDU calculator: how many servers per PDU</a></li><li><a href="../power-connector-guide/">Server and rack power connector guide</a></li><li><a href="../rackmatch-power-cheat-sheet.pdf">Power cheat sheet (PDF)</a></li></ul></div><div><h3>Server power cords</h3><ul><li><a href="../dell-poweredge-r640-power-cord/">Dell PowerEdge R640 power cord</a></li><li><a href="../dell-poweredge-r650-power-cord/">Dell PowerEdge R650 power cord</a></li><li><a href="../dell-poweredge-r730-power-cord/">Dell PowerEdge R730 power cord</a></li><li><a href="../dell-poweredge-r740-power-cord/">Dell PowerEdge R740 power cord</a></li><li><a href="../dell-poweredge-r760-power-cord/">Dell PowerEdge R760 power cord</a></li><li><a href="../dgx-h100-pdu-requirements/">DGX H100 PDU requirements</a></li><li><a href="../hpe-proliant-dl380-gen10-power-cord/">HPE ProLiant DL380 Gen10 power cord</a></li><li><a href="../hpe-proliant-dl380-gen11-power-cord/">HPE ProLiant DL380 Gen11 power cord</a></li><li><a href="../nvidia-dgx-b200-power-cord/">NVIDIA DGX B200 power cord</a></li><li><a href="../nvidia-dgx-b300-power-cord/">NVIDIA DGX B300 power cord</a></li><li><a href="../nvidia-dgx-h100-power-cord/">NVIDIA DGX H100 power cord</a></li><li><a href="../nvidia-dgx-h200-power-cord/">NVIDIA DGX H200 power cord</a></li></ul></div><div><h3>Server + PDU pairs</h3><ul><li><a href="../dell-poweredge-r650-apc-ap8853/">Dell PowerEdge R650 + APC AP8853 Power Cable</a></li><li><a href="../dell-poweredge-r650-apc-ap8941/">Dell PowerEdge R650 + APC AP8941 Power Cable</a></li><li><a href="../dell-poweredge-r650-eaton-ema333-10/">Dell PowerEdge R650 + Eaton EMA333-10 Power Cable</a></li><li><a href="../dell-poweredge-r650-raritan-px3-5496v/">Dell PowerEdge R650 + Raritan PX3-5496V Power Cable</a></li><li><a href="../dell-poweredge-r760-apc-ap8853/">Dell PowerEdge R760 + APC AP8853 Power Cable</a></li><li><a href="../dell-poweredge-r760-apc-ap8941/">Dell PowerEdge R760 + APC AP8941 Power Cable</a></li><li><a href="../dell-poweredge-r760-raritan-px3-5496v/">Dell PowerEdge R760 + Raritan PX3-5496V Power Cable</a></li><li><a href="../hpe-proliant-dl380-gen11-apc-ap8853/">HPE ProLiant DL380 Gen11 + APC AP8853 Power Cable</a></li><li><a href="../hpe-proliant-dl380-gen11-apc-ap8941/">HPE ProLiant DL380 Gen11 + APC AP8941 Power Cable</a></li><li><a href="../lenovo-thinksystem-sr650-v3-apc-ap8853/">Lenovo ThinkSystem SR650 V3 + APC AP8853 Power Cable</a></li></ul></div><p>RackMatch: rack power cord and PDU compatibility reference. <a href="../suggest/">Suggest a correction</a></p></nav>
+  <!-- /SITEFOOT -->
 </body>
 </html>

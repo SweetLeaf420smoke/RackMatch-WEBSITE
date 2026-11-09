@@ -1,0 +1,280 @@
+{
+ "_server": [
+  [
+   "What power cord does the {name} need?",
+   "It depends on the PSU that is installed, not on the chassis. A PSU with a C14 inlet takes a C13 cord; a PSU with a C20 inlet takes a C19 cord. The table on this page lists which PSUs use which inlet."
+  ],
+  [
+   "Can I use a C13 cord on a C20 inlet?",
+   "No. C13 and C20 have different shapes and do not fit. A C20 inlet needs a C19 cord."
+  ],
+  [
+   "What cord goes from the {name} to a rack PDU?",
+   "Usually a short jumper with the same connector family at both ends: C13 to C14 for a C13 PDU outlet, or C19 to C20 for a C19 outlet. A wall plug cord (NEMA 5-15, Schuko, BS 1363) is only for a wall socket."
+  ],
+  [
+   "Should both PSUs go to the same PDU?",
+   "No. For redundancy plug each PSU into a different PDU on a different circuit (A and B feeds). Size each PDU so it can carry the whole server load alone."
+  ]
+ ],
+ "_dgx": [
+  [
+   "What power cord does the {name} need?",
+   "AC versions use 16/20 A class C19/C20 cords at 200–240 V. Check the exact cord set and count in the NVIDIA user guide listed on this page. Some models also ship in a DC busbar version that needs no AC cords."
+  ],
+  [
+   "Can a DGX run on 120 V?",
+   "Plan for 200–240 V. The power supplies are rated for high-line input, and 120 V circuits cannot deliver the load per cord that these systems need."
+  ],
+  [
+   "What PDU outlets does a DGX need?",
+   "C19 outlets, enough of them for every PSU, split across two PDUs on separate circuits for redundancy. C13 outlets cannot feed these PSUs."
+  ],
+  [
+   "How much power does a DGX rack need?",
+   "Several kilowatts per system. Use the maximum system power from the NVIDIA spec, add margin, and check it against the PDU and circuit with the PDU calculator."
+  ]
+ ],
+ "c13-c14-server-power-cord": [
+  [
+   "What is a C13 to C14 cord?",
+   "A jumper with a female C13 coupler on one end and a male C14 plug on the other. The C13 end goes into the server PSU, the C14 end into a C13 outlet on the PDU."
+  ],
+  [
+   "How many amps is a C13 to C14 cord?",
+   "10 A under IEC rules, and usually 15 A under UL rules in North America. Check the marking on the cord."
+  ],
+  [
+   "Is a C13 to C14 cord the same as a computer extension cable?",
+   "Yes. It is often sold as a monitor or PC extension cable. For racks, buy the length you need, usually 0.6 to 2 m."
+  ]
+ ],
+ "c13-pdu-c19-server": [
+  [
+   "Can I power a C20-inlet server from a C13 PDU outlet?",
+   "No. The C13 outlet is 10 A class and the C20 inlet is 16 A class. Adapters that do this are not safe for a full-load PSU."
+  ],
+  [
+   "What should I do instead?",
+   "Use a PDU with C19 outlets and a C19 to C20 jumper, or choose a lower-wattage PSU option for the server that has a C14 inlet."
+  ],
+  [
+   "Why do some PSUs have C20 inlets?",
+   "High-watt PSUs, usually about 2000 W and up, draw more current than a C13/C14 connection is rated for."
+  ]
+ ],
+ "c13-to-c14-compatibility": [
+  [
+   "Does C13 fit C14?",
+   "Yes. C13 is the female coupler and C14 is the male inlet or plug. They are made to mate."
+  ],
+  [
+   "Does C13 fit C16?",
+   "No. C16 has a notch that blocks C13. Use a C15 cord for a C16 inlet. A C15 cord also fits a C14 inlet."
+  ],
+  [
+   "Does C13 fit C20?",
+   "No. C20 is a larger 16 A inlet and needs a C19 cord."
+  ]
+ ],
+ "c13-to-c20-power-cord": [
+  [
+   "What is a C13 to C20 cord for?",
+   "It feeds a server with a C14 inlet from a C19 outlet on a PDU. The C13 end goes into the server, the C20 end into the C19 outlet."
+  ],
+  [
+   "Is a C13 to C20 cord rated 16 A?",
+   "No. Its rating is set by the weaker C13 end, so treat it as a 10 A cord (15 A UL)."
+  ],
+  [
+   "Can I use it the other way round?",
+   "No. A C20-inlet server needs a C19 cord. A C13 to C20 cord does not fit a C20 inlet."
+  ]
+ ],
+ "c13-vs-c14": [
+  [
+   "What is the difference between C13 and C14?",
+   "C13 is the female end (on the cord or a PDU outlet). C14 is the male end (the inlet on a server PSU, or the plug on a jumper)."
+  ],
+  [
+   "Which one is on the server?",
+   "The server PSU has a C14 inlet. You plug a C13 cord into it."
+  ],
+  [
+   "Which one is on the PDU?",
+   "Most rack PDU outlets are C13. You plug the C14 end of a jumper into them."
+  ]
+ ],
+ "c13-vs-c19": [
+  [
+   "Is C19 bigger than C13?",
+   "Yes. C19 is wider, with three flat pins in a row, and rated 16 A IEC (20 A UL). C13 is rated 10 A IEC (15 A UL)."
+  ],
+  [
+   "Can I plug a C13 into a C19 outlet?",
+   "No. Use a C13 to C20 cord: C13 into the server, C20 into the C19 outlet."
+  ],
+  [
+   "How do I know if my server needs C13 or C19?",
+   "Look at the PSU inlet. A C14 inlet takes a C13 cord; a C20 inlet takes a C19 cord."
+  ]
+ ],
+ "c19-c20-server-power-cord": [
+  [
+   "What is a C19 to C20 cord?",
+   "A 16 A class jumper. The C19 end goes into a server PSU with a C20 inlet, the C20 end into a C19 outlet on the PDU."
+  ],
+  [
+   "What wire size do C19 to C20 cords use?",
+   "Usually 1.5 mm² (IEC) or 14 AWG / 12 AWG (UL) depending on the rating. Check the marking for 16 A or 20 A."
+  ],
+  [
+   "Do I need locking C19 cords?",
+   "Locking cords or outlets stop accidental unplugging in dense racks. They are optional unless your PDU or site requires them."
+  ]
+ ],
+ "c19-to-c20-compatibility": [
+  [
+   "Does C19 fit C20?",
+   "Yes. C19 is the female coupler and C20 the male inlet or plug."
+  ],
+  [
+   "Does C19 fit C14?",
+   "No. C19 is wider than a C14 inlet."
+  ],
+  [
+   "Does C21 fit C20?",
+   "Yes. C21 is the high-temperature version and fits both C20 and C22 inlets. A C19 does not fit a C22."
+  ]
+ ],
+ "c19-vs-c20": [
+  [
+   "What is the difference between C19 and C20?",
+   "C19 is the female end (cord coupler or PDU outlet). C20 is the male end (PSU inlet or jumper plug)."
+  ],
+  [
+   "What amp rating do C19 and C20 have?",
+   "16 A under IEC rules, usually 20 A under UL rules."
+  ],
+  [
+   "Where are C20 inlets used?",
+   "High-watt server PSUs, GPU servers, PDU inputs and UPS outputs."
+  ]
+ ],
+ "dgx-h100-pdu-requirements": [
+  [
+   "What PDU does a DGX H100 need?",
+   "PDUs with enough C19 outlets for all PSUs at 200–240 V, split across two feeds, with capacity for the full system power on each side."
+  ],
+  [
+   "How many power cords does a DGX H100 use?",
+   "The ship kit lists six C19/C20 class cords. Check the NVIDIA user guide for your exact configuration."
+  ],
+  [
+   "Can I use C13 outlets for a DGX H100?",
+   "No. The PSUs need C19 class connections."
+  ]
+ ],
+ "how-many-servers-per-pdu": [
+  [
+   "How many servers can one PDU power?",
+   "Divide the usable PDU power by the real server draw. Usable power is volts × amps (× 1.732 for three-phase), reduced to 80% for continuous load in North America."
+  ],
+  [
+   "Should I use nameplate watts or measured watts?",
+   "Measured or vendor-calculated typical draw gives a realistic count. Nameplate watts give a safe worst case. Use measured draw plus a margin of 20–30%."
+  ],
+  [
+   "Does A/B redundancy change the count?",
+   "Yes. With two PDUs each one must carry the whole load alone if the other feed fails, so size each PDU for the full rack."
+  ]
+ ],
+ "pdu-power-cord-compatibility": [
+  [
+   "How do I match a PDU and a server?",
+   "Compare the PDU outlet type (C13 or C19) with the server PSU inlet (C14 or C20) and pick the jumper that joins them."
+  ],
+  [
+   "What if the PDU has only C13 outlets and the server has C20 inlets?",
+   "There is no safe standard cord. Use a PDU with C19 outlets."
+  ],
+  [
+   "Do PDU input plugs matter?",
+   "Yes. The PDU input (NEMA L6-30, IEC 60309 and others) must match the circuit and socket at the site."
+  ]
+ ],
+ "power-connector-guide": [
+  [
+   "Which numbers are male and which are female?",
+   "In IEC 60320 the odd number is the female end (coupler or outlet) and the even number is the male end (inlet or plug). C13 mates with C14, C19 with C20."
+  ],
+  [
+   "What is the most common rack connector?",
+   "C13/C14. Most PDU outlets are C13 and most 1U/2U server PSUs have C14 inlets."
+  ],
+  [
+   "What plug does a 208 V rack PDU use in the US?",
+   "Often NEMA L6-30 (30 A, 250 V, locking) for single-phase, or L21-30 for three-phase."
+  ],
+  [
+   "What plug does a 32 A PDU use in Europe or Africa?",
+   "Usually an IEC 60309 blue 2P+E 32 A plug for single-phase, or red 3P+N+E for three-phase."
+  ]
+ ],
+ "server-to-pdu-power-cord": [
+  [
+   "What cord connects a server to a PDU?",
+   "A jumper: C13 to C14 for C14-inlet servers on C13 outlets, C19 to C20 for C20-inlet servers on C19 outlets, or C13 to C20 for C14-inlet servers on C19 outlets."
+  ],
+  [
+   "What length should rack jumpers be?",
+   "As short as the route allows: often 0.6–1.2 m for 0U PDUs at the back of the same rack, 1.8–2 m when the PDU is further away."
+  ],
+  [
+   "Can I use the wall cord that came with the server?",
+   "Only if the PDU has matching wall-type sockets. Rack PDUs with C13/C19 outlets need IEC jumpers."
+  ]
+ ],
+ "what-power-cord-does-my-server-need": [
+  [
+   "How do I find out which power cord my server needs?",
+   "Read the inlet on the installed PSU (C14 or C20), then the outlet type on the PDU (C13 or C19), and pick the jumper that joins them."
+  ],
+  [
+   "Does the server model decide the cord?",
+   "No. The same chassis can ship with PSUs that have different inlets depending on wattage."
+  ],
+  [
+   "What if I plug the server into a wall socket?",
+   "Then you need a cord with the wall plug for your country on one end and C13 or C19 on the other."
+  ]
+ ],
+ "pdu-calculator": [
+  [
+   "How is usable PDU power calculated?",
+   "Volts × amps for single-phase, volts × amps × 1.732 for three-phase, then × 0.8 if you apply the North American continuous-load rule."
+  ],
+  [
+   "Why does the calculator ask for A/B feeds?",
+   "With redundant feeds each PDU must carry the whole load alone, so the server count is limited by one PDU."
+  ],
+  [
+   "Is the result enough to order hardware?",
+   "It is an estimate. Check breaker ratings, local code and the vendor power calculator for your exact configuration."
+  ]
+ ],
+ "homelab-power-cost-calculator": [
+  [
+   "How do I calculate the running cost of a server?",
+   "Watts × hours ÷ 1000 gives kWh. Multiply kWh by your price per kWh. A 100 W device running all month uses about 73 kWh."
+  ],
+  [
+   "Should I use idle or peak watts?",
+   "Use the average draw you measure with a power meter or the PDU. Peak watts overstate the bill."
+  ],
+  [
+   "What is the overhead percentage for?",
+   "It covers cooling, UPS losses and network gear that runs because of the servers."
+  ]
+ ]
+}

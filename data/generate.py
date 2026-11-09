@@ -386,6 +386,147 @@ def inject_related() -> None:
         f.write_text(text, encoding="utf-8")
 
 
+FAQ = json.loads((ROOT / "data" / "faq.json").read_text(encoding="utf-8"))
+PAIR_FAQ: dict = {}
+GROUP_NAMES = {"guide": "Guides", "server": "Server power cords", "pair": "Server + PDU pairs", "tool": "Tools"}
+
+
+def git_date(path: Path, first: bool) -> str:
+    import subprocess
+    args = ["git", "log", "--format=%ad", "--date=short", "--", str(path.relative_to(ROOT))]
+    if first:
+        args.insert(2, "--diff-filter=A")
+    out = subprocess.run(args, cwd=ROOT, capture_output=True, text=True).stdout.split()
+    if not out:
+        from datetime import date
+        return date.today().isoformat()
+    return out[-1] if first else out[0]
+
+
+def slugify(text: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")[:60]
+
+
+def faq_for(slug: str, title: str) -> list:
+    if slug in PAIR_FAQ:
+        return PAIR_FAQ[slug]
+    if slug in FAQ:
+        return FAQ[slug]
+    g = page_group(slug)
+    if g == "server":
+        key = "_dgx" if ("nvidia" in slug or "dgx" in slug) else "_server"
+        name = title.replace(" power cord", "")
+        return [[q.replace("{name}", name), a.replace("{name}", name)] for q, a in FAQ[key]]
+    return []
+
+
+def sub_block(text: str, name: str, block: str, anchor: str, before: bool = True) -> str:
+    start, end = f"<!-- {name} -->", f"<!-- /{name} -->"
+    full = start + block + end
+    if start in text:
+        return re.sub(re.escape(start) + r".*?" + re.escape(end), lambda _: full, text, flags=re.S)
+    if anchor not in text:
+        return text
+    return text.replace(anchor, (full + "\n" + anchor) if before else (anchor + full), 1)
+
+
+def enhance_pages() -> None:
+    pages = {}
+    for d in sorted(ROOT.iterdir()):
+        f = d / "index.html"
+        if not d.is_dir() or d.name in RELATED_SKIP or not f.exists():
+            continue
+        m = re.search(r"<h1[^>]*>([^<]+)", f.read_text(encoding="utf-8"))
+        if m:
+            pages[d.name] = m.group(1).strip()
+    groups: dict = {}
+    for slug in pages:
+        groups.setdefault(page_group(slug), []).append(slug)
+    cols = []
+    for g in ("guide", "tool", "server", "pair"):
+        links = "".join(f'<li><a href="../{x}/">{escape(pages[x])}</a></li>' for x in groups.get(g, []))
+        if g == "tool":
+            links = '<li><a href="../">Server-PDU matcher</a></li><li><a href="../bom/">Rack cord BOM builder</a></li>' + links + '<li><a href="../rackmatch-power-cheat-sheet.pdf">Power cheat sheet (PDF)</a></li>'
+        cols.append(f'<div><h3>{GROUP_NAMES[g]}</h3><ul>{links}</ul></div>')
+    sitefoot = '\n  <nav class="sitefoot" aria-label="All pages">' + "".join(cols) + '<p>RackMatch: rack power cord and PDU compatibility reference. <a href="../suggest/">Suggest a correction</a></p></nav>\n  '
+
+    for slug, title in pages.items():
+        f = ROOT / slug / "index.html"
+        text = f.read_text(encoding="utf-8")
+        url = f"{SITE}/{slug}/"
+        g = page_group(slug)
+        published, modified = git_date(f, True), git_date(f, False)
+        human = modified
+        # breadcrumbs + byline
+        crumbs = f'<nav class="crumbs"><a href="../">RackMatch</a> › <span>{GROUP_NAMES[g]}</span> › <span>{escape(title)}</span></nav>\n    '
+        text = sub_block(text, "CRUMBS", crumbs, "<h1", before=True) if "<!-- CRUMBS -->" not in text else sub_block(text, "CRUMBS", crumbs, "<h1")
+        byline = f'\n    <p class="byline">By the RackMatch team · Updated <time datetime="{modified}">{human}</time> · Sources linked on the page</p>'
+        h1_end = text.find("</h1>")
+        if "<!-- BYLINE -->" in text:
+            text = sub_block(text, "BYLINE", byline, "")
+        elif h1_end != -1:
+            text = text[: h1_end + 5] + "<!-- BYLINE -->" + byline + "<!-- /BYLINE -->" + text[h1_end + 5 :]
+        # ids on h2 inside main content (before RELATED/FAQ)
+        body_end = min([i for i in (text.find("<!-- FAQ -->"), text.find("<!-- RELATED -->"), text.find("</main>")) if i != -1])
+        head, tail = text[:body_end], text[body_end:]
+        heads = []
+        def add_id(m):
+            inner = m.group(2)
+            hid = m.group(1) or slugify(re.sub("<[^>]+>", "", inner))
+            heads.append((hid, re.sub("<[^>]+>", "", inner)))
+            return f'<h2 id="{hid}">{inner}</h2>'
+        head = re.sub(r'<h2(?: id="([^"]+)")?>(.*?)</h2>', add_id, head)
+        text = head + tail
+        # FAQ
+        faq = faq_for(slug, title)
+        if faq:
+            items = "".join(f"<details><summary>{escape(q)}</summary><p>{escape(a)}</p></details>" for q, a in faq)
+            fblock = f'\n    <section class="faq" id="faq">\n      <h2>Frequently asked questions</h2>\n      {items}\n    </section>\n    '
+            text = sub_block(text, "FAQ", fblock, "<!-- RELATED -->")
+            heads.append(("faq", "Frequently asked questions"))
+        # TOC
+        if len(heads) >= 3:
+            lis = "".join(f'<li><a href="#{h}">{escape(t)}</a></li>' for h, t in heads)
+            toc = f'\n    <nav class="toc"><b>On this page</b><ol>{lis}</ol></nav>\n    '
+            first_h2 = text.find("<h2 id=")
+            if "<!-- TOC -->" in text:
+                text = sub_block(text, "TOC", toc, "")
+            elif first_h2 != -1:
+                text = text[:first_h2] + "<!-- TOC -->" + toc + "<!-- /TOC -->\n    " + text[first_h2:]
+        # diagram on pair and server pages
+        if "<!-- FIG -->" not in text and g in ("pair", "server") and "nvidia" not in slug:
+            fig = ('<!-- FIG --><figure class="diagram"><img src="/img/server-pdu-jumpers.svg" width="680" height="300" '
+                   'style="max-width:100%;height:auto" alt="Diagram of which jumper joins a server PSU inlet to a PDU outlet: '
+                   'C13-C14, C19-C20, or C13-C20" loading="lazy"><figcaption>Server inlet → jumper → PDU outlet.</figcaption></figure><!-- /FIG -->')
+            k = text.find("</table>")
+            if k != -1:
+                text = text[: k + 8] + "\n    " + fig + text[k + 8 :]
+            else:
+                k = text.find("</p>", text.find("<!-- /BYLINE -->") + 20)
+                text = text[: k + 4] + "\n    " + fig + text[k + 4 :]
+        # site footer
+        text = sub_block(text, "SITEFOOT", sitefoot, "</body>")
+        # JSON-LD
+        dm = re.search(r'<meta name="description" content="([^"]*)"', text)
+        graph = [
+            {"@type": "TechArticle", "@id": url + "#article", "headline": title, "description": dm.group(1) if dm else title,
+             "url": url, "mainEntityOfPage": url, "datePublished": published, "dateModified": modified, "inLanguage": "en",
+             "image": SITE + "/icon-192.png",
+             "author": {"@type": "Organization", "name": "RackMatch", "url": SITE + "/"},
+             "publisher": {"@type": "Organization", "name": "RackMatch", "url": SITE + "/", "logo": {"@type": "ImageObject", "url": SITE + "/icon-192.png"}}},
+            {"@type": "BreadcrumbList", "itemListElement": [
+                {"@type": "ListItem", "position": 1, "name": "RackMatch", "item": SITE + "/"},
+                {"@type": "ListItem", "position": 2, "name": GROUP_NAMES[g]},
+                {"@type": "ListItem", "position": 3, "name": title, "item": url}]},
+        ]
+        if faq:
+            graph.append({"@type": "FAQPage", "mainEntity": [
+                {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faq]})
+        ld = '\n  <script type="application/ld+json">' + json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False) + "</script>\n  "
+        text = sub_block(text, "LD", ld, "</head>")
+        f.write_text(text, encoding="utf-8")
+
+
 def replace_block(text: str, start: str, end: str, inner: str) -> str:
     pattern = re.compile(re.escape(start) + r".*?" + re.escape(end), re.S)
     if not pattern.search(text):
@@ -486,6 +627,18 @@ def main() -> None:
                 'See also <a href="../c13-pdu-c19-server/">C13 PDU, C19 server</a>.'
             )
             extra = " ".join(extra_parts)
+        pname = f"{server['manufacturer']} {server['model']}"
+        pdname = f"{pdu['manufacturer']} {pdu['model']}"
+        if r["ok"]:
+            a1 = f"An {r['cable_short']} jumper. {r['connector']}."
+        else:
+            a1 = f"There is no standard cord for this pair. {r['connector']}. Use a PDU with C19 outlets and a C19–C20 jumper."
+        PAIR_FAQ[page["slug"]] = [
+            [f"What power cable connects the {pname} to the {pdname}?", a1],
+            [f"What outlets does the {pdname} have?", f"The vendor lists {format_outlets(pdu)}, input {pdu['voltage']}, {pdu['current']}."],
+            [f"Does the {pname} need locking power cords?", f"Not required for a standard install. Locking option on this PDU: {r['lock']}."],
+            ["Should both server PSUs go into the same PDU?", "No. Use two PDUs on separate circuits (A and B feeds), one PSU in each, and size each PDU for the full load."],
+        ]
         html = pair_html(server, pdu, page["slug"], r, extra)
         out = ROOT / page["slug"] / "index.html"
         out.parent.mkdir(parents=True, exist_ok=True)
@@ -497,6 +650,7 @@ def main() -> None:
     inject_ga4()
     inject_icons()
     inject_related()
+    enhance_pages()
     print("updated index.html and sitemap.xml")
 
 
