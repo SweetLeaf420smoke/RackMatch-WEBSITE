@@ -448,7 +448,7 @@ def enhance_pages() -> None:
         if g == "tool":
             links = '<li><a href="../">Server-PDU matcher</a></li><li><a href="../bom/">Rack cord BOM builder</a></li>' + links + '<li><a href="../rackmatch-power-cheat-sheet.pdf">Power cheat sheet (PDF)</a></li>'
         cols.append(f'<div><h3>{GROUP_NAMES[g]}</h3><ul>{links}</ul></div>')
-    sitefoot = '\n  <nav class="sitefoot" aria-label="All pages">' + "".join(cols) + '<p>RackMatch: rack power cord and PDU compatibility reference. <a href="../suggest/">Suggest a correction</a></p></nav>\n  '
+    sitefoot = '\n  <nav class="sitefoot" aria-label="All pages">' + "".join(cols) + '<p>RackMatch: rack power cord and PDU compatibility reference. <a href="../suggest/">Suggest a correction</a> <a href="https://www.saashub.com/rackmatch-net?utm_source=badge&amp;utm_campaign=badge&amp;utm_content=rackmatch-net&amp;utm_medium=badge" target="_blank" rel="noopener"><img src="https://cdn-b.saashub.com/img/badges/approved-color.png?v=1" alt="RackMatch.net is approved on SaaSHub" width="150" style="vertical-align:middle;max-width:150px;height:auto" loading="lazy"></a></p></nav>\n  '
 
     for slug, title in pages.items():
         f = ROOT / slug / "index.html"
