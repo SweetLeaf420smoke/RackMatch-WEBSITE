@@ -50,9 +50,45 @@ for name, url in FEEDS:
     time.sleep(2)
 
 rows.sort(reverse=True)
+
+def reddit_comments(link):
+    """Return list of 'author: text' for a Reddit post via its .rss (post + comments)."""
+    root = ET.fromstring(get(link.rstrip("/") + "/.rss?limit=25"))
+    out = []
+    for e in root.findall("a:entry", ns)[1:]:
+        a = e.findtext("a:author/a:name", default="", namespaces=ns).replace("/u/", "")
+        t = html.unescape(re.sub(r"<[^>]+>", " ", e.findtext("a:content", default="", namespaces=ns)))
+        t = re.sub(r"\s+", " ", t).strip()
+        out.append(f"{a}: {t[:220]}")
+    return out
+
+def sth_comments(link):
+    page = get(link).decode("utf-8", "replace")
+    authors = re.findall(r'<article class="message[^"]*"[^>]*data-author="([^"]+)"', page)
+    bodies = re.findall(r'<div class="bbWrapper">(.*?)</div>\s*<div class="js-selectToQuoteEnd', page, re.S)
+    out = []
+    for a, b in list(zip(authors, bodies))[1:]:
+        t = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", b))).strip()
+        out.append(f"{a}: {t[:220]}")
+    return out
+
+SKIP = re.compile(r"r/homelabsales", re.I)
+detailed = []
+for w, src, t, l, k, x in rows:
+    if SKIP.search(src) or len(detailed) >= 15:
+        detailed.append(None); continue
+    try:
+        time.sleep(4)
+        detailed.append(sth_comments(l) if src == "STH" else reddit_comments(l))
+    except Exception as ex:
+        detailed.append([f"(comments not loaded: {ex})"])
 now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
 out = [f"# RackMatch leads — updated {now}", "", "## Sources", *[f"- {s}" for s in status], "", "## Threads (newest first)", ""]
-out += [f"- {w} | {src} | [{t}]({l}) | {k}\n  > {x}" for w, src, t, l, k, x in rows]
+for (w, src, t, l, k, x), cm in zip(rows, detailed):
+    out.append(f"- {w} | {src} | [{t}]({l}) | {k}\n  > {x}")
+    if cm is not None:
+        out.append(f"  - comments: {len(cm)}")
+        out += [f"    - {c}" for c in cm[:8]]
 import pathlib
 p = pathlib.Path("leads"); p.mkdir(exist_ok=True)
 (p / "leads.md").write_text("\n".join(out) + "\n", encoding="utf-8")
