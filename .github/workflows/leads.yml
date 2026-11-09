@@ -1,0 +1,25 @@
+name: leads
+on:
+  schedule:
+    - cron: "17 */4 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: leads
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          path: src
+      - run: python3 src/scripts/leads.py
+      - run: |
+          git config user.name "rackmatch-leads"
+          git config user.email "leads@rackmatch.net"
+          git add leads/leads.md
+          git commit -m "Update leads" || echo "no changes"
+          git push
