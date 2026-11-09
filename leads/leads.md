@@ -1,31 +1,46 @@
-# RackMatch leads — updated 2026-11-09 20:28 UTC
+# RackMatch leads — updated 2026-11-09 20:29 UTC
 
 ## Sources
-- r/homelab: ok, 50 items, 16 matches
-- r/HomeDataCenter: ERROR HTTP Error 429: Too Many Requests
-- r/sysadmin: ERROR HTTP Error 429: Too Many Requests
-- r/homelabsales: ERROR HTTP Error 429: Too Many Requests
-- r/datacenter: ERROR HTTP Error 429: Too Many Requests
-- r/networking: ERROR HTTP Error 429: Too Many Requests
-- r/livesound: ERROR HTTP Error 429: Too Many Requests
+- reddit: ok, 100 items, 18 matches
 - STH: ok, 20 items, 1 matches
 
 ## Threads (newest first)
 
 - Mon, 09 Nov 2026 | STH | [Can't boot H12SSL mobo, and power supply size question](https://forums.servethehome.com/index.php?threads/cant-boot-h12ssl-mobo-and-power-supply-size-question.56725/) | power supply
+  > 
 - 2026-11-09T20:23 | r/homelab | [AOOSTAR is discontinuing the WTR Pro with Ryzen 7 5825U](https://www.reddit.com/r/homelab/comments/1xs2nc1/aoostar_is_discontinuing_the_wtr_pro_with_ryzen_7/) | power consumption
+  > I contacted AOOSTAR yesterday to ask about the availability of the barebone WTR Pro with the Ryzen 7 5825U, as I was planning to buy one for my first homelab. I'd recently noticed that prices were going up and that it was becoming almost impossible to find one in stock at a reasonable price. Well, here's their response: apparently, they're discontinuing the Ryzen 7 5825U version and replacing it w
+- 2026-11-09T20:06 | r/homelabsales | [[FS][US-AZ] ASUS ASCENT GX10 1TB / Samsung 256GB (8x32GB) DDR4-2666 ECC RDIMM Kit](https://www.reddit.com/r/homelabsales/comments/1xs27dk/fsusaz_asus_ascent_gx10_1tb_samsung_256gb_8x32gb/) | ups
+  > Gallery with username tag, date, and videos are here: https://imgur.com/a/0up4eID 1x ASUS ASCENT GX10 GB10 128GB 1TB (GX10-GG0010BN), barely used, like new. Ships in original box (see video.) - $6000 USD OBO. Factory reset and ready for a new-user experience. Samsung 256GB (8x 32GB) DDR4-2666 Server RAM (2x M393A4K40BB2-CTD / 6x M393A4K40CB2-CTD) - $1000 USD OBO Specs: PC4-21300V | ECC Registered 
+- 2026-11-09T19:48 | r/homelabsales | [[W] [EU-GER] Any 7900XTX Nitro+ Waterblock besides Bykski](https://www.reddit.com/r/homelabsales/comments/1xs1pxx/w_euger_any_7900xtx_nitro_waterblock_besides/) | gpu
+  > Trying to find a Waterblock for my GPU, trying my luck here. |by /u/Bsiate to r/homelabsales [link] [comments]
 - 2026-11-09T19:14 | r/homelab | [Two ProLiants and two GPU towers on basement wire shelves](https://www.reddit.com/r/homelab/comments/1xs0s0u/two_proliants_and_two_gpu_towers_on_basement_wire/) | 4090, 5090, gpu, rack
+  > The wire shelves are the rack. I use this setup for development work at my company. The two towers run local models, and the old HPs handle most of the builds and tests. • Main tower: Ryzen 9 9950X3D, 96 GB RAM, RTX 5090 and RTX 4090. It runs local models with vLLM, but it also ended up hosting Postgres, Redpanda, and some CI runners. It swaps under load. • Second tower: Ryzen 9 9950X, 64 GB RAM, 
 - 2026-11-09T17:30 | r/homelab | [Dell OptiPlex 7010 as my first homelab. Where should I start?](https://www.reddit.com/r/homelab/comments/1xrxxge/dell_optiplex_7010_as_my_first_homelab_where/) | gpu
+  > I recently bought a Dell OptiPlex 7010 MT to use as my first homelab. Specs: - CPU: Intel Core i5-3570 (3rd gen, 3.4 GHz) - RAM: 8GB DDR3 - Storage: 500GB HDD - GPU: Intel HD Graphics 2500 I'm completely new to homelabbing and I'm not sure where to start. What can I realistically do with this hardware? Should I upgrade anything before getting started, or is it good enough as it is? What OS would y
 - 2026-11-09T16:57 | r/homelab | [KWS rack temps?](https://www.reddit.com/r/homelab/comments/1xrx081/kws_rack_temps/) | rack
+  > Will it be safe to print the frame in PLA? Not sure if my setup will run very hot. I have tons of pla but no petg at the moment, so was thinking i could mock up the basics in pla, then replace parts in petg as i move on… Building for two 5 port tp-link switches, a mini desktop and 4-5 pi’s. And some disks in the future. |by /u/gasserx to r/homelab [link] [comments]
 - 2026-11-09T15:17 | r/homelab | [Any way to cool down my cards?](https://www.reddit.com/r/homelab/comments/1xrubgo/any_way_to_cool_down_my_cards/) | rack
+  > I limited by GPUs power limit from 200W to 165W https://preview.redd.it/qbt4jbbqrl0i1.png?width=1536&format=png&auto=webp&s=8713f5a6c82ce689fde5af1c3696983bdb6c2b81 I placed my case (Antect Flux Pro) to this stock rack, i am at a 4m² room, have a little 14cm USB fans to pull the heat out, any other way to make my cards cooler? is add one more fan on the wall side is useful? https://preview.redd.it
 - 2026-11-09T14:50 | r/homelab | [Help with creating a 1u rack for a ASUS RT-AX55 (AX1800) router (And some other questions).](https://www.reddit.com/r/homelab/comments/1xrtlp1/help_with_creating_a_1u_rack_for_a_asus_rtax55/) | rack
+  > |by /u/Gullible-East7434 to r/homelab [link] [comments]
 - 2026-11-09T14:35 | r/homelab | [It ain't much, but it's honest work](https://www.reddit.com/r/homelab/comments/1xrt8h7/it_aint_much_but_its_honest_work/) | rack, ups
+  > My homelab, in my "rack" (an IKEA shoe cabinet lol). Highlights: ZFS mirrored DAS for NFS/Samba 4G WAN failover, Tailscale to beat CG-NAT Cloudflare DDNS client WireGuard full-mesh trunk for backchannel traffic (nginx upstream, NFS, MySQL, UPS) WireGuard remote access on the router and Ubuntu servers ProtonVPN egress pool for outbound API calls UPS graceful shutdown via NUT Three SSIDs on their ow
+- 2026-11-09T14:15 | r/homelabsales | [[FS][US-OH] Unifi Aggregation, 24-Pro, DAC](https://www.reddit.com/r/homelabsales/comments/1xrsqyi/fsusoh_unifi_aggregation_24pro_dac/) | rack
+  > Replaced these devices at a business. Unifi USW-Aggregation Switch Unifi USW-Pro-24 Switch Only one set of rack ears is included, latest firmware applied. Reset and ready to adopt. $500 shipped |by /u/cw823 to r/homelabsales [link] [comments]
 - 2026-11-09T14:01 | r/homelab | [Opensense/pfsesne(VM) installation](https://www.reddit.com/r/homelab/comments/1xrsebk/opensensepfsesnevm_installation/) | gpu
+  > Hey, So I've been running a small homelab on my laptop for years now. (Jellyfin, opencloud, vaultwarden, immich etc with docker compose and caddy revers proxy, Technitium on bare metal Ubuntu, and Netbird) Didn't really think too much about the router. I just installed merlin firmware on the Asus router machine and be done with it. Quite happy with this setup tbh so far. Recently, I became interes
+- 2026-11-09T11:56 | r/sysadmin | [Temperature Sensor Placement](https://www.reddit.com/r/sysadmin/comments/1xrps0p/temperature_sensor_placement/) | rack
+  > Where to put the temperature sensors in the Data Center? Should it be put in the Cold Aisle? Or Hot Aisle? Or Both should have? Currently our temp sensors are in the Top Rack Hot Aisle, so I am wondering if is it really efficient to put it there? |by /u/Snoo_61639 to r/sysadmin [link] [comments]
 - 2026-11-09T11:38 | r/homelab | [Anyone else use plain text configs and or treat their lab in a semi-pro fashion? With git/CI?](https://www.reddit.com/r/homelab/comments/1xrpgi5/anyone_else_use_plain_text_configs_and_or_treat/) | ups
+  > For example, I use a private forgejo repo to commit ansible/bind9/nftables firewall/wireguard configs. Using forgejo's continous integration, it validates the config first for typos, config errors and deploys the changes with ansible if it passes the checks. My main dns server is a raspberry pi and 2 secondary slave dns servers. Which are a steam deck and broken laptop (just the screen). They're d
+- 2026-11-09T11:20 | r/homelabsales | [[FS][UK] HP Elitedesk 800 G4 Mini PC](https://www.reddit.com/r/homelabsales/comments/1xrp58q/fsuk_hp_elitedesk_800_g4_mini_pc/) | power supply
+  > ​ Timestamp: https://ibb.co/4nv744h5 Fully working and in good condition, complete with power supply and the following specs: Intel Core i5-8500T 8GB DDR4 240GB m.2 SSD Windows 11 Price: £65 + £4 Postage |by /u/No_Conflict_86 to r/homelabsales [link] [comments]
 - 2026-11-09T09:24 | r/homelab | [My little homelab in a flight case: i9-14900KS, 192 GB RAM, RTX PRO 4500 Blackwell, Proxmox and LTO-8 backups](https://www.reddit.com/r/homelab/comments/1xrn8x5/my_little_homelab_in_a_flight_case_i914900ks_192/) | gpu
+  > Thought I'd finally share my homelab here. What started as a relatively simple self-hosting project a year ago has now grown into a somewhat "overkill home setup" for virtualization, local AI, storage, networking and backups. And since I don't have a dedicated server room, everything lives in a modified flight case in my home office room. Apparently, it also makes a decent plant stand. Main server
 - 2026-11-09T07:49 | r/homelab | [HARVMATTA rack - my homelab](https://www.reddit.com/r/homelab/comments/1xrlr9s/harvmatta_rack_my_homelab/) | rack
+  > Hey there, everyone! Inspired by the LackRack, I'm happy to announce the HARVMATTA-Rack. (not as catchy, but still very cool) I've basically stuffed all my homelab gear into an Ikea desk organizer and it looks surprisingly good. Elements (top to bottom): - Frank (web specialist) 🕸️ - Asus RT-AX1800U (Not in use yet, waiting for patch cables) - Dell Optiplex (i5-6500T, 8GB DDR3, 256GB SSD) - HP Eli
 - 2026-11-09T04:54 | r/homelab | [AIO server NAS OS help](https://www.reddit.com/r/homelab/comments/1xrisd6/aio_server_nas_os_help/) | psu
+  > Longtime admirer here. I’ve finally gone pretty deep into building an all-in-one home server, and now I’m at the part where I’m second-guessing what I want to use for storage. I am still very young on my first job so I am working with a lot of second-hand parts and free software/hardware. I’m on Proxmox with Jellyfin, the *arr stack, Navidrome, books/manga services, AdGuard, Tailscale, and a bunch
 - 2026-11-09T04:15 | r/homelab | [What's the best way to fit 3*3060 full size cards in this board](https://www.reddit.com/r/homelab/comments/1xri34y/whats_the_best_way_to_fit_33060_full_size_cards/) | psu
-- 2026-11-09T02:49 | r/homelab | [Need help in deciding the position of Server Rack](https://www.reddit.com/r/homelab/comments/1xrgfqi/need_help_in_deciding_the_position_of_server_rack/) | rack
-- 2026-11-09T01:41 | r/homelab | [Razer Core V2 won't turn on](https://www.reddit.com/r/homelab/comments/1xrf33z/razer_core_v2_wont_turn_on/) | psu
-- 2026-11-09T00:23 | r/homelab | [One man's trash is another man's homelab: a landfill-bound i7-6700 is now my NAS + 37 containers](https://www.reddit.com/r/homelab/comments/1xrdi3r/one_mans_trash_is_another_mans_homelab_a/) | battery, psu
+  > The board is a Supermicro X10SRL-F. I know I can use risers. I just want to confirm whether that's the only way, or if there is another way to do this. One final question: can I power my 3060s from one 8-pin port? My PSU only has two cables with 6+2 connectors. |by /u/Chameleon_The to r/homelab [link] [comments]
