@@ -72,24 +72,28 @@ def sth_comments(link):
         out.append(f"{a}: {t[:220]}")
     return out
 
-SKIP = re.compile(r"r/homelabsales", re.I)
-detailed = []
-for w, src, t, l, k, x in rows:
-    if SKIP.search(src) or len(detailed) >= 15:
-        detailed.append(None); continue
-    try:
-        time.sleep(4)
-        detailed.append(sth_comments(l) if src == "STH" else reddit_comments(l))
-    except Exception as ex:
-        detailed.append([f"(comments not loaded: {ex})"])
 now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
 out = [f"# RackMatch leads — updated {now}", "", "## Sources", *[f"- {s}" for s in status], "", "## Threads (newest first)", ""]
-for (w, src, t, l, k, x), cm in zip(rows, detailed):
+for (w, src, t, l, k, x) in rows:
     out.append(f"- {w} | {src} | [{t}]({l}) | {k}\n  > {x}")
-    if cm is not None:
-        out.append(f"  - comments: {len(cm)}")
-        out += [f"    - {c}" for c in cm[:8]]
-import pathlib
+import pathlib, os
 p = pathlib.Path("leads"); p.mkdir(exist_ok=True)
 (p / "leads.md").write_text("\n".join(out) + "\n", encoding="utf-8")
 print("\n".join(status))
+
+# Picks mode: fetch comments only for threads listed in leads/picks.txt (one URL per line)
+picks_file = p / "picks.txt"
+if os.environ.get("PICKS") == "1" and picks_file.exists():
+    urls = [u.strip() for u in picks_file.read_text().splitlines() if u.strip().startswith("http")]
+    res = [f"# Picked threads with comments — {now}", ""]
+    for u in urls[:20]:
+        try:
+            time.sleep(6)
+            cm = sth_comments(u) if "servethehome" in u else reddit_comments(u)
+            res.append(f"## {u}\n- comments: {len(cm)}")
+            res += [f"  - {c}" for c in cm[:15]]
+        except Exception as ex:
+            res.append(f"## {u}\n- ERROR {ex}")
+        res.append("")
+    (p / "picks.md").write_text("\n".join(res) + "\n", encoding="utf-8")
+    print("picks done", len(urls))

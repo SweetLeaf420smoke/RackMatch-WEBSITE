@@ -3,6 +3,10 @@ on:
   schedule:
     - cron: "17 */4 * * *"
   workflow_dispatch:
+    inputs:
+      picks:
+        description: "1 = only fetch comments for leads/picks.txt"
+        default: "0"
 permissions:
   contents: write
 jobs:
@@ -17,9 +21,11 @@ jobs:
           ref: main
           path: src
       - run: python3 src/scripts/leads.py
+        env:
+          PICKS: ${{ github.event.inputs.picks }}
       - run: |
           git config user.name "rackmatch-leads"
           git config user.email "leads@rackmatch.net"
-          git add leads/leads.md
+          git add leads/
           git commit -m "Update leads" || echo "no changes"
           git push
