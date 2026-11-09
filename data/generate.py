@@ -317,6 +317,75 @@ def inject_icons() -> None:
         path.write_text(text.replace("</head>", ICON_LINKS + "\n</head>", 1), encoding="utf-8")
 
 
+RELATED_SKIP = {"bom", "rfq", "suggest", "embed", "seo-workspace", "press", "js", "data", "scripts"}
+TOOLS = ["pdu-calculator", "homelab-power-cost-calculator", "power-connector-guide"]
+
+
+def page_group(slug: str) -> str:
+    if slug in TOOLS:
+        return "tool"
+    if re.search(r"-(apc|eaton|raritan)-", slug):
+        return "pair"
+    if slug.endswith("-power-cord") and slug.split("-")[0] in ("dell", "hpe", "nvidia", "lenovo"):
+        return "server"
+    if slug.startswith(("nvidia", "dgx")):
+        return "server"
+    return "guide"
+
+
+def inject_related() -> None:
+    pages = {}
+    for d in sorted(ROOT.iterdir()):
+        f = d / "index.html"
+        if not d.is_dir() or d.name in RELATED_SKIP or not f.exists():
+            continue
+        m = re.search(r"<h1[^>]*>([^<]+)", f.read_text(encoding="utf-8"))
+        if m:
+            pages[d.name] = m.group(1).strip()
+    groups = {}
+    for slug in pages:
+        groups.setdefault(page_group(slug), []).append(slug)
+
+    def score(a: str, b: str) -> int:
+        wa, wb = set(a.split("-")), set(b.split("-"))
+        return len(wa & wb)
+
+    for slug, title in pages.items():
+        g = page_group(slug)
+        same = sorted((x for x in groups[g] if x != slug), key=lambda x: (-score(slug, x), x))
+        others = sorted((x for x in pages if page_group(x) != g and x not in TOOLS),
+                        key=lambda x: (-score(slug, x), x))
+        pick = same[:4]
+        for t in TOOLS:
+            if t != slug and t not in pick:
+                pick.append(t)
+        for x in others:
+            if len(pick) >= 9:
+                break
+            if x not in pick:
+                pick.append(x)
+        items = "".join(
+            f'<li><a href="../{x}/">{escape(pages[x])}</a></li>' for x in pick[:9]
+        )
+        block = (
+            "<!-- RELATED -->\n"
+            '    <section class="related">\n'
+            "      <h2>You may also need</h2>\n"
+            f"      <ul>{items}</ul>\n"
+            '      <p><a href="../bom/">Build the full rack cord list</a> &middot; '
+            '<a href="../">All guides</a></p>\n'
+            "    </section>\n"
+            "    <!-- /RELATED -->"
+        )
+        f = ROOT / slug / "index.html"
+        text = f.read_text(encoding="utf-8")
+        if "<!-- RELATED -->" in text:
+            text = re.sub(r"<!-- RELATED -->.*?<!-- /RELATED -->", lambda _: block, text, flags=re.S)
+        else:
+            text = text.replace("  </main>", "    " + block + "\n  </main>", 1)
+        f.write_text(text, encoding="utf-8")
+
+
 def replace_block(text: str, start: str, end: str, inner: str) -> str:
     pattern = re.compile(re.escape(start) + r".*?" + re.escape(end), re.S)
     if not pattern.search(text):
@@ -427,6 +496,7 @@ def main() -> None:
     inject_metrika()
     inject_ga4()
     inject_icons()
+    inject_related()
     print("updated index.html and sitemap.xml")
 
 

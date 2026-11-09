@@ -19,3 +19,7 @@ td:first-child { color: #333; }
 .warn { color: #00e; }
 ul, ol { margin: 0 0 12px; padding-left: 20px; }
 footer { margin-top: 24px; font-size: 13px; color: #333; }
+.related{margin-top:2.5rem;padding:1.25rem 1.5rem;border:1px solid #d8dee6;border-radius:10px;background:#f7f9fb}
+.related h2{margin-top:0;font-size:1.15rem}
+.related ul{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.4rem 1.5rem;padding-left:1.1rem;margin:.5rem 0 1rem}
+.related li{line-height:1.4}
