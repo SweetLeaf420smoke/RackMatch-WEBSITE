@@ -297,6 +297,26 @@ def inject_metrika() -> None:
         print("metrika", path.relative_to(ROOT))
 
 
+ICON_LINKS = (
+    '  <link rel="icon" href="/favicon.ico" sizes="any">\n'
+    '  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">\n'
+    '  <link rel="apple-touch-icon" href="/apple-touch-icon.png">'
+)
+
+
+def inject_icons() -> None:
+    for path in ROOT.rglob("index.html"):
+        if "seo-workspace" in path.parts:
+            continue
+        text = path.read_text(encoding="utf-8")
+        if 'href="/favicon.ico"' in text:
+            continue
+        text = text.replace('  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\'/%3E">\n', "")
+        if "</head>" not in text:
+            continue
+        path.write_text(text.replace("</head>", ICON_LINKS + "\n</head>", 1), encoding="utf-8")
+
+
 def replace_block(text: str, start: str, end: str, inner: str) -> str:
     pattern = re.compile(re.escape(start) + r".*?" + re.escape(end), re.S)
     if not pattern.search(text):
@@ -406,6 +426,7 @@ def main() -> None:
     update_sitemap(data)
     inject_metrika()
     inject_ga4()
+    inject_icons()
     print("updated index.html and sitemap.xml")
 
 
