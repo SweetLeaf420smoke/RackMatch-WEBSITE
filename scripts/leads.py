@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 UA = "Mozilla/5.0 (rackmatch-leads; +https://rackmatch.net)"
 SUBS = ["homelab", "HomeDataCenter", "sysadmin", "homelabsales", "datacenter", "networking", "livesound"]
 FEEDS = [("reddit", "https://www.reddit.com/r/" + "+".join(SUBS) + "/new/.rss?limit=100")]
+FEEDS.append(("Level1Techs", "https://forum.level1techs.com/latest.rss"))
 FEEDS.append(("STH", "https://forums.servethehome.com/index.php?forums/-/index.rss"))
 KW = re.compile(r"\b(psu|psus|pdu|pdus|ups|power ?(supply|cord|cable|draw|usage|consumption|strip|distribution|budget)|c1[349]|c20|nema|l[56]-\d\d|breaker|circuit|outlet|amps?|watt|redundan\w*|battery|inverter|3090|4090|5090|gpu|rack)\b", re.I)
 LIVE_KW = re.compile(r"\b(rack|power|ups|generator|distro|breaker|outlet)\b", re.I)
@@ -62,6 +63,15 @@ def reddit_comments(link):
         out.append(f"{a}: {t[:220]}")
     return out
 
+def l1t_comments(link):
+    m = re.search(r"/t/[^/]+/(\d+)", link) or re.search(r"/t/(\d+)", link)
+    j = json.loads(get(f"https://forum.level1techs.com/t/{m.group(1)}.json"))
+    out = []
+    for p_ in j["post_stream"]["posts"][1:]:
+        t = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", p_.get("cooked", "")))).strip()
+        out.append(f"{p_.get('username')}: {t[:220]}")
+    return out
+
 def sth_comments(link):
     page = get(link).decode("utf-8", "replace")
     authors = re.findall(r'<article class="message[^"]*"[^>]*data-author="([^"]+)"', page)
@@ -89,7 +99,7 @@ if os.environ.get("PICKS") == "1" and picks_file.exists():
     for u in urls[:20]:
         try:
             time.sleep(6)
-            cm = sth_comments(u) if "servethehome" in u else reddit_comments(u)
+            cm = sth_comments(u) if "servethehome" in u else (l1t_comments(u) if "level1techs" in u else reddit_comments(u))
             res.append(f"## {u}\n- comments: {len(cm)}")
             res += [f"  - {c}" for c in cm[:15]]
             mine = [c for c in cm if c.startswith("No_Engineering_2443")]
