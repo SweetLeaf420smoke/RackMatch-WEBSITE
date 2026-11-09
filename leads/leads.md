@@ -1,7 +1,7 @@
-# RackMatch leads — updated 2026-11-09 20:42 UTC
+# RackMatch leads — updated 2026-11-09 20:55 UTC
 
 ## Sources
-- reddit: ok, 100 items, 17 matches
+- reddit: ok, 100 items, 18 matches
 - STH: ok, 20 items, 1 matches
 
 ## Threads (newest first)
@@ -42,3 +42,5 @@
   > Thought I'd finally share my homelab here. What started as a relatively simple self-hosting project a year ago has now grown into a somewhat "overkill home setup" for virtualization, local AI, storage, networking and backups. And since I don't have a dedicated server room, everything lives in a modified flight case in my home office room. Apparently, it also makes a decent plant stand. Main server
 - 2026-11-09T07:49 | r/homelab | [HARVMATTA rack - my homelab](https://www.reddit.com/r/homelab/comments/1xrlr9s/harvmatta_rack_my_homelab/) | rack
   > Hey there, everyone! Inspired by the LackRack, I'm happy to announce the HARVMATTA-Rack. (not as catchy, but still very cool) I've basically stuffed all my homelab gear into an Ikea desk organizer and it looks surprisingly good. Elements (top to bottom): - Frank (web specialist) 🕸️ - Asus RT-AX1800U (Not in use yet, waiting for patch cables) - Dell Optiplex (i5-6500T, 8GB DDR3, 256GB SSD) - HP Eli
+- 2026-11-09T04:54 | r/homelab | [AIO server NAS OS help](https://www.reddit.com/r/homelab/comments/1xrisd6/aio_server_nas_os_help/) | psu
+  > Longtime admirer here. I’ve finally gone pretty deep into building an all-in-one home server, and now I’m at the part where I’m second-guessing what I want to use for storage. I am still very young on my first job so I am working with a lot of second-hand parts and free software/hardware. I’m on Proxmox with Jellyfin, the *arr stack, Navidrome, books/manga services, AdGuard, Tailscale, and a bunch
