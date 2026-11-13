@@ -49,6 +49,11 @@
       PDUS = data.pdus || [];
       fill(serverEl, SERVERS, serverLabel);
       fill(pduEl, PDUS, pduLabel);
+      if (!serverEl.value && byId(SERVERS, "dell-r650") && byId(PDUS, "apc-ap8941")) {
+        serverEl.value = "dell-r650";
+        pduEl.value = "apc-ap8941";
+        document.getElementById("form").dispatchEvent(new Event("submit", { cancelable: true }));
+      }
     })
     .catch(function () {
       resultEl.hidden = false;
@@ -59,6 +64,7 @@
     e.preventDefault();
     var server = byId(SERVERS, serverEl.value);
     var pdu = byId(PDUS, pduEl.value);
+    if (e.isTrusted) { var h = document.getElementById("example-hint"); if (h) h.hidden = true; }
     if (!server || !pdu) {
       resultEl.hidden = false;
       resultEl.innerHTML = "<p>Select both models.</p>";

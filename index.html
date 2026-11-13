@@ -60,6 +60,19 @@
   <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://rackmatch.net/#org","name":"RackMatch","url":"https://rackmatch.net/","logo":"https://rackmatch.net/icon-192.png"},{"@type":"WebSite","name":"RackMatch","url":"https://rackmatch.net/","publisher":{"@id":"https://rackmatch.net/#org"}}]}</script>
+  <style>
+    .lead{font-size:1.1em}
+    .quick{border:2px solid #00e;border-radius:10px;padding:14px 16px;margin:16px 0 24px;background:#f7f9ff}
+    .quick label{display:block;margin-top:8px;font-weight:bold}
+    .quick select{width:100%;padding:6px}
+    .quick button[type=submit]{font-size:1.05em;padding:8px 18px}
+    .hint{font-size:13px;color:#555;margin:8px 0 0}
+    .tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin:10px 0 20px}
+    .tool{display:block;border:1px solid #d8dee6;border-radius:8px;padding:10px 12px;text-decoration:none;color:inherit;background:#fff}
+    .tool:hover{border-color:#00e}
+    .tool b{display:block;color:#00e;margin-bottom:4px}
+    .tool span{font-size:13px;color:#444}
+  </style>
 </head>
 <body>
   <header>
@@ -69,15 +82,43 @@
     <a href="./suggest/">Suggest a correction / Add equipment</a>
   </header>
   <main>
-    <h1>Turn Your Rack BOM Into a Validated Power Cabling BOM</h1>
-    <p>Add your servers, switches and PDUs. RackMatch determines the correct connectors, quantities, cable lengths, A/B feeds and compatible power cords for the entire rack.</p>
-    <h2>C13 or C19</h2>
-    <p>Read the inlet on the installed PSU, not the chassis name. A C14 inlet takes a C13–C14 jumper: C13 into the server, C14 into a PDU C13 outlet. A C20 inlet takes a C19–C20 jumper: C19 into the server, C20 into a PDU C19 outlet.</p>
-    <p><a href="./power-connector-guide/">Power connector guide</a>, <a href="./homelab-power-cost-calculator/">power cost calculator</a>, <a href="./pdu-calculator/">PDU calculator</a>, <a href="./c13-vs-c14/">C13 vs C14</a>, <a href="./c19-vs-c20/">C19 vs C20</a>, <a href="./what-power-cord-does-my-server-need/">what power cord does my server need</a>.</p>
+    <h1>Which power cord connects your server to your PDU?</h1>
+    <p class="lead">Pick a server and a rack PDU. RackMatch shows the exact jumper (C13–C14, C19–C20 or C13–C20) with the vendor source. Free, no sign-up.</p>
+
+    <section class="quick">
+      <form id="form" action="#" method="get">
+        <label for="server">Server model</label>
+        <select id="server" name="server" required>
+          <option value="">— select —</option>
+        </select>
+        <label for="pdu">PDU model</label>
+        <select id="pdu" name="pdu" required>
+          <option value="">— select —</option>
+        </select>
+        <div><button type="submit">Find the cord</button></div>
+      </form>
+      <p class="hint" id="example-hint">Example already loaded: Dell R650 + APC AP8941. Change the models to check yours.</p>
+      <div id="result" hidden></div>
+    </section>
+
+    <h2>Free rack power tools</h2>
+    <div class="tools">
+      <a class="tool" href="./pdu-calculator/"><b>PDU calculator</b><span>How many servers fit on one PDU, with A/B feeds and the 80% rule</span></a>
+      <a class="tool" href="./homelab-power-cost-calculator/"><b>Power cost calculator</b><span>What your homelab or rack costs per month in electricity</span></a>
+      <a class="tool" href="./power-connector-guide/"><b>Connector guide</b><span>C13, C19, NEMA, IEC 60309 — what fits what, with drawings</span></a>
+      <a class="tool" href="./rackmatch-power-cheat-sheet.pdf"><b>Cheat sheet (PDF)</b><span>One printable page to hang next to the rack</span></a>
+      <a class="tool" href="./bom/"><b>Rack cord BOM</b><span>Turn a whole rack plan into a list of power cords</span></a>
+      <a class="tool" href="./bom/?example=1"><b>Example rack</b><span>6 × Dell R760 + 2 × APC AP8853, already filled in</span></a>
+    </div>
+
+    <h2>C13 or C19?</h2>
+    <p>Read the inlet on the installed PSU, not the chassis name. A C14 inlet takes a C13–C14 jumper: C13 into the server, C14 into a PDU C13 outlet. A C20 inlet takes a C19–C20 jumper: C19 into the server, C20 into a PDU C19 outlet. More: <a href="./c13-vs-c19/">C13 vs C19</a>, <a href="./c13-vs-c14/">C13 vs C14</a>, <a href="./c19-vs-c20/">C19 vs C20</a>, <a href="./what-power-cord-does-my-server-need/">what power cord does my server need</a>.</p>
+
+    <h2>Cabling a whole rack?</h2>
+    <p>Add your servers, switches and PDUs. RackMatch works out connectors, quantities, cable lengths and A/B feeds for the entire rack, or reads a PDF spec for you.</p>
     <p>
       <a href="./bom/"><button type="button">Build Rack BOM</button></a>
       <a href="./rfq/"><button type="button">Upload Spec / RFQ</button></a>
-      <a href="./bom/?example=1"><button type="button">Try Example Rack</button></a>
     </p>
     <p>Upload Spec / RFQ reads a PDF or pasted specification, matches models that already exist in this catalog, and marks everything else Needs verification. Confirmed rows can go into Build Rack BOM.</p>
 
@@ -102,27 +143,6 @@
     <h2>Rack cable kit</h2>
     <p>After the power cable BOM, request a quote for a complete ready-to-install set of data center power cords: lengths, A/B colours, labels and connector types.</p>
     <p><a href="./bom/">Request a rack kit quote from the BOM page</a></p>
-
-    <h2>Check one server and one PDU</h2>
-    <p>Single-pair server PDU compatibility. For a full rack power cable BOM use <a href="./bom/">Build Rack BOM</a>.</p>
-
-    <form id="form" action="#" method="get">
-      <label for="server">Server model</label>
-      <select id="server" name="server" required>
-        <option value="">— select —</option>
-      </select>
-
-      <label for="pdu">PDU model</label>
-      <select id="pdu" name="pdu" required>
-        <option value="">— select —</option>
-      </select>
-
-      <div>
-        <button type="submit">Find</button>
-      </div>
-    </form>
-
-    <div id="result" hidden></div>
 
     <div id="feedback-block">
     <h2>Feedback</h2>
