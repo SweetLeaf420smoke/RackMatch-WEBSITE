@@ -276,5 +276,55 @@
    "What is the overhead percentage for?",
    "It covers cooling, UPS losses and network gear that runs because of the servers."
   ]
+ ],
+ "dell-poweredge-xe9680-power-cord": [
+  [
+   "What power cord does the Dell PowerEdge XE9680 use?",
+   "The PSUs have C22 inlets. With the C19 PDU outlets Dell recommends, use a C21-to-C20 jumper: C21 into the PSU, C20 into the PDU. You need six per server."
+  ],
+  [
+   "How much power does an XE9680 draw?",
+   "Dell gives an approximate maximum of 11.5 kW with H100 GPUs. Plan PDUs and circuits from that number, not from 6 × 2800 W."
+  ],
+  [
+   "Can the XE9680 run on 120 V?",
+   "No. The 2800 W PSUs need 200–240 V."
+  ],
+  [
+   "Will a normal C19 cord fit the XE9680?",
+   "No. A C19 does not fit a C22 inlet. You need the high-temperature C21 connector on the server end."
+  ]
+ ],
+ "supermicro-sys-821ge-tnhr-power-cord": [
+  [
+   "What power cord does the Supermicro SYS-821GE-TNHR need?",
+   "A 16 A class C19-to-C20 jumper per PSU, C19 into the PSU and C20 into a C19 PDU outlet. Check the inlet label on your PSUs."
+  ],
+  [
+   "How many power supplies does the SYS-821GE-TNHR have?",
+   "Six 3000 W Titanium PSUs as standard, with an optional eight-PSU (4+4) setup."
+  ],
+  [
+   "What voltage does it need?",
+   "200–240 V AC. Each PSU delivers 2880 W at 200–207 V and 3000 W at 207–240 V, drawing up to 16 A."
+  ]
+ ],
+ "nvidia-gb200-nvl72-power": [
+  [
+   "How much power does a GB200 NVL72 rack use?",
+   "About 120 kW according to NVIDIA; partners quote 125–135 kW depending on configuration."
+  ],
+  [
+   "Does GB200 NVL72 use C19 power cords?",
+   "Not for the compute trays. Power shelves convert three-phase AC to about 50 V DC and feed a bus bar that the trays plug into. Regular cords are only used for small items like management switches."
+  ],
+  [
+   "How many power shelves are in a GB200 NVL72 rack?",
+   "NVIDIA's DGX GB200 design uses eight 33 kW shelves with six 5.5 kW PSUs each, in N+N redundancy."
+  ],
+  [
+   "Can a normal colocation rack host a GB200 NVL72?",
+   "Usually not. Typical racks are built for 10–15 kW, while an NVL72 needs about 120 kW of power and liquid cooling."
+  ]
  ]
 }

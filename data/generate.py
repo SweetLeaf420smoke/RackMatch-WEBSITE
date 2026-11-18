@@ -368,7 +368,7 @@ def page_group(slug: str) -> str:
         return "tool"
     if re.search(r"-(apc|eaton|raritan)-", slug):
         return "pair"
-    if slug.endswith("-power-cord") and slug.split("-")[0] in ("dell", "hpe", "nvidia", "lenovo"):
+    if slug.endswith("-power-cord") and slug.split("-")[0] in ("dell", "hpe", "nvidia", "lenovo", "supermicro"):
         return "server"
     if slug.startswith(("nvidia", "dgx")):
         return "server"

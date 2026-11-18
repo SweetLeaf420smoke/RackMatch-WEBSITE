@@ -27,3 +27,7 @@ The inlet on the installed power supply decides the cord. The chassis name alone
 - [Dell PowerEdge R760 + APC AP8941](https://rackmatch.net/dell-poweredge-r760-apc-ap8941/)
 
 Check the live nameplate. A high-watt PSU in the same chassis can use C20 instead of C14.
+
+- [NVIDIA GB200 NVL72 rack power](https://rackmatch.net/nvidia-gb200-nvl72-power/): 120 kW racks, power shelves and DC bus bar
+- [Dell PowerEdge XE9680 power cord](https://rackmatch.net/dell-poweredge-xe9680-power-cord/): C22 inlets, C21-C20 cords, ~11.5 kW
+- [Supermicro SYS-821GE-TNHR power cord](https://rackmatch.net/supermicro-sys-821ge-tnhr-power-cord/): 3000 W PSUs, C19-C20 cords
