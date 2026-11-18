@@ -1,4 +1,4 @@
-# RackMatch leads — updated 2026-11-17 23:29 UTC
+# RackMatch leads — updated 2026-11-18 07:26 UTC
 
 ## Sources
 - reddit: ERROR HTTP Error 404: Not Found
@@ -8,7 +8,7 @@
 
 ## Threads (newest first)
 
-- Tue, 17 Nov 2026 | STH | [NVIDIA Announces Rubin HPC: Science-Focused Server GPU to Arrive in 2028](https://forums.servethehome.com/index.php?threads/nvidia-announces-rubin-hpc-science-focused-server-gpu-to-arrive-in-2028.56785/) | gpu
+- Wed, 18 Nov 2026 | STH | [NVIDIA Announces Rubin HPC: Science-Focused Server GPU to Arrive in 2028](https://forums.servethehome.com/index.php?threads/nvidia-announces-rubin-hpc-science-focused-server-gpu-to-arrive-in-2028.56785/) | gpu
   > 
 - Tue, 17 Nov 2026 | STH | [Dismantling my homelab rack.  How old is too old?](https://forums.servethehome.com/index.php?threads/dismantling-my-homelab-rack-how-old-is-too-old.56771/) | rack
   > 
