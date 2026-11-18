@@ -286,6 +286,48 @@ def inject_ga4() -> None:
         print("ga4", path.relative_to(ROOT))
 
 
+PIXEL_SNIPPETS = {
+    "meta": ("^[0-9]{10,20}$",
+             "<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};"
+             "if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;"
+             "s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');"
+             "fbq('init','{ID}');fbq('track','PageView');</script>"),
+    "tiktok": ("^[A-Z0-9]{15,30}$",
+               "<script>!function(w,d,t){w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=['page','track','identify','instances','debug','on','off','once','ready','alias','group','enableCookie','disableCookie','holdConsent','revokeConsent','grantConsent'];"
+               "ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};"
+               "for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);"
+               "ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e};"
+               "ttq.load=function(e,n){var r='https://analytics.tiktok.com/i18n/pixel/events.js';ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};"
+               "n=d.createElement('script');n.type='text/javascript',n.async=!0,n.src=r+'?sdkid='+e+'&lib='+t;e=d.getElementsByTagName('script')[0];e.parentNode.insertBefore(n,e)};"
+               "ttq.load('{ID}');ttq.page();}(window,document,'ttq');</script>"),
+    "reddit": ("^(a2_|t2_)[a-z0-9]{5,20}$",
+               "<script>!function(w,d){if(!w.rdt){var p=w.rdt=function(){p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)};"
+               "p.callQueue=[];var t=d.createElement('script');t.src='https://www.redditstatic.com/ads/pixel.js',t.async=!0;"
+               "var s=d.getElementsByTagName('script')[0];s.parentNode.insertBefore(t,s)}}(window,document);"
+               "rdt('init','{ID}');rdt('track','PageVisit');</script>"),
+}
+
+
+def inject_ad_pixels() -> None:
+    cfg = json.loads((ROOT / "data" / "pixels.json").read_text(encoding="utf-8"))
+    parts = []
+    for name, (pattern, snippet) in PIXEL_SNIPPETS.items():
+        pid = (cfg.get(name) or "").strip()
+        if not pid:
+            continue
+        if not re.match(pattern, pid):
+            raise SystemExit(f"bad {name} pixel id: {pid!r}")
+        parts.append(f"  <!-- {name} pixel -->\n  " + snippet.replace("{ID}", pid))
+    block = ("<!-- AD PIXELS -->\n" + "\n".join(parts) + "\n  <!-- /AD PIXELS -->\n") if parts else ""
+    for path in ROOT.rglob("index.html"):
+        text = path.read_text(encoding="utf-8")
+        new = re.sub(r"<!-- AD PIXELS -->.*?<!-- /AD PIXELS -->\n?", "", text, flags=re.S)
+        if block:
+            new = new.replace("</head>", "  " + block + "</head>", 1)
+        if new != text:
+            path.write_text(new, encoding="utf-8")
+
+
 def inject_metrika() -> None:
     for path in ROOT.rglob("index.html"):
         text = path.read_text(encoding="utf-8")
@@ -648,6 +690,7 @@ def main() -> None:
     update_sitemap(data)
     inject_metrika()
     inject_ga4()
+    inject_ad_pixels()
     inject_icons()
     inject_related()
     enhance_pages()
