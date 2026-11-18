@@ -321,7 +321,7 @@ def inject_ad_pixels() -> None:
     block = ("<!-- AD PIXELS -->\n" + "\n".join(parts) + "\n  <!-- /AD PIXELS -->\n") if parts else ""
     for path in ROOT.rglob("index.html"):
         text = path.read_text(encoding="utf-8")
-        new = re.sub(r"<!-- AD PIXELS -->.*?<!-- /AD PIXELS -->\n?", "", text, flags=re.S)
+        new = re.sub(r"[ \t]*<!-- AD PIXELS -->.*?<!-- /AD PIXELS -->\n?", "", text, flags=re.S)
         if block:
             new = new.replace("</head>", "  " + block + "</head>", 1)
         if new != text:
