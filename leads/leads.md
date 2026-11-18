@@ -1,21 +1,21 @@
-# RackMatch leads — updated 2026-11-18 07:26 UTC
+# RackMatch leads — updated 2026-11-18 17:14 UTC
 
 ## Sources
 - reddit: ERROR HTTP Error 404: Not Found
 - TomsHW-PSU: ERROR mismatched tag: line 77, column 2
-- Level1Techs: ok, 30 items, 7 matches
-- STH: ok, 20 items, 4 matches
+- Level1Techs: ok, 30 items, 8 matches
+- STH: ok, 20 items, 3 matches
 
 ## Threads (newest first)
 
 - Wed, 18 Nov 2026 | STH | [NVIDIA Announces Rubin HPC: Science-Focused Server GPU to Arrive in 2028](https://forums.servethehome.com/index.php?threads/nvidia-announces-rubin-hpc-science-focused-server-gpu-to-arrive-in-2028.56785/) | gpu
   > 
-- Tue, 17 Nov 2026 | STH | [Dismantling my homelab rack.  How old is too old?](https://forums.servethehome.com/index.php?threads/dismantling-my-homelab-rack-how-old-is-too-old.56771/) | rack
+- Wed, 18 Nov 2026 | STH | [AsRock Rack X470D4U MB Temp -29 C](https://forums.servethehome.com/index.php?threads/asrock-rack-x470d4u-mb-temp-29-c.56775/) | rack
   > 
-- Tue, 17 Nov 2026 | STH | [AsRock Rack X470D4U MB Temp -29 C](https://forums.servethehome.com/index.php?threads/asrock-rack-x470d4u-mb-temp-29-c.56775/) | rack
+- Wed, 18 Nov 2026 | STH | [ASRock Rack B450D4U-V1LQ5 mATX AM4](https://forums.servethehome.com/index.php?threads/asrock-rack-b450d4u-v1lq5-matx-am4.47305/) | rack
   > 
-- Tue, 17 Nov 2026 | STH | [$29 Embedded Epyc 3151   ASRock Rack EPYC3151D4I-NL](https://forums.servethehome.com/index.php?threads/29-embedded-epyc-3151-asrock-rack-epyc3151d4i-nl.55681/) | rack
-  > 
+- Wed, 18 Nov 2026 | Level1Techs | [Small dev team AI box suggestions](https://forum.level1techs.com/t/small-dev-team-ai-box-suggestions/260803) | gpu
+  > Hello there! I have a question, because I’m really not experienced enough to make a informed decision on the matter. I work in a small office where we mostly do industrial automation projects. We have the following personnel: 4x PLC and HMI devs 3x Electrical drawing specialists 3x Management staff The BOSS 4x Fixed employees in the workshop. Basically we do everything from electrical drawings, el
 - Tue, 17 Nov 2026 | Level1Techs | [Voltage glitch hack to unlock fuse off part of die?](https://forum.level1techs.com/t/voltage-glitch-hack-to-unlock-fuse-off-part-of-die/260775) | gpu
   > Recently this worked for CMP 170HX voltage glitch I wonder if we can unlock CUs on Gaming GPUs using similar method ? Or maybe even CPU cores on CPUs or GPU CUs on APUs ? 1 post - 1 participant Read full topic
 - Sun, 15 Nov 2026 | Level1Techs | [Truck battery for a 2019 F-150 that sits for weeks - how do you pick one?](https://forum.level1techs.com/t/truck-battery-for-a-2019-f-150-that-sits-for-weeks-how-do-you-pick-one/260659) | battery
