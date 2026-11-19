@@ -1,16 +1,14 @@
-# RackMatch leads — updated 2026-11-19 01:52 UTC
+# RackMatch leads — updated 2026-11-19 13:02 UTC
 
 ## Sources
 - reddit: ERROR HTTP Error 404: Not Found
-- TomsHW-PSU: ERROR HTTP Error 403: Forbidden
+- TomsHW-PSU: ERROR mismatched tag: line 77, column 2
 - Level1Techs: ok, 30 items, 8 matches
-- STH: ok, 20 items, 2 matches
+- STH: ok, 20 items, 1 matches
 
 ## Threads (newest first)
 
 - Wed, 18 Nov 2026 | STH | [Dismantling my homelab rack.  How old is too old?](https://forums.servethehome.com/index.php?threads/dismantling-my-homelab-rack-how-old-is-too-old.56771/) | rack
-  > 
-- Wed, 18 Nov 2026 | STH | [ASRock Rack B450D4U-V1LQ5 mATX AM4](https://forums.servethehome.com/index.php?threads/asrock-rack-b450d4u-v1lq5-matx-am4.47305/) | rack
   > 
 - Wed, 18 Nov 2026 | Level1Techs | [Small dev team AI box suggestions](https://forum.level1techs.com/t/small-dev-team-ai-box-suggestions/260803) | gpu
   > Hello there! I have a question, because I’m really not experienced enough to make a informed decision on the matter. I work in a small office where we mostly do industrial automation projects. We have the following personnel: 4x PLC and HMI devs 3x Electrical drawing specialists 3x Management staff The BOSS 4x Fixed employees in the workshop. Basically we do everything from electrical drawings, el
