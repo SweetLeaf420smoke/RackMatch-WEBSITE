@@ -1,16 +1,20 @@
-# RackMatch leads — updated 2026-11-21 21:38 UTC
+# RackMatch leads — updated 2026-11-22 06:45 UTC
 
 ## Sources
 - reddit: ERROR HTTP Error 404: Not Found
 - TomsHW-PSU: ERROR HTTP Error 403: Forbidden
-- Level1Techs: ok, 30 items, 6 matches
-- STH: ok, 20 items, 3 matches
+- Level1Techs: ok, 30 items, 7 matches
+- STH: ok, 20 items, 4 matches
 
 ## Threads (newest first)
 
-- Sat, 21 Nov 2026 | STH | [New 1.8 watt SFP+ RJ45 10GBase-T SFP+ Transceivers?](https://forums.servethehome.com/index.php?threads/new-1-8-watt-sfp-rj45-10gbase-t-sfp-transceivers.38148/) | watt
+- Sun, 22 Nov 2026 | STH | [ASRock Rack B550D4U-2T bifurcation help](https://forums.servethehome.com/index.php?threads/asrock-rack-b550d4u-2t-bifurcation-help.56817/) | rack
   > 
-- Sat, 21 Nov 2026 | STH | [Do I need a special rack](https://forums.servethehome.com/index.php?threads/do-i-need-a-special-rack.56810/) | rack
+- Sun, 22 Nov 2026 | STH | [$29 Embedded Epyc 3151   ASRock Rack EPYC3151D4I-NL](https://forums.servethehome.com/index.php?threads/29-embedded-epyc-3151-asrock-rack-epyc3151d4i-nl.55681/) | rack
+  > 
+- Sun, 22 Nov 2026 | Level1Techs | [BIOS/UEFI takes 25s / 73s (without/with EXPO) to hand off to bootloader](https://forum.level1techs.com/t/bios-uefi-takes-25s-73s-without-with-expo-to-hand-off-to-bootloader/260972) | 5090
+  > Hey, I’m having a boot time issue on my Linux PC. From systemd-analyze : Without EXPO: Startup finished in 24.582s (firmware) + 1.798s (loader) + 529ms (kernel) + 5.790s (initrd) + 2.915s (userspace) = 35.616s With EXPO: Startup finished in 1min 13.017s (firmware) + 5.240s (loader) + 1.308s (kernel) + 5.915s (initrd) + 3.044s (userspace) = 1min 28.526s I can see the DRAM Q-LED being on for most of
+- Sat, 21 Nov 2026 | STH | [New 1.8 watt SFP+ RJ45 10GBase-T SFP+ Transceivers?](https://forums.servethehome.com/index.php?threads/new-1-8-watt-sfp-rj45-10gbase-t-sfp-transceivers.38148/) | watt
   > 
 - Sat, 21 Nov 2026 | STH | [ASRock Rack B450D4U-V1LQ5 mATX AM4](https://forums.servethehome.com/index.php?threads/asrock-rack-b450d4u-v1lq5-matx-am4.47305/) | rack
   > 
