@@ -1,4 +1,4 @@
-# RackMatch leads — updated 2026-11-24 04:47 UTC
+# RackMatch leads — updated 2026-11-24 19:29 UTC
 
 ## Sources
 - reddit: ERROR HTTP Error 404: Not Found
@@ -8,6 +8,8 @@
 
 ## Threads (newest first)
 
+- Tue, 24 Nov 2026 | Level1Techs | [Backup Truenas Server Build](https://forum.level1techs.com/t/backup-truenas-server-build/261098) | power supply
+  > I probably should have posted here before ordering all the parts, but y’all can tell me how stupid I’m being, assuming I’m being stupid. This build is for a remote backup destination for my Truenas server. I currently have a disk shelf that holds 15 drives and I’m using that for my backup pool. This is directly connected to my Truenas server which is my only real server in my homelab setup. It han
 - Sun, 22 Nov 2026 | Level1Techs | [Intel D270](https://forum.level1techs.com/t/intel-d270/260986) | gpu
   > Intel The case for Intel GPU D270 in high-performance computing Native FP64 compute, high-capacity memory give Intel GPU D270 the precision and throughput for converged HPC and AI workloads Looks like it has a bracket on the end for a fan? Passive cards? Price? Performance? FP64 FP4 ect… 2 posts - 2 participants Read full topic
 - Sun, 22 Nov 2026 | Level1Techs | [Help choosing motherboard for 5700G - need x8 x8 x4 PCIe](https://forum.level1techs.com/t/help-choosing-motherboard-for-5700g-need-x8-x8-x4-pcie/260994) | gpu, psu
@@ -18,8 +20,6 @@
   > I was recently given access to an industry analyst report entitled above. Some selected insights (in the context of HPC-AI): Despite all the headlines, Intel still rules HPC-AI for CPUs: Everyone uses Nvidia GPUs. No other GPU company is even close: For all the hype about Arm, Nvidia CPUs aren’t very highly regarded. AMD are considered best for Price/Performance and Intel are considered best for t
 - Sat, 21 Nov 2026 | Level1Techs | [OCuLink will not train on FW AI MAX 395](https://forum.level1techs.com/t/oculink-will-not-train-on-fw-ai-max-395/260964) | gpu
   > I’m troubleshooting an OCuLink eGPU on a Framework Desktop with Ryzen AI Max+ 395. Current setup: Internal PCIe x4 slot PH492-1W adapter, PCB marked VER:1.2 RGEEK F9G eGPU dock Included OCuLink cable, approximately 30 cm Intel Arc GPU Ubuntu, kernel 7.0.0-44-generic The same dock, cable, and GPU work together on another machine. On the Framework, the GPU does not appear in lspci. The affected root
-- Sat, 21 Nov 2026 | Level1Techs | [FYI - Electric Heating controlled when door open or power usage high on circuit, along with temp sensor (Shelly)](https://forum.level1techs.com/t/fyi-electric-heating-controlled-when-door-open-or-power-usage-high-on-circuit-along-with-temp-sensor-shelly/260934) | circuit, power usage
-  > Hey all, Just thought I’d share if helpful to anyone. Before I continue, yes I’m gutted that I’ve chosen Shelly as they’ve recently been bought by a bigger company that will strip it of all decent features. At least in theory, it could be used offline if needed via Home Assistant. My house is old, so there’s no heating in the kitchen because ‘back in the day’ there would always be heat from cookin
 - Mon, 23 Nov 2026 | Level1Techs | [Zotac RTX 5070 Ti SOLID SFF OC hits M.2 cooling hardware on ASUS Pro WS W890E-SAGE SE](https://forum.level1techs.com/t/zotac-rtx-5070-ti-solid-sff-oc-hits-m-2-cooling-hardware-on-asus-pro-ws-w890e-sage-se/261015) | gpu
   > Has anyone else run into a clearance issue between a GPU cooler and the M.2 cooling heatsink on the ASUS Pro WS W890E-SAGE SE? I’m building a multi-GPU Proxmox workstation with a Xeon 676X. I picked the Zotac Gaming RTX 5070 Ti SOLID SFF OC specifically because I need a two-slot card and my AI needs do not justify a workstation class GPU (nor does my budget). I initially installed it in the third 
 - Mon, 23 Nov 2026 | Level1Techs | [Made a browser tycoon game about running a colo/hosting business](https://forum.level1techs.com/t/made-a-browser-tycoon-game-about-running-a-colo-hosting-business/261038) | rack
