@@ -472,6 +472,41 @@ def sub_block(text: str, name: str, block: str, anchor: str, before: bool = True
     return text.replace(anchor, (full + "\n" + anchor) if before else (anchor + full), 1)
 
 
+def inject_home_facts(pages: dict, groups: dict) -> None:
+    from datetime import date
+    eq = json.loads((ROOT / "data" / "equipment.json").read_text(encoding="utf-8"))
+    models = set()
+    def norm(t):
+        t = re.sub(r"(?i)\b(dell|hpe|nvidia|supermicro|lenovo|poweredge|proliant|thinksystem|power cord|power|rack|requirements|pdu)\b", "", t)
+        return re.sub(r"[^a-z0-9]", "", t.lower())
+    for srv in eq["servers"]:
+        models.add(norm(srv["model"]))
+    for slug in groups.get("server", []):
+        models.add(norm(pages[slug]))
+    models.discard("")
+    vendors = sorted({x["manufacturer"] for x in eq["servers"]} | {"NVIDIA"} if any("nvidia" in s for s in groups.get("server", [])) else {x["manufacturer"] for x in eq["servers"]})
+    pvend = sorted({x["manufacturer"] for x in eq["pdus"]})
+    guides = len(groups.get("guide", [])) + len(groups.get("tool", []))
+    month = date.today().strftime("%B %Y")
+    facts = (f'<p class="facts">{len(models)} server models · {len(eq["pdus"])} PDUs · {len(groups.get("pair", []))} checked server + PDU pairs · '
+             f'{guides} guides and calculators · sources: {", ".join(vendors + pvend)} manuals · updated {month}</p>')
+    listings = json.loads((ROOT / "data" / "listings.json").read_text(encoding="utf-8"))
+    items = " · ".join(
+        f'<a href="{escape(x["url"])}" target="_blank" rel="noopener">{escape(x["name"])}</a>'
+        + ("" if x["status"] == "listed" else f' <span class="soon">({escape(x["status"])})</span>')
+        for x in listings)
+    strip = f'<p class="listed">As listed on: {items}</p>'
+    block = "\n    " + facts + "\n    " + strip + "\n    "
+    f = ROOT / "index.html"
+    t = f.read_text(encoding="utf-8")
+    if "<!-- FACTS -->" in t:
+        t = re.sub(r"<!-- FACTS -->.*?<!-- /FACTS -->", lambda _: "<!-- FACTS -->" + block + "<!-- /FACTS -->", t, flags=re.S)
+    else:
+        i = t.find('<p class="lead">'); j = t.find("</p>", i) + 4
+        t = t[:j] + "\n    <!-- FACTS -->" + block + "<!-- /FACTS -->" + t[j:]
+    f.write_text(t, encoding="utf-8")
+
+
 def enhance_pages() -> None:
     pages = {}
     for d in sorted(ROOT.iterdir()):
@@ -567,6 +602,7 @@ def enhance_pages() -> None:
         ld = '\n  <script type="application/ld+json">' + json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False) + "</script>\n  "
         text = sub_block(text, "LD", ld, "</head>")
         f.write_text(text, encoding="utf-8")
+    inject_home_facts(pages, groups)
 
 
 def replace_block(text: str, start: str, end: str, inner: str) -> str:

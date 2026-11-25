@@ -66,6 +66,9 @@
     .quick label{display:block;margin-top:8px;font-weight:bold}
     .quick select{width:100%;padding:6px}
     .quick button[type=submit]{font-size:1.05em;padding:8px 18px}
+    .facts{font-size:13px;color:#333;margin:6px 0 2px}
+    .listed{font-size:13px;color:#555;margin:0 0 8px}
+    .listed .soon{color:#888}
     .hint{font-size:13px;color:#555;margin:8px 0 0}
     .tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin:10px 0 20px}
     .tool{display:block;border:1px solid #d8dee6;border-radius:8px;padding:10px 12px;text-decoration:none;color:inherit;background:#fff}
@@ -84,6 +87,10 @@
   <main>
     <h1>Which power cord connects your server to your PDU?</h1>
     <p class="lead">Pick a server and a rack PDU. RackMatch shows the exact jumper (C13–C14, C19–C20 or C13–C20) with the vendor source. Free, no sign-up.</p>
+    <!-- FACTS -->
+    <p class="facts">16 server models · 4 PDUs · 10 checked server + PDU pairs · 16 guides and calculators · sources: Dell, HPE, Lenovo, NVIDIA, Supermicro, APC, Eaton, Raritan manuals · updated November 2026</p>
+    <p class="listed">As listed on: <a href="https://www.saashub.com/rackmatch-net" target="_blank" rel="noopener">SaaSHub</a> · <a href="https://www.uneed.best/tool/rackmatch" target="_blank" rel="noopener">Uneed</a> <span class="soon">(launching soon)</span> · <a href="https://peerpush.com/p/rackmatch" target="_blank" rel="noopener">PeerPush</a> <span class="soon">(launching soon)</span></p>
+    <!-- /FACTS -->
 
     <section class="quick">
       <form id="form" action="#" method="get">
