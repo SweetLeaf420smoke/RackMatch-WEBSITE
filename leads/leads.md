@@ -1,9 +1,9 @@
-# RackMatch leads — updated 2026-11-26 00:19 UTC
+# RackMatch leads — updated 2026-11-26 13:52 UTC
 
 ## Sources
 - reddit: ERROR HTTP Error 404: Not Found
 - TomsHW-PSU: ERROR mismatched tag: line 77, column 2
-- Level1Techs: ok, 30 items, 9 matches
+- Level1Techs: ok, 30 items, 10 matches
 - STH: ok, 20 items, 1 matches
 
 ## Threads (newest first)
@@ -24,7 +24,9 @@
   > Hi all. Someone pointed me here and said this is the crowd for it, so here it is. I wanted a proper GPU in a Windows VM on Linux. My one big card is also the one running my desktop, so passthrough was out. And I’m not buying a datacenter card with a vGPU licence. Hyper-V has a third way, called GPU-PV. The guest runs the vendor’s normal driver and shares the host’s card. It’s the same plumbing WSL
 - Tue, 24 Nov 2026 | Level1Techs | [Backup Truenas Server Build](https://forum.level1techs.com/t/backup-truenas-server-build/261098) | power supply
   > I probably should have posted here before ordering all the parts, but y’all can tell me how stupid I’m being, assuming I’m being stupid. This build is for a remote backup destination for my Truenas server. I currently have a disk shelf that holds 15 drives and I’m using that for my backup pool. This is directly connected to my Truenas server which is my only real server in my homelab setup. It han
-- Mon, 23 Nov 2026 | Level1Techs | [Zotac RTX 5070 Ti SOLID SFF OC hits M.2 cooling hardware on ASUS Pro WS W890E-SAGE SE](https://forum.level1techs.com/t/zotac-rtx-5070-ti-solid-sff-oc-hits-m-2-cooling-hardware-on-asus-pro-ws-w890e-sage-se/261015) | gpu
-  > Has anyone else run into a clearance issue between a GPU cooler and the M.2 cooling heatsink on the ASUS Pro WS W890E-SAGE SE? I’m building a multi-GPU Proxmox workstation with a Xeon 676X. I picked the Zotac Gaming RTX 5070 Ti SOLID SFF OC specifically because I need a two-slot card and my AI needs do not justify a workstation class GPU (nor does my budget). I initially installed it in the third 
+- Thu, 26 Nov 2026 | Level1Techs | [Im pretty stoked with the R36MAX and R36s both have two models and doing good and price of one trimui Brick/smart pro. just the stock sd cards though](https://forum.level1techs.com/t/im-pretty-stoked-with-the-r36max-and-r36s-both-have-two-models-and-doing-good-and-price-of-one-trimui-brick-smart-pro-just-the-stock-sd-cards-though/261165) | battery
+  > yeah pretty much they need their own thread and worthy…tales of more ciggarettes and coffee the game console one is some cheap 20 dollar stuff and corrupted the stock sd card in like 3 days i got it so i went walmart bought a card reader and the onn 128gb v30 printed sdxc adapter one, they had scandisk ultra but was expensive so no didn’t put a scandisk in it but the onn and patriot 64gb are prett
+- Thu, 26 Nov 2026 | Level1Techs | [Gigabyte MZ33-CP1 12VSB is not required to be connected](https://forum.level1techs.com/t/gigabyte-mz33-cp1-12vsb-is-not-required-to-be-connected/261166) | power supply
+  > @mjp111 Hello, I had the same question but couldn’t find an answer. After asking Gigabyte’s official support, they gave me the following response: The 12VSB standby power connector on the Gigabyte MZ33-CP1 motherboard is not required to be connected. Leaving this power connector unconnected will not cause any issues. This power connector is intended for use with OCP 3.0 12VSB power enhancement. If
 - Mon, 23 Nov 2026 | Level1Techs | [Made a browser tycoon game about running a colo/hosting business](https://forum.level1techs.com/t/made-a-browser-tycoon-game-about-running-a-colo-hosting-business/261038) | rack
   > Hi all, We made ColoTycoon , a free browser game where you start with one small server in a rented 1U slot and grow into running your own data centers. You build servers from parts, rent rack space in cities around the world and sell hosting to customers. Hardware work like swapping RAM or moving a server to another rack takes real time. Would love feedback from people who work with racks and netw
